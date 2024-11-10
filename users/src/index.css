@@ -864,3 +864,7 @@ main {
 .top-ratings__content .rating-item__story--categories {
   font-size: 0.875rem;
 }
+
+.test {
+  color: red;
+}
