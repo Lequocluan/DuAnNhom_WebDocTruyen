@@ -2,12 +2,12 @@ import React from "react";
 
 import { useState } from "react";
 import Logo from "../../assets/images/logo_text.png";
-import Category from "../../test/Category";
-import { Data1, Data2 } from "../../test/Data";
+import Category from "./Category";
+import { Data1, Data2 } from "./Data";
 
-import LogoBrand from "../../test/LogoBrand";
-import DarkLight from "../../test/DarkLight";
-import FormSearch from "../../test/FormSearch";
+import LogoBrand from "./LogoBrand";
+import DarkLight from "./DarkLight";
+import FormSearch from "./FormSearch";
 
 function Header() {
   const [openDropdown, setOpenDropdown] = useState(null);
