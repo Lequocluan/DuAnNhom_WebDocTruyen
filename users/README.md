@@ -21,3 +21,9 @@ npm install react-router-dom@6
 ```sh
 npm install react-icons --save
 ```
+
+- install nanoid
+
+```sh
+npm i nanoid
+```
