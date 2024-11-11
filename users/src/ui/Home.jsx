@@ -1,7 +1,12 @@
 import React from "react";
+import SectionIndex from "../components/section_index/SectionIndex";
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <>
+      <SectionIndex />
+    </>
+  );
 }
 
 export default Home;
