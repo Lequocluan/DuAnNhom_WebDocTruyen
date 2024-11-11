@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 import img1 from "../../assets/images/tu_cam.jpg";
 import img2 from "../../assets/images/ngao_the_dan_than.jpg";
 import img3 from "../../assets/images/nang_khong_muon_lam_hoang_hau.jpg";
@@ -17,56 +19,67 @@ import img16 from "../../assets/images/thien_huong_nguoi_mu_liec_mat_dua_tinh.jp
 
 export const DataItem = [
   {
+    id: nanoid(),
     title: "Kiếm Động Cửu Thiên",
     chapper: "Chương 1149",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Tinh Thần Biến",
     chapper: "Chương 671",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Linh Vũ Thiên Hạ",
     chapper: "Chương 5024",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Kiếm Động Cửu Thiên",
     chapper: "Chương 1149",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Kiếm Động Cửu Thiên",
     chapper: "Chương 1149",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Kiếm Động Cửu Thiên",
     chapper: "Chương 1149",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Kiếm Động Cửu Thiên",
     chapper: "Chương 1149",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Kiếm Động Cửu Thiên",
     chapper: "Chương 1149",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Kiếm Động Cửu Thiên",
     chapper: "Chương 1149",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Kiếm Động Cửu Thiên",
     chapper: "Chương 1149",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
   },
   {
+    id: nanoid(),
     title: "Kiếm Động Cửu Thiên",
     chapper: "Chương 1149",
     desc: ["Tiên Hiệp", "Kiếm Hiệp", "Dị giới"],
@@ -75,136 +88,152 @@ export const DataItem = [
 
 export const DataItemCategory = [
   {
-    id: 1,
+    id: nanoid(),
     title: "Ngôn Tình",
   },
   {
-    id: 2,
+    id: nanoid(),
     title: "Cổ Đại",
   },
   {
-    id: 3,
+    id: nanoid(),
     title: "Ngược",
   },
   {
-    id: 4,
+    id: nanoid(),
     title: "Dị Giới",
   },
   {
-    id: 5,
+    id: nanoid(),
     title: "Xuyên Không",
   },
   {
-    id: 6,
+    id: nanoid(),
     title: "Cung Đấu",
   },
 
   {
-    id: 7,
+    id: nanoid(),
     title: "Trọng Sinh",
   },
 
   {
-    id: 8,
+    id: nanoid(),
     title: "Tiên Hiệp",
   },
 
   {
-    id: 9,
+    id: nanoid(),
     title: "Khác",
   },
 
   {
-    id: 10,
+    id: nanoid(),
     title: "Huyền Huyễn",
   },
   {
-    id: 11,
+    id: nanoid(),
     title: "Sủng",
   },
   {
-    id: 12,
+    id: nanoid(),
     title: "Gia Đấu",
   },
 ];
 
 export const DataStoryDoneItem = [
   {
+    id: nanoid(),
     img: img1,
     title: "Tự Cẩm",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img2,
     title: "Ngạo Thế Đan Thần",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img3,
     title: "Nàng Không Muốn Làm Hoàng Hậu",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img4,
     title: "Kiều Sủng Vi Thượng",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img5,
     title: "Linh Vũ Thiên Hạ",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img6,
     title: "Anh Đào Hổ Phách",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img7,
     title: "Thần Đạo Đan Tôn",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img8,
     title: "Cưới Trước Yêu Sau - Mộng Tiêu Nhị",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img9,
     title: " Không Phụ Thê Duyên",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img10,
     title: "Dịu Dàng Tận Xương",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img11,
     title: "Mê Đắm",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img12,
     title: "Vợ Chồng Siêu Sao Hơi Ngọt",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img13,
     title: "Thật Ư? Thật Ư? Phải Là Hồng Phai Xanh Thắm",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img14,
     title: "Thiếu Tướng, Vợ Ngài Nổi Giận Rồi",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img15,
     title: "Cưng Chiều Vợ Nhỏ Trời Ban",
     chappers: "Full 836 chương",
   },
   {
+    id: nanoid(),
     img: img16,
     title: "Thiên Hướng Người Mù, Liếc Mắt Đưa Tình",
     chappers: "Full 836 chương",
