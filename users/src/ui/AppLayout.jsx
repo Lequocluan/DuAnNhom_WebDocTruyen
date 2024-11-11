@@ -1,12 +1,11 @@
 import React from "react";
-
-import Header from "../components/header/Header";
-import { Outlet, useNavigation } from "react-router-dom";
+import Headers from "../components/header/Headers";
+import { Outlet } from "react-router-dom";
 
 function AppLayout() {
   return (
     <>
-      <Header />
+      <Headers />
       <main>
         <Outlet />
       </main>
