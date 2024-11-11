@@ -17,19 +17,6 @@ function SectionStoriesHotItem({ img, title }) {
           </div>
           <h3 className="story-item__name text-one-row story-name">{title}</h3>
 
-          {/* <div className="list-badge">
-            {Data3.map((data) => {
-              return (
-                <span
-                  key={nanoid()}
-                  className={`story-item__badge ${data.className}`}
-                >
-                  {data.text}
-                </span>
-              );
-            })}
-          </div> */}
-
           <div className="list-badge">
             <span className="story-item__badge badge text-bg-success">
               Full

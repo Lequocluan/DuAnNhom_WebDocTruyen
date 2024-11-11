@@ -154,21 +154,3 @@ export const Data2 = [
     title: "Thiên Hướng Người Mù, Liếc Mắt Đưa Tình",
   },
 ];
-
-export const Data3 = [
-  {
-    id: nanoid(),
-    text: "Full",
-    className: "badge text-bg-success",
-  },
-  {
-    id: nanoid(),
-    text: "Hot",
-    className: "badge story-item__badge-hot text-bg-danger",
-  },
-  {
-    id: nanoid(),
-    text: "New",
-    className: "badge story-item__badge-new badge text-bg-info text-light",
-  },
-];
