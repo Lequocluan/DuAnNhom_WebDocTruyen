@@ -29,6 +29,16 @@ function SectionCatogory() {
             </div>
           </div>
           {/* SECTION CATEGORY DESCRIPTION */}
+          <div className="col-12 col-md-4 col-lg-3 sticky-md-top">
+            <div className="category-description bg-light p-2 rounded mb-3 card-custom">
+              <p className="mb-0 text-secondary"></p>
+              <p>
+                Truyện thuộc kiểu lãng mạn, kể về những sự kiện vui buồn trong
+                tình yêu của nhân vật chính.
+              </p>
+              <p></p>
+            </div>
+          </div>
         </div>
       </div>
     </>
