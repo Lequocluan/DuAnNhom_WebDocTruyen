@@ -6,6 +6,7 @@ import Home from "./ui/Home";
 import Error from "./ui/Error";
 import Category from "./ui/Category";
 import Chapper from "./ui/Chapper";
+import Details from "./ui/Details";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +25,13 @@ const router = createBrowserRouter([
       },
       {
         // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
-        path: "chapper",
+        path: "/chapper",
         element: <Chapper />,
+      },
+      {
+        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
+        path: "/details",
+        element: <Details />,
       },
     ],
   },
