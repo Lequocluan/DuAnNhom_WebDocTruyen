@@ -7,6 +7,8 @@ import Error from "./ui/Error";
 import Category from "./ui/Category";
 import Chapper from "./ui/Chapper";
 import Details from "./ui/Details";
+import Login from "./components/login/Login";
+import Register from "./components/login/Register";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/login", element: <Login />, errorElement: <Error /> },
+  { path: "/register", element: <Register />, errorElement: <Error /> },
 ]);
 
 function App() {

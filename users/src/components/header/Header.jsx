@@ -8,6 +8,7 @@ import { Data1, Data2 } from "./Data";
 import LogoBrand from "./LogoBrand";
 import DarkLight from "./DarkLight";
 import FormSearch from "./FormSearch";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -53,6 +54,20 @@ function Header() {
             </div>
 
             <FormSearch />
+            <div class="d-flex gap-3 justify-content-center align-items-center ms-4 ">
+              <Link
+                to="/login"
+                class="text-decoration-none fs-6 fs-5 text-light"
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/register"
+                class="text-decoration-none fs-6 fs-5 text-light"
+              >
+                Create Account
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
