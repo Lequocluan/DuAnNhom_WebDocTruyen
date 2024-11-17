@@ -22,7 +22,7 @@ function Header() {
         <div className="container">
           <LogoBrand Logo={Logo} />
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -30,7 +30,7 @@ function Header() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -54,16 +54,16 @@ function Header() {
             </div>
 
             <FormSearch />
-            <div class="d-flex gap-3 justify-content-center align-items-center ms-4 ">
+            <div className="d-flex gap-3 justify-content-center align-items-center ms-4 ">
               <Link
                 to="/login"
-                class="text-decoration-none fs-6 fs-5 text-light"
+                className="text-decoration-none fs-6 fs-5 text-light"
               >
                 Sign in
               </Link>
               <Link
                 to="/register"
-                class="text-decoration-none fs-6 fs-5 text-light"
+                className="text-decoration-none fs-6 fs-5 text-light"
               >
                 Create Account
               </Link>
