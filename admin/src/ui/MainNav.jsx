@@ -1,7 +1,7 @@
 import {  NavLink } from "react-router-dom";
 import {
     HiOutlineHome,
-    HiOutlineUsers
+    HiOutlineFolder
 } from "react-icons/hi2"
 function MainNav(){
     return(
@@ -13,13 +13,8 @@ function MainNav(){
           </NavLink>
         </li>
         <li>
-          <NavLink to="/about" className="nav-link">
-            <HiOutlineUsers /> <span>About</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/contact" className="nav-link">
-            <HiOutlineUsers /> <span>Contact</span>
+          <NavLink to="/category" className="nav-link">
+            <HiOutlineFolder /> <span>Category</span>
           </NavLink>
         </li>
             </ul>
