@@ -27,3 +27,9 @@ npm install react-icons --save
 ```sh
 npm i nanoid
 ```
+
+- install react toast
+
+```sh
+npm install react-toastify
+```
