@@ -1,23 +1,55 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useState } from "react";
-import Logo from "../../assets/images/logo_text.png";
+import Logo from "../../assets/images/logonew.png";
 import Category from "./Category";
 import { Data1, Data2 } from "./Data";
 
 import LogoBrand from "./LogoBrand";
 import DarkLight from "./DarkLight";
 import FormSearch from "./FormSearch";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Header() {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("user-token");
+    if (storedToken) {
+      setUser("Welcome back");
+    }
+
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user-token"); // Xóa token
+    setUser(null); // Đặt lại state user
+    toast.success("Logged out successfully!");
+    navigate("/login"); // Điều hướng về trang login
+  };
 
   const handleToggle = (dropdownName) => {
     setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
   };
   return (
-    <header className="header d-none d-lg-block">
+    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
       <nav className="navbar navbar-expand-lg navbar-dark header__navbar p-md-0">
         <div className="container">
           <LogoBrand Logo={Logo} />
@@ -55,18 +87,30 @@ function Header() {
 
             <FormSearch />
             <div className="d-flex gap-3 justify-content-center align-items-center ms-4 ">
-              <Link
-                to="/login"
-                className="text-decoration-none fs-6 fs-5 text-light"
-              >
-                Sign in
-              </Link>
-              <Link
-                to="/register"
-                className="text-decoration-none fs-6 fs-5 text-light"
-              >
-                Create Account
-              </Link>
+              {user ? (
+                <div className="d-flex gap-3 align-items-center">
+                  <span className="text-light">Welcome, guy!</span>{" "}
+                  {/* Hiển thị email thay vì tên */}
+                  <button className="btn btn-danger" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="d-flex gap-3 justify-content-center align-items-center ms-4">
+                  <Link
+                    to="/login"
+                    className="text-decoration-none fs-6 fs-5 text-light"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="text-decoration-none fs-6 fs-5 text-light"
+                  >
+                    Create Account
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
