@@ -2,6 +2,42 @@
   --color-primary: #222;
   --color-primary-hover: #2f566d;
 }
+
+/* Tùy chỉnh thanh cuộn dọc */
+::-webkit-scrollbar {
+  width: 0px; /* Đặt chiều rộng thanh cuộn dọc */
+}
+
+/* Tùy chỉnh phần thanh kéo (thumb) của thanh cuộn */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); /* Màu sắc của thanh kéo */
+  border-radius: 10px; /* Bo tròn các góc của thanh kéo */
+  border: 3px solid #ffffff; /* Thêm viền trắng xung quanh thanh kéo */
+}
+
+/* Tùy chỉnh phần track (vùng chứa) của thanh cuộn */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền của track */
+  border-radius: 10px; /* Bo tròn các góc của track */
+}
+
+/* Tùy chỉnh thanh cuộn ngang */
+::-webkit-scrollbar-horizontal {
+  height: 10px; /* Chiều cao thanh cuộn ngang */
+}
+
+/* Tùy chỉnh thanh kéo ngang */
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: rgba(0, 0, 0, 0.5); /* Màu sắc của thanh kéo ngang */
+  border-radius: 10px; /* Bo tròn các góc của thanh kéo ngang */
+}
+
+/* Tùy chỉnh phần track ngang */
+::-webkit-scrollbar-track:horizontal {
+  background: #f1f1f1; /* Màu nền của track ngang */
+  border-radius: 10px; /* Bo tròn các góc của track ngang */
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -478,7 +514,7 @@ main {
 }
 .dropdown-menu-custom.show {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(4, 1fr);
 }
 .settings-theme {
   width: 300px;
@@ -495,7 +531,11 @@ main {
   grid-template-columns: repeat(2, 1fr);
   list-style: none;
   row-gap: 8px;
+
+  height: 500px; /* Đặt chiều cao cố định */
+  overflow-y: auto; /* Hiển thị thanh cuộn dọc khi nội dung vượt quá chiều cao */
 }
+
 .section-stories-full__list {
   -moz-column-gap: 15px;
   column-gap: 15px;
@@ -506,7 +546,37 @@ main {
   .section-stories-full__list {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .dropdown-menu-custom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 100%; /* Đảm bảo dropdown không vượt quá chiều rộng của màn hình */
+    overflow-x: auto; /* Cho phép cuộn ngang */
+    white-space: nowrap; /* Ngăn không cho các mục bị xuống dòng */
+    padding-bottom: 10px; /* Thêm padding nếu cần */
+  }
+
+  .dropdown-menu-custom.show {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Tùy chỉnh thêm cho thanh cuộn */
+  .dropdown-menu-custom::-webkit-scrollbar {
+    height: 8px; /* Điều chỉnh chiều cao thanh cuộn */
+  }
+
+  .dropdown-menu-custom::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5); /* Màu sắc của thanh cuộn */
+    border-radius: 10px;
+  }
+
+  .dropdown-menu-custom::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền của thanh cuộn */
+    border-radius: 10px;
+  }
 }
+
 @media (max-width: 460px) {
   .section-stories-full__list {
     grid-template-columns: repeat(2, 1fr);

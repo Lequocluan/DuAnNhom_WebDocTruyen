@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { Data1, Data2 } from "./Data";
-import { nanoid } from "nanoid";
 import SectionStoriesHotItem from "./SectionStoriesHotItem";
 import SectionTitle from "../SectionTitle";
+import { useGlobalContext } from "../../context";
 
 function SectionStoriesHot() {
+  const { dataCetegory } = useGlobalContext();
+
   return (
     <>
       <div className="section-stories-hot mb-3">
@@ -25,10 +27,10 @@ function SectionStoriesHot() {
                   defaultValue={""} // defaultValue for uncontrolled components
                 >
                   <option value="">Tất cả</option>
-                  {Data1.map((data, index) => {
+                  {dataCetegory.map((data, index) => {
                     return (
-                      <option key={nanoid()} value={index + 1}>
-                        {data.title}
+                      <option key={data.id} value={index + 1}>
+                        {data.name}
                       </option>
                     );
                   })}

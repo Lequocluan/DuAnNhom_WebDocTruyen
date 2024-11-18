@@ -2,8 +2,11 @@ import { DataItem, DataItemCategory } from "./DataItem";
 import SectionStoriesNewItem from "./SectionStoriesNewItem";
 import SectionTitle from "../SectionTitle";
 import SectionStoriesNewCategoryItem from "./SectionStoriesNewCategoryItem";
+import { useGlobalContext } from "../../context";
 
 function SectionStoriesNew() {
+  const { dataCetegory } = useGlobalContext();
+
   return (
     <>
       <div className="container">
@@ -51,7 +54,7 @@ function SectionStoriesNew() {
                   </div>
                   <div className="row">
                     <ul className="list-category">
-                      {DataItemCategory.map((data) => {
+                      {dataCetegory.map((data) => {
                         return (
                           <SectionStoriesNewCategoryItem
                             key={data.id}

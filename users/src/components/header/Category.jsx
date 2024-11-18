@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Category({ title, data, isOpen, onToggle }) {
+function Category({ title, dataCetegory, isOpen, onToggle }) {
   // const [category, setCategory] = useState(false);
 
   return (
@@ -12,15 +12,15 @@ function Category({ title, data, isOpen, onToggle }) {
         </button>
         {isOpen && (
           <ul className="dropdown-menu dropdown-menu-custom show">
-            {data.map((item) => {
+            {dataCetegory.map((item) => {
               return (
                 <li
                   style={{ cursor: "pointer" }}
                   className="cursor-pointer"
                   key={item.id}
                 >
-                  <Link to="/category" className="dropdown-item ">
-                    {item.title}
+                  <Link to={`/category/${item.slug}`} className="dropdown-item">
+                    {item.name}
                   </Link>
                 </li>
               );
