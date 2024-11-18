@@ -4,12 +4,17 @@ import { Data3 } from "./Data";
 import DarkLight from "./DarkLight";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useGlobalContext } from "../../context";
+import Category from "./Category";
 
 function HeaderMobile() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const { dataCetegory } = useGlobalContext();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("user-token");
@@ -47,6 +52,10 @@ function HeaderMobile() {
     setIsLoggedIn(false);
     toast.success("Logged out successfully!");
     navigate("/login");
+  };
+
+  const handleToggle = (dropdownName) => {
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
   };
   return (
     <>
@@ -100,26 +109,41 @@ function HeaderMobile() {
               <div className="offcanvas-body">
                 {/* THỂ LOẠI */}
                 <ul className="navbar-nav justify-content-end flex-grow-1 pe-3 mb-3">
-                  <li className="nav-item dropdown">
-                    <a
+                  {/* <li className="nav-item dropdown">
+                    <Link
                       className="nav-link dropdown-toggle"
-                      href="#"
+                      to="#"
+                      id="navbarDropdown"
                       role="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
                       Thể loại
-                    </a>
-                    <ul className="dropdown-menu dropdown-menu-custom">
-                      {Data3.map((data) => {
+                    </Link>
+                    <ul
+                      className="dropdown-menu dropdown-menu-custom"
+                      aria-labelledby="navbarDropdown"
+                    >
+                      {dataCetegory.map((data) => {
                         return (
                           <li style={{ cursor: "pointer" }} key={data.id}>
-                            <a className="dropdown-item">{data.title}</a>
+                            <Link
+                              className="dropdown-item"
+                              to={`/category/${data.id}`}
+                            >
+                              {data.name}
+                            </Link>
                           </li>
                         );
                       })}
                     </ul>
-                  </li>
+                  </li> */}
+                  <Category
+                    title="Thể loại"
+                    dataCetegory={dataCetegory}
+                    isOpen={openDropdown === "category1"}
+                    onToggle={() => handleToggle("category1")}
+                  />
                 </ul>
                 {/* THỂ LOẠI */}
 
