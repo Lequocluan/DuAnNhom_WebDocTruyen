@@ -26,6 +26,23 @@ body {
   background-color: rgba(0, 0, 0, 0.9); /* Tăng độ mờ khi cuộn */
 }
 
+.header_mobile {
+  transition: top 0.3s ease-in-out;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3000;
+  background-color: rgba(0, 0, 0, 0.8); /* Hoặc màu nền tùy chỉnh */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+}
+
+.header_mobile.scrolled {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Tạo bóng mạnh hơn khi cuộn */
+  background-color: rgba(0, 0, 0, 0.9); /* Tăng độ mờ khi cuộn */
+}
+
 .hover-title {
   transition: all 0.3s ease;
 }
