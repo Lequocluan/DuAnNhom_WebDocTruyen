@@ -23,6 +23,7 @@ const App = () => {
           <Route path="home" element={<Home />} />
 
           <Route path="category" element={<Category />}/>
+          <Route path="author" element={<Author/>} />
           <Route path="category/add" element={<AddCategory />}/>
           
           <Route path="author" element={<Author />} />
