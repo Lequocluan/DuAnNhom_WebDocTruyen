@@ -13,17 +13,44 @@ import { toast } from "react-toastify";
 import { useGlobalContext } from "../../context";
 
 function Header() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // State để lưu thông tin người dùng
+  const [userName, setUserName] = useState(""); // State lưu tên người dùng
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const { dataCetegory } = useGlobalContext();
-  // console.log("Data", dataCetegory);
+
+  // console.log("User name: ", userName);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("user-token");
     if (storedToken) {
       setUser("Welcome back");
+
+      const fetchUserProfile = async () => {
+        try {
+          const response = await fetch(
+            "https://truyen.ntu264.vpsttt.vn/api/profile",
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${storedToken}`,
+                Accept: "application/json",
+              },
+            }
+          );
+          const data = await response.json();
+          if (data.status === 200) {
+            setUserName(data.body.data.name);
+          } else {
+            toast.error("Failed to fetch user profile.");
+          }
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+        }
+      };
+
+      fetchUserProfile();
     }
 
     const handleScroll = () => {
@@ -35,7 +62,6 @@ function Header() {
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -92,9 +118,25 @@ function Header() {
             <div className="d-flex gap-3 justify-content-center align-items-center ms-4 ">
               {user ? (
                 <div className="d-flex gap-3 align-items-center">
-                  <span className="text-light">Welcome, guy!</span>{" "}
+                  <span className="text-light">
+                    Welcome,{" "}
+                    <span
+                      style={{
+                        color: "#00C0FF",
+                        fontWeight: "bold",
+                        fontSize: "18px",
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      {userName || "User"}
+                    </span>
+                  </span>
                   {/* Hiển thị email thay vì tên */}
-                  <button className="btn btn-danger" onClick={handleLogout}>
+                  <button
+                    className="btn btn-danger"
+                    style={{ fontWeight: "bold" }}
+                    onClick={handleLogout}
+                  >
                     Logout
                   </button>
                 </div>
