@@ -1,6 +1,6 @@
-const Category = () => {
+const AddCategory = () => {
     return(
         <div>AddCategory page</div>
     )
 }
-export default Category
+export default AddCategory
