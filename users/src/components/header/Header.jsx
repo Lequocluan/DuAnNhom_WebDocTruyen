@@ -3,19 +3,22 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Logo from "../../assets/images/logonew.png";
 import Category from "./Category";
-import { Data1, Data2 } from "./Data";
+import { Data2 } from "./Data";
 
 import LogoBrand from "./LogoBrand";
 import DarkLight from "./DarkLight";
 import FormSearch from "./FormSearch";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useGlobalContext } from "../../context";
 
 function Header() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const { dataCetegory } = useGlobalContext();
+  // console.log("Data", dataCetegory);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("user-token");
@@ -69,13 +72,13 @@ function Header() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <Category
                 title="Thể loại"
-                data={Data1}
+                dataCetegory={dataCetegory}
                 isOpen={openDropdown === "category1"}
                 onToggle={() => handleToggle("category1")}
               />
               <Category
                 title="Theo số chương"
-                data={Data2}
+                dataCetegory={dataCetegory}
                 isOpen={openDropdown === "category2"}
                 onToggle={() => handleToggle("category2")}
               />
