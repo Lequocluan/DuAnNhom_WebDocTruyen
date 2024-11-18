@@ -15,7 +15,6 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post('https://truyen.ntu264.vpsttt.vn/api/auth/admin/login', { email, password });
-console.log(res);
       if (res.data.status === 200) {
         const token = res.data.body.token;
         const decoded = jwtDecode(token);
