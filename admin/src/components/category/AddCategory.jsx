@@ -1,6 +1,6 @@
 const Category = () => {
     return(
-        <div>Author page</div>
+        <div>AddCategory page</div>
     )
 }
 export default Category
