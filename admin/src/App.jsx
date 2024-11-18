@@ -5,13 +5,18 @@ import NotFound from "./components/not_found/NotFound"
 import Category from "./components/category/Category"
 import Author from './components/author/Author'
 import Chapter from './components/chapter/Chapter'
-
+import Login from "./components/auth/Login"
+import ProtectedRoute from "./components/auth/ProtectedRoute"
 const App = () => {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<AppLayout />}>
+      <Route path="/login" element={<Login />} />
+
+        {/* Route được bảo vệ */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AppLayout />}>
           <Route index element={<Navigate replace to="home" />} />
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
@@ -21,6 +26,7 @@ const App = () => {
           
           <Route path="/chapters" element={<Chapter />} />
           <Route path="*" element={<NotFound />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
