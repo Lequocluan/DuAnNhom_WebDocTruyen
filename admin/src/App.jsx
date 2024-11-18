@@ -3,6 +3,8 @@ import AppLayout from "./ui/AppLayout"
 import Home from "./components/home/Home"
 import NotFound from "./components/not_found/NotFound"
 import Category from "./components/category/Category"
+import Author from './components/author/Author'
+import Chapter from './components/chapter/Chapter'
 
 const App = () => {
 
@@ -15,6 +17,10 @@ const App = () => {
           <Route path="home" element={<Home />} />
 
           <Route path="category" element={<Category />}/>
+          
+          <Route path="author" element={<Author />} />
+          <Route path="/chapters" element={<Chapter />} />
+
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
