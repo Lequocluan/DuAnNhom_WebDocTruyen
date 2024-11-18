@@ -1,9 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import AppLayout from "./ui/AppLayout"
 import Home from "./components/home/Home"
-import About from "./components/about/About"
-import Contact from "./components/contact/Contact"
 import NotFound from "./components/not_found/NotFound"
+import Category from "./components/category/Category"
 
 const App = () => {
 
@@ -15,8 +14,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
 
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
+          <Route path="category" element={<Category />}/>
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
