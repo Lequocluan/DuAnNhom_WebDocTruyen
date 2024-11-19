@@ -1,7 +1,47 @@
-import { DataCategory } from "./Data";
+import { useEffect, useState } from "react";
 import SectionCategoryItem from "./SectionCategoryItem";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 function SectionCatogory() {
+  const [loading, setIsLoading] = useState(true);
+  const { slugCategory } = useParams(); // Lấy slug từ URL
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    axios
+      .get(`https://truyen.ntu264.vpsttt.vn/api/category/${slugCategory}`)
+      .then((res) => {
+        if (isMounted) {
+          setStories(res.data.body.data.data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => console.error("Error fetching category data:", err));
+
+    return () => {
+      isMounted = false;
+    };
+  }, [slugCategory]);
+
+  if (loading) {
+    return (
+      <div className="container">
+        <h4>Loading category...</h4>
+      </div>
+    );
+  }
+
+  if (stories.length === 0) {
+    return (
+      <div className="container">
+        <h4>Không có thể loại truyện này.</h4>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="container">
@@ -22,9 +62,9 @@ function SectionCatogory() {
               </div>
             </div>
             <div className="list-story-in-category section-stories-hot__list">
-              {DataCategory.map((category) => {
-                return <SectionCategoryItem key={category.id} {...category} />;
-              })}
+              {stories.map((story) => (
+                <SectionCategoryItem key={story.id} {...story} />
+              ))}
               {/* <SectionCategoryItem DataCategory={DataCategory} /> */}
             </div>
           </div>
@@ -32,10 +72,7 @@ function SectionCatogory() {
           <div className="col-12 col-md-4 col-lg-3 sticky-md-top">
             <div className="category-description bg-light p-2 rounded mb-3 card-custom">
               <p className="mb-0 text-secondary"></p>
-              <p>
-                Truyện thuộc kiểu lãng mạn, kể về những sự kiện vui buồn trong
-                tình yêu của nhân vật chính.
-              </p>
+              <p>{stories[0].description || "Mô tả không có sẵn."}</p>
               <p></p>
             </div>
           </div>

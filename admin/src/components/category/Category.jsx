@@ -1,20 +1,26 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 const Category = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
+    const cookies = new Cookies();
+    const token = cookies.get("authToken");
+    
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('https://truyen.ntu264.vpsttt.vn/api/category/list');
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/category/list`);
             if (response.data.status === 200) {
                 setCategories(response.data.body.data);
             }
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu:', error);
+            setMessage('Lỗi khi tải dữ liệu thể loại.');
         } finally {
             setLoading(false);
         }
@@ -26,12 +32,18 @@ const Category = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`https://truyen.ntu264.vpsttt.vn/api/category/${id}`);
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/category/delete/${id}`,{
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                }
+            });
             if (response.data.status === 200) {
                 setCategories(categories.filter(category => category.id !== id));
+                setMessage('Xóa thể loại thành công!');
             }
         } catch (error) {
             console.error('Lỗi khi xóa:', error);
+            setMessage('Lỗi kết nối khi xóa thể loại.');
         }
     };
 
@@ -42,6 +54,7 @@ const Category = () => {
     return (
         <div className="container mt-4">
             <h2 className="mb-4">Danh sách thể loại</h2>
+            {message && <div className="text-green-500 mb-4">{message}</div>}
             <div className="d-flex justify-content-between mb-3 align-items-center">
                 <div>
                     <p className="m-0" style={{ lineHeight: '40px' }}>

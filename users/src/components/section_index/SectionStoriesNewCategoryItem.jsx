@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 
-function SectionStoriesNewCategoryItem({ name }) {
+function SectionStoriesNewCategoryItem({ name, slug }) {
   return (
     <>
       <li className="">
-        <Link to="/" className="text-decoration-none text-dark hover-title">
+        <Link
+          to={`/category/${slug}`}
+          className="text-decoration-none text-dark hover-title"
+        >
           {name}
         </Link>
       </li>

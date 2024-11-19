@@ -33,3 +33,9 @@ npm i nanoid
 ```sh
 npm install react-toastify
 ```
+
+- install axios
+
+```sh
+npm i axios
+```
