@@ -44,7 +44,7 @@ const ProtectedRoute = () => {
   }, [token, cookies]);
 
   if (isLoading) {
-    return <></>; 
+    return; 
   }
 
   if (!isAuthorized) {
