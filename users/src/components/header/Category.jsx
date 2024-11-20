@@ -7,7 +7,11 @@ function Category({ title, dataCetegory, isOpen, onToggle }) {
   return (
     <>
       <li className="nav-item dropdown">
-        <button className="nav-link dropdown-toggle" onClick={onToggle}>
+        <button
+          className="nav-link dropdown-toggle"
+          style={{ display: "flex", alignItems: "center" }}
+          onClick={onToggle}
+        >
           {title}
         </button>
         {isOpen && (

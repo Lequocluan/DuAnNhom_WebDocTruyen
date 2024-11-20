@@ -1,7 +1,28 @@
+import { useEffect, useState } from "react";
 import { DataStoryDoneItem } from "./DataItem";
 import SectionStoriesDoneItem from "./SectionStoriesDoneItem";
+import axios from "axios";
 
 function SectionStoryDone() {
+  const [storiesDone, setStoriesDone] = useState([]);
+  console.log(storiesDone);
+  useEffect(() => {
+    let isMounted = true;
+
+    axios
+      .get(`https://truyen.ntu264.vpsttt.vn/api/story/completed-stories`)
+      .then((res) => {
+        if (isMounted) {
+          setStoriesDone(res.data.body.data.data);
+        }
+      })
+      .catch((err) => console.error("Error fetching category data:", err));
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <>
       <div className="section-stories-full mb-3 mt-3">
@@ -24,7 +45,7 @@ function SectionStoryDone() {
           <div className="row">
             <div className="col-12">
               <div className="section-stories-full__list">
-                {DataStoryDoneItem.map((data) => {
+                {storiesDone.map((data) => {
                   return <SectionStoriesDoneItem key={data.id} {...data} />;
                 })}
               </div>
