@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Swal from "sweetalert2";
+import { HiOutlinePencilSquare, HiOutlineTrash } from 'react-icons/hi2';
 
 const Category = () => {
     const [categories, setCategories] = useState([]);
@@ -110,13 +111,13 @@ const Category = () => {
                                         className="btn btn-warning me-2"
                                         onClick={() => navigate(`/category/edit/${category.id}`)}
                                     >
-                                        Sửa
+                                        <HiOutlinePencilSquare />
                                     </button>
                                     <button
                                         className="btn btn-danger"
                                         onClick={() => handleDelete(category.id)}
                                     >
-                                        Xóa
+                                        <HiOutlineTrash />
                                     </button>
                                 </td>
                             </tr>
