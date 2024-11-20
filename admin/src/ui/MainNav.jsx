@@ -7,7 +7,7 @@ import {
 import {FaAddressBook} from "react-icons/fa6"
 function MainNav(){
     return(
-        <nav>
+        <nav className="mt-8">
             <ul>
             <li>
               <NavLink to="/home" className="nav-link">

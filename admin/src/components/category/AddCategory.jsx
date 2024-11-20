@@ -1,9 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { HiOutlineArrowLeftCircle } from "react-icons/hi2";
 
 const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -33,88 +34,93 @@ const AddCategory = () => {
           },
         }
       );
-      if (response.data.status < 400) { 
+      if (response.data.status < 400) {
         setMessage("Thêm thể loại thành công!");
         setCategoryName("");
         setDescription("");
-        toast.success("Thêm thể loại thành công!");  // Hiển thị thông báo thành công
+        toast.success("Thêm thể loại thành công!"); // Hiển thị thông báo thành công
         setStatus(1);
         navigate("/category");
       } else {
         setMessage("Có lỗi xảy ra khi thêm thể loại.");
-        toast.error(message);  // Hiển thị thông báo lỗi
+        toast.error(message); // Hiển thị thông báo lỗi
       }
     } catch (error) {
       console.error("Lỗi khi thêm thể loại:", error);
       setMessage("Lỗi kết nối tới server.");
-      toast.error("Lỗi kết nối tới server.");  // Hiển thị thông báo lỗi
+      toast.error("Lỗi kết nối tới server."); // Hiển thị thông báo lỗi
     }
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Thêm mới Thể loại</h2>
+    <div className="w-full bg-white rounded-xl p-6">
+      <div className="flex gap-6 items-center mb-6">
+        <Link to="/category">
+          <HiOutlineArrowLeftCircle className="w-12 h-12 hover:text-scooter-500" />
+        </Link>
+        <h4 className="text-4xl font-extrabold">Thêm thể loại</h4>
+      </div>
       {message && <div className="text-red-500 mb-4">{message}</div>}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-2">Tên thể loại</label>
+      <form onSubmit={handleSubmit} className="w-full mt-4 flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="ml-4">Tên thể loại</label>
           <input
             type="text"
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
-            className="border border-gray-300 p-2 w-full"
+            className="w-full border-2 px-4 py-3 rounded-xl border-gray-300 text-xl focus:ring-scooter-500 focus:border-scooter-500"
             required
           />
         </div>
 
-        <div>
-          <label className="block mb-2">Mô tả</label>
+        <div className="flex flex-col gap-2">
+          <label className="ml-4">Mô tả</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="border border-gray-300 p-2 w-full"
+            className="w-full border-2 px-4 py-3 rounded-xl border-gray-300 text-xl focus:ring-scooter-500 focus:border-scooter-500"
             rows="4"
           />
         </div>
 
-        <div className="mb-3">
-          <label className="form-label">Trạng thái</label>
-          <div>
-            <input
-              type="radio"
-              id="statusActive"
-              name="status"
-              value={1}
-              checked={status === 1}
-              onChange={() => setStatus(1)}
-            />
-            <label htmlFor="statusActive" className="ms-2">
-              Hoạt động
-            </label>
-
-            <input
-              type="radio"
-              id="statusInactive"
-              name="status"
-              value={0}
-              checked={status === 0}
-              onChange={() => setStatus(0)}
-              className="ms-3"
-            />
-            <label htmlFor="statusInactive" className="ms-2">
-              Không hoạt động
-            </label>
+        <div className="flex flex-col gap-2">
+          <label className="ml-4">Trạng thái</label>
+          <div className="flex gap-6 items-center ml-4">
+            <div className="flex items-center gap-3">
+              <input
+                type="radio"
+                id="statusActive"
+                name="status"
+                value={1}
+                checked={status === 1}
+                onChange={() => setStatus(1)}
+              />
+              <label htmlFor="statusActive">Hoạt động</label>
+            </div>
+            <div className="flex items-center gap-3">
+              <input
+                type="radio"
+                id="statusInactive"
+                name="status"
+                value={0}
+                checked={status === 0}
+                onChange={() => setStatus(0)}
+              />
+              <label htmlFor="statusInactive">
+                Không hoạt động
+              </label>
+            </div>
           </div>
         </div>
-
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Thêm Thể loại
-        </button>
+        <div className="flex justify-center mt-10">
+          <button
+            type="submit"
+            className="w-fit bg-scooter-500 font-bold px-9 py-3 text-3xl text-white rounded-2xl hover:bg-scooter-400 transition-all"
+          >
+            Thêm thể loại
+          </button>
+        </div>
       </form>
-
     </div>
   );
 };

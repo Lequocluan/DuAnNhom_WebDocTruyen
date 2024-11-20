@@ -197,7 +197,7 @@ aside {
 .app_layout {
   display: grid;
   grid-template-columns: 26rem 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto minmax(0, 1fr);
   height: 100vh;
 }
 
@@ -268,4 +268,9 @@ nav a.active svg {
 .styled-logo img {
   height: 9.6rem;
   width: auto;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
