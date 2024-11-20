@@ -4,6 +4,7 @@ import Home from "./components/home/Home";
 import NotFound from "./components/not_found/NotFound";
 import Category from "./components/category/Category";
 import AddCategory from "./components/category/AddCategory";
+import EditCategory from "./components/category/EditCategory";
 import Author from "./components/author/Author";
 import Chapter from "./components/chapter/Chapter";
 import Login from "./components/auth/Login";
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="category" element={<Category />} />
             <Route path="author" element={<Author />} />
             <Route path="category/add" element={<AddCategory />} />
+            <Route path="category/edit/:id" element={<EditCategory />} />
 
             {/* Part author */}
             <Route path="author">
