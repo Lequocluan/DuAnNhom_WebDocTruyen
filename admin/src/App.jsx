@@ -9,6 +9,7 @@ import Chapter from "./components/chapter/Chapter";
 import Login from "./components/auth/Login";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AddAuthor from "./components/author/Add";
+import EditAuthor from "./components/author/Edit";
 const App = () => {
   return (
     <BrowserRouter>
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="author">
               <Route element={<Author />} />
               <Route path="add" element={<AddAuthor />} />
+              <Route path="edit/:id" element={<EditAuthor />} />
             </Route>
 
             <Route path="/chapters" element={<Chapter />} />
