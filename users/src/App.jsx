@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
-        path: "/details",
+        path: "/:slugCategory",
         element: <Details />,
       },
     ],

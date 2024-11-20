@@ -3,7 +3,10 @@ import starhalf from "../../assets/images/than_dao_dan_ton.jpg";
 import staroff from "../../assets/images/star-off.png";
 import { Link } from "react-router-dom";
 
-function SectionStoryDetails({ storyDetails }) {
+function SectionStoryDetails({ detailStory }) {
+  const { name, description, story_picture, author_id, categories, status } =
+    detailStory;
+  console.log(detailStory);
   return (
     <>
       <div className="story-detail">
@@ -12,8 +15,8 @@ function SectionStoryDetails({ storyDetails }) {
             <div className="col-12 col-md-12 col-lg-3 story-detail__top--image">
               <div className="book-3d">
                 <img
-                  src={storyDetails.img}
-                  alt=""
+                  src={story_picture.path}
+                  alt={story_picture.title}
                   className="img-fluid w-100"
                   width="200px"
                   height="300px"
@@ -22,8 +25,8 @@ function SectionStoryDetails({ storyDetails }) {
               </div>
             </div>
             <div className="col-12 col-md-12 col-lg-9">
-              <h3 className="text-center story-name">{storyDetails.title}</h3>
-              <div className="rate-story mb-2">
+              <h3 className="text-center story-name">{name}</h3>
+              {/* <div className="rate-story mb-2">
                 <div
                   className="rate-story__holder"
                   data-score={storyDetails.rating.score}
@@ -50,16 +53,16 @@ function SectionStoryDetails({ storyDetails }) {
                     <strong>{storyDetails.rating.count}</strong> lượt
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div
                 className="story-detail__top--desc px-3"
                 style={{ maxHeight: "285px" }}
               >
-                {storyDetails.description}
+                {description}
               </div>
 
-              <div className="info-more">
+              {/* <div className="info-more">
                 <div className="info-more--more active" id="info_more">
                   <span className="me-1 text-dark">Xem thêm</span>
                   <svg
@@ -94,44 +97,45 @@ function SectionStoryDetails({ storyDetails }) {
                     ></path>
                   </svg>
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
 
         <div className="story-detail__bottom mb-3">
           <div className="row">
-            <div className="col-12 col-md-12 col-lg-3 story-detail__bottom--info">
+            <div className="col-12 col-md-12 col-lg-3 story-detail__bottom--info mt-3">
               <p className="mb-1">
                 <strong>Tác giả:</strong>
                 <a
                   href="#"
                   className="text-decoration-none text-dark hover-title"
                 >
-                  {storyDetails.author}
+                  {author_id}
                 </a>
               </p>
               <div className="d-flex align-items-center mb-1 flex-wrap">
                 <strong className="me-1">Thể loại:</strong>
                 <div className="d-flex align-items-center flex-warp">
-                  {storyDetails.genres.map((genre, index) => (
-                    <a
-                      key={index}
-                      href="category.html"
-                      className="text-decoration-none text-dark hover-title me-1"
-                      style={{ width: "max-content" }}
-                    >
-                      {genre}
-                      {index < storyDetails.genres.length - 1 && " ,"}{" "}
-                      {/* Add comma except for last item */}
-                    </a>
-                  ))}
+                  {categories.map((categoty) => {
+                    return (
+                      <Link
+                        key={categoty.id}
+                        href="#"
+                        className="text-decoration-none text-dark hover-title me-1"
+                      >
+                        {categoty.name}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
 
               <p className="mb-1">
-                <strong>Trạng thái:</strong>
-                <span className="text-info">{storyDetails.status}</span>
+                <strong>Trạng thái: </strong>
+                <span className="text-info">
+                  {status === "1" ? "Full" : "Đang cập nhật"}
+                </span>
               </p>
             </div>
           </div>
@@ -152,29 +156,36 @@ function SectionStoryDetails({ storyDetails }) {
             </div>
           </div>
 
+          {/* CHƯƠNG TRUYỆN */}
           <div className="story-detail__list-chapter--list">
             <div className="row">
               <div className="col-12 col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
                 <ul>
-                  {storyDetails.chapters.map((chapter, index) => {
-                    return (
-                      <li key={index}>
-                        <a
-                          href="chapter.html"
-                          className="text-decoration-none text-dark hover-title"
-                        >
-                          {chapter}
-                        </a>
-                      </li>
-                    );
-                  })}
+                  <li>
+                    <Link
+                      to="/"
+                      className="text-decoration-none text-dark hover-title"
+                    >
+                      Chương 1: Nàng không tin Yến Đình lại lừa nàng chuyện lớn
+                      đến vậy!
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/"
+                      className="text-decoration-none text-dark hover-title"
+                    >
+                      Chương 1: Nàng không tin Yến Đình lại lừa nàng chuyện lớn
+                      đến vậy!
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="pagination" style={{ justifyContent: "center" }}>
+        {/* <div className="pagination" style={{ justifyContent: "center" }}>
           <ul>
             <li className="pagination__item page-current">
               <a
@@ -223,7 +234,7 @@ function SectionStoryDetails({ storyDetails }) {
               </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </>
   );

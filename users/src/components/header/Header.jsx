@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { useState } from "react";
-import Logo from "../../assets/images/logonew.png";
+import Logo from "../../assets/images/logo_story_new.png";
 import Category from "./Category";
 import { Data2 } from "./Data";
 

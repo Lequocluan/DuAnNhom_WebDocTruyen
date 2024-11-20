@@ -4,7 +4,7 @@ function SectionStoriesHotItem({ img, title }) {
   return (
     <>
       <div className="story-item">
-        <Link className="d-block text-decoration-none" to="/details">
+        <Link className="d-block text-decoration-none" to="/chapper">
           <div className="story-item__image">
             <img
               src={img}

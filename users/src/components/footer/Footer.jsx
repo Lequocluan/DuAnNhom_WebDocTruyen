@@ -1,32 +1,38 @@
 import { Data } from "./Data";
 import { Link } from "react-router-dom";
 import Img from "../../assets/images/88x31.png";
+import { useGlobalContext } from "../../context";
 
 function Footer() {
+  const { dataCetegory } = useGlobalContext();
+
   return (
     <>
       <div id="footer" className="footer border-top pt-2">
         <div className="container">
           <div className="row">
             <div className="col-12 col-md-5">
-              <strong>Suu Truyện</strong> -
+              <strong>Truyện Online</strong> {"  - "}
               <Link
-                to="#"
+                to="/"
                 title="Đọc truyện online"
                 className="text-dark text-decoration-none"
               >
                 Đọc truyện
-              </Link>
+              </Link>{" "}
               online một cách nhanh nhất. Hỗ trợ mọi thiết bị như di động và máy
               tính bảng.
             </div>
             <ul className="col-12 col-md-7 list-unstyled d-flex flex-wrap list-tag">
-              {Data.map((data) => {
+              {dataCetegory.map((data) => {
                 return (
                   <li key={data.id} className="me-1">
                     <span className="badge text-bg-light">
-                      <Link className="text-dark text-decoration-none">
-                        {data.title}
+                      <Link
+                        to={`/category/${data.slug}`}
+                        className="text-dark text-decoration-none"
+                      >
+                        {data.name}
                       </Link>
                     </span>
                   </li>

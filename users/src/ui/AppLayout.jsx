@@ -12,7 +12,7 @@ function AppLayout() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -22,7 +22,7 @@ function AppLayout() {
       {loading && <Loader />}
       <Headers />
       <HeaderBottom />
-      <main>
+      <main style={{ minHeight: "80vh" }}>
         <Outlet />
       </main>
       <Footer />
