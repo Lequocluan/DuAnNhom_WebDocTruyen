@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { HiOutlinePencilSquare, HiOutlineTrash } from "react-icons/hi2";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import image from "../../assets/img/placeholder.jpg"
 
 function Author() {
   const [authors, setAuthors] = useState([]);
+  const navigate = useNavigate()
 
   // Fetch data author
   const fetchAuthors = async () => {
@@ -19,9 +21,11 @@ function Author() {
       console.error("Lỗi khi lấy dữ liệu:", error);
     }
   };
+
   useEffect(() => {
     fetchAuthors();
   }, []);
+
 
   return (
     <div className="w-full h-full bg-white rounded-xl p-8">
@@ -52,18 +56,18 @@ function Author() {
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16">
                       <img
-                        src={author.profile_picture.path}
-                        alt={author.profile_picture.title}
+                        src={author.profile_picture?.path ?? image}
+                        alt={author.profile_picture?.title ?? "" }
                         className="w-full h-full object-cover rounded-full"
                       />
                     </div>
                     <span>{author.full_name}</span>
                   </div>
                 </div>
-                <span className="col-span-3">{author.pen_name}</span>
-                <span className="col-span-3">{author.birth_date}</span>
+                <span className="col-span-3">{author.pen_name ?? "Không xác định"}</span>
+                <span className="col-span-3">{author.birth_date ?? "Không xác định"}</span>
                 <div className="flex gap-6 text-2xl">
-                  <NavLink to="">
+                  <NavLink to={`/author/edit/${author.id}`}>
                     <HiOutlinePencilSquare className="w-9 h-9 hover:text-scooter-500" />
                   </NavLink>
                   <NavLink to="">
