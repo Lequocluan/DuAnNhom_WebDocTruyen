@@ -1,11 +1,12 @@
-import star from "../../assets/images/star-on.png";
-import starhalf from "../../assets/images/than_dao_dan_ton.jpg";
-import staroff from "../../assets/images/star-off.png";
 import { Link } from "react-router-dom";
+import StarRating from "../../ui/start_rating/StarRating";
+import { useState } from "react";
 
 function SectionStoryDetails({ detailStory }) {
   const { name, description, story_picture, author_id, categories, status } =
     detailStory;
+  const [userRating, setUserRating] = useState("");
+
   console.log(detailStory);
   return (
     <>
@@ -26,6 +27,24 @@ function SectionStoryDetails({ detailStory }) {
             </div>
             <div className="col-12 col-md-12 col-lg-9">
               <h3 className="text-center story-name">{name}</h3>
+              <StarRating
+                maxRating={10}
+                size={24}
+                messages={[
+                  "Rất tệ",
+                  "Tệ",
+                  "Bình thường",
+                  "Khá",
+                  "Tốt",
+                  "Rất tốt",
+                  "Tuyệt vời",
+                  "Xuất sắc",
+                  "Hoàn hảo",
+                  "Đỉnh cao",
+                ]}
+                onSetRating={setUserRating}
+              />
+
               {/* <div className="rate-story mb-2">
                 <div
                   className="rate-story__holder"
