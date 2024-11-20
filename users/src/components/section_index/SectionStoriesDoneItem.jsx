@@ -7,7 +7,7 @@ function SectionStoriesDoneItem({ categories }) {
       {categories.map((category) => {
         return (
           <div className="story-item-full text-center" key={category.id}>
-            <Link to={category.slug} className="d-block story-item-full__image">
+            <Link to="/chapper" className="d-block story-item-full__image">
               <img
                 src={img2}
                 alt={"title"}

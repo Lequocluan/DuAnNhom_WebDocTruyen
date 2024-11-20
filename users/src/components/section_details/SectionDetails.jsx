@@ -1,9 +1,43 @@
+import { useParams } from "react-router-dom";
 import { storyDetails, topRatingData } from "./Data";
 
 import SectionStoryDetails from "./SectionStoryDetails";
 import SectionTopRating from "./SectionTopRating";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function SectionDetails() {
+  const [loading, setIsLoading] = useState(true);
+  const { slugCategory } = useParams(); // Lấy slug từ URL
+  const [detailStory, setDetailStory] = useState([]);
+  // console.log(detailStory);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    axios
+      .get(`https://truyen.ntu264.vpsttt.vn/api/story/${slugCategory}`)
+      .then((res) => {
+        if (isMounted) {
+          setDetailStory(res.data.body.data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => console.error("Error fetching category data:", err));
+
+    return () => {
+      isMounted = false;
+    };
+  }, [slugCategory]);
+
+  if (loading) {
+    return (
+      <div className="container">
+        <h4>Loading category...</h4>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="container">
@@ -21,7 +55,7 @@ function SectionDetails() {
                 </h2>
               </div>
             </div>
-            <SectionStoryDetails storyDetails={storyDetails} />
+            <SectionStoryDetails detailStory={detailStory} />
           </div>
 
           <div className="col-12 col-md-5 col-lg-4 sticky-md-top">

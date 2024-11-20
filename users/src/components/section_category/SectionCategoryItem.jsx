@@ -1,8 +1,10 @@
-function SectionCategoryItem({ name, story_picture, status }) {
+import { Link } from "react-router-dom";
+
+function SectionCategoryItem({ name, story_picture, status, slug }) {
   return (
     <>
       <div className="story-item">
-        <a href="#" className="d-block text-decoration-none">
+        <Link to={`/${slug}`} className="d-block text-decoration-none">
           <div className="story-item__image">
             <img
               src={story_picture.path}
@@ -33,7 +35,7 @@ function SectionCategoryItem({ name, story_picture, status }) {
               New
             </span> */}
           </div>
-        </a>
+        </Link>
       </div>
     </>
   );

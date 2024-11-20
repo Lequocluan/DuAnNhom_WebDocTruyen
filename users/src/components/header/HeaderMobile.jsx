@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Logo from "../../assets/images/logonew.png";
+import Logo from "../../assets/images/logo_story_new.png";
 import { Data3 } from "./Data";
 import DarkLight from "./DarkLight";
 import { Link, useNavigate } from "react-router-dom";
