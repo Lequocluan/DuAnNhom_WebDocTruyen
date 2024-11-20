@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import Swal from "sweetalert2";
 
 const Category = () => {
     const [categories, setCategories] = useState([]);
@@ -31,25 +32,44 @@ const Category = () => {
     }, []);
 
     const handleDelete = async (id) => {
-        try {
-            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/category/delete/${id}`,{
-                headers:{
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-            if (response.data.status === 200) {
-                setCategories(categories.filter(category => category.id !== id));
-                setMessage('Xóa thể loại thành công!');
-            }
-        } catch (error) {
-            console.error('Lỗi khi xóa:', error);
-            setMessage('Lỗi kết nối khi xóa thể loại.');
-        }
-    };
+        const category = categories.find((cat) => cat.id === id);
+        const categoryName = category?category.name:"thể loại này";
+        Swal.fire({
+            title:`Bạn có chắc muốn xóa thể loại "${categoryName}" ?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Có, xóa ngay!",
+            cancelButtonText: "Hủy",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axios
+              .delete(`${import.meta.env.VITE_API_URL}/category/delete/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+              })
+              .then(() => {
+                setCategories(categories.filter((category) => category.id !== id));
+                Swal.fire("Đã xóa!", `"${categoryName}" đã được xóa.`, "success");
+              })
+              .catch((err) => {
+                console.error("Lỗi khi xóa:", err);
+                Swal.fire("Lỗi!", "Xóa thể loại không thành công.", "error");
+              });
+          }
+        });
+      };
 
     if (loading) {
         return <p>Loading...</p>;
     }
+    if (!loading && message) {
+        return <p className="text-danger">Lỗi: {message}</p>;
+      }
+      
+      if (categories.length === 0) {
+        return <p>Không có thể loại nào để hiển thị.</p>;
+      }
 
     return (
         <div className="container mt-4">

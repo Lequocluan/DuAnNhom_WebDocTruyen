@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
 
 const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState(1);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const cookies = new Cookies();
   const token = cookies.get("authToken");
@@ -33,6 +35,7 @@ const AddCategory = () => {
         setCategoryName("");
         setDescription("");
         setStatus(1);
+        navigate("/category");
       } else {
         setMessage("Có lỗi xảy ra khi thêm thể loại.");
       }
