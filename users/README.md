@@ -39,3 +39,10 @@ npm install react-toastify
 ```sh
 npm i axios
 ```
+
+- install prop-types
+
+```sh
+npm install prop-types
+
+```
