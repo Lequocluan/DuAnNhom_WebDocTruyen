@@ -10,10 +10,13 @@ import Chapter from "./components/chapter/Chapter";
 import Login from "./components/auth/Login";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AddAuthor from "./components/author/Add";
+import { ToastContainer } from "react-toastify";
 import EditAuthor from "./components/author/Edit";
 const App = () => {
   return (
+    
     <BrowserRouter>
+    <ToastContainer/>
       <Routes>
         <Route path="/login" element={<Login />} />
 

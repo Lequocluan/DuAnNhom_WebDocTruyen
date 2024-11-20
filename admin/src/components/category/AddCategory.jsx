@@ -1,7 +1,9 @@
-import axios from "axios";
 import { useState } from "react";
+import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -12,6 +14,7 @@ const AddCategory = () => {
 
   const cookies = new Cookies();
   const token = cookies.get("authToken");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,18 +33,21 @@ const AddCategory = () => {
           },
         }
       );
-      if (response.data.status < 400) {
+      if (response.data.status < 400) { 
         setMessage("Thêm thể loại thành công!");
         setCategoryName("");
         setDescription("");
+        toast.success("Thêm thể loại thành công!");  // Hiển thị thông báo thành công
         setStatus(1);
         navigate("/category");
       } else {
         setMessage("Có lỗi xảy ra khi thêm thể loại.");
+        toast.error(message);  // Hiển thị thông báo lỗi
       }
     } catch (error) {
       console.error("Lỗi khi thêm thể loại:", error);
       setMessage("Lỗi kết nối tới server.");
+      toast.error("Lỗi kết nối tới server.");  // Hiển thị thông báo lỗi
     }
   };
 
@@ -108,7 +114,9 @@ const AddCategory = () => {
           Thêm Thể loại
         </button>
       </form>
+
     </div>
   );
 };
+
 export default AddCategory;
