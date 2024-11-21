@@ -4,6 +4,7 @@ import {
     HiOutlineFolder,
     HiOutlineDocumentText,
     HiOutlineMegaphone,
+    HiOutlineBookOpen
 } from "react-icons/hi2"
 import {FaAddressBook} from "react-icons/fa6"
 function MainNav(){
