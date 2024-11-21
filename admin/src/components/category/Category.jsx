@@ -121,15 +121,15 @@ const Category = () => {
 
   const handleDelete = async (id) => {
     const category = categories.find((cat) => cat.id === id);
-    const categoryName = category ? category.name : "thể loại này";
+    const categoryName = category ? category.name : "this category";
     Swal.fire({
-      title: `Bạn có chắc muốn xóa thể loại "${categoryName}"?`,
+      title: `Are you sure you want to delete the category "${categoryName}"?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Có, xóa ngay!",
-      cancelButtonText: "Hủy",
+      confirmButtonText: "Yes, delete now!",
+      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
         axios
@@ -138,11 +138,11 @@ const Category = () => {
           })
           .then(() => {
             setCategories(categories.filter((category) => category.id !== id));
-            Swal.fire("Đã xóa!", `"${categoryName}" đã được xóa.`, "success");
+            Swal.fire("Deleted!", `"${categoryName}" has been deleted.`, "success");
           })
           .catch((err) => {
-            console.error("Lỗi khi xóa:", err);
-            Swal.fire("Lỗi!", "Xóa thể loại không thành công.", "error");
+            console.error("Error while deleting:", err);
+            Swal.fire("Error!", "Delete category failed.", "error");
           });
       }
     });
@@ -168,8 +168,9 @@ const Category = () => {
         >
           Thêm thể loại
         </Link>
+        {message && ( <div className="message bg-gray-100 p-4 rounded-lg shadow-md"> {message} </div> )}
       </div>
-
+      
       <div className="d-flex justify-content-between mb-3 align-items-center">
         <p className="mb-5 mt-2 ml-4">{totalItem} thể loại có sẵn</p>
       </div>
