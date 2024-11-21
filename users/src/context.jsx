@@ -12,7 +12,7 @@ export const AppProvider = ({ children }) => {
 
     setTimeout(() => {
       setIsBanerOpen(true);
-    }, 100000); //120000
+    }, 1999990000); //120000
   };
 
   useEffect(() => {
