@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import StarRating from "../../ui/start_rating/StarRating";
 import { useState } from "react";
+import CommentStory from "./CommentStory";
 
 function SectionStoryDetails({ detailStory }) {
-  const { name, description, story_picture, author_id, categories, status } =
+  const { name, description, story_picture, author, categories, status } =
     detailStory;
   const [userRating, setUserRating] = useState("");
 
@@ -130,7 +131,7 @@ function SectionStoryDetails({ detailStory }) {
                   href="#"
                   className="text-decoration-none text-dark hover-title"
                 >
-                  {author_id}
+                  {author.full_name}
                 </a>
               </p>
               <div className="d-flex align-items-center mb-1 flex-wrap">
@@ -254,6 +255,8 @@ function SectionStoryDetails({ detailStory }) {
             </li>
           </ul>
         </div> */}
+
+        <CommentStory />
       </div>
     </>
   );
