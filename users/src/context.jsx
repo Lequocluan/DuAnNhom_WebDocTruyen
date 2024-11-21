@@ -5,6 +5,16 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [dataCetegory, setDataCetegory] = useState([]);
+  const [isBanerOpen, setIsBanerOpen] = useState(true);
+
+  const closeBanerAds = () => {
+    setIsBanerOpen(false);
+
+    setTimeout(() => {
+      setIsBanerOpen(true);
+    }, 100000); //120000
+  };
+
   useEffect(() => {
     axios
       .get("https://truyen.ntu264.vpsttt.vn/api/categories")
@@ -13,7 +23,7 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ dataCetegory }}>
+    <AppContext.Provider value={{ dataCetegory, isBanerOpen, closeBanerAds }}>
       {children}
     </AppContext.Provider>
   );

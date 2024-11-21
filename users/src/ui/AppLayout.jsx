@@ -5,6 +5,7 @@ import HeaderBottom from "../components/header/HeaderBottom";
 import Footer from "../components/footer/Footer";
 import ScrollUp from "../components/scroll_up/ScrollUp";
 import Loader from "./loader/Loader";
+import BanerAds from "./baner_ads/BanerAds";
 
 function AppLayout() {
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,7 @@ function AppLayout() {
   return (
     <>
       {loading && <Loader />}
+      <BanerAds />
       <Headers />
       <HeaderBottom />
       <main style={{ minHeight: "80vh" }}>
