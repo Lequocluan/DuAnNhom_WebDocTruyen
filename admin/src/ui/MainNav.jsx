@@ -2,7 +2,8 @@ import {  NavLink } from "react-router-dom";
 import {
     HiOutlineHome,
     HiOutlineFolder,
-    HiOutlineDocumentText
+    HiOutlineDocumentText,
+    HiOutlineBookOpen
 } from "react-icons/hi2"
 import {FaAddressBook} from "react-icons/fa6"
 function MainNav(){
@@ -19,6 +20,11 @@ function MainNav(){
               <NavLink to="/author" className="nav-link">
                 <FaAddressBook /> <span>Author</span>
               </NavLink>
+            </li>
+            <li>
+                <NavLink to="/story" className="nav-link">
+                <HiOutlineBookOpen/> <span>Story</span>
+                </NavLink>
             </li>
             <li>
               <NavLink to="/category" className="nav-link">

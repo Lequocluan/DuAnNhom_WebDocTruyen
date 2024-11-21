@@ -1,23 +1,25 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Swal from 'sweetalert2';
+import { HiOutlineArrowLeftCircle } from 'react-icons/hi2';
+import ErrorMessage from "./ErrorMessage";
 
 const EditCategory = () => {
   const { id } = useParams();  // Lấy id từ URL
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');  // Thêm trạng thái
+  const [status, setStatus] = useState(''); 
   const navigate = useNavigate();
   
   const cookies = new Cookies();
   const token = cookies.get('authToken');
 
-  // Lấy thông tin thể loại cần chỉnh sửa
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -29,7 +31,7 @@ const EditCategory = () => {
           setCategory(categoryData);
           setName(categoryData.name);
           setDescription(categoryData.description);
-          setStatus(categoryData.status);  // Lấy trạng thái từ dữ liệu
+          setStatus(categoryData.status);
         }
       } catch (error) {
         console.error('Lỗi khi lấy dữ liệu thể loại:', error);
@@ -41,26 +43,29 @@ const EditCategory = () => {
     fetchCategory();
   }, [id, token]);
 
-  // Xử lý cập nhật thể loại
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
+    setMessage("");
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/category/update`,
-        { id,name, description, status },  // Thêm status vào payload
+        { id,name, description, status },  
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(response)
       if (response.data.status === 200) {
         Swal.fire('Thành công!', 'Cập nhật thể loại thành công!', 'success').then(() => {
           navigate('/category');
         });
       } else {
-        Swal.fire('Lỗi!', 'Cập nhật thể loại thất bại.', 'error');
+        const errorResponse  = Array.isArray(response.data.body.message) && response.data.body.message.length > 0
+          ? response.data.body.message[0].error_message
+          : "Có lỗi xảy ra.";
+          setErrorMessage(errorResponse);
       }
     } catch (error) {
-      console.error('Lỗi khi cập nhật thể loại:', error);
-      Swal.fire('Lỗi!', 'Cập nhật thể loại thất bại.', 'error');
+      console.error('Error updating category:', error);
+      Swal.fire('Error!', 'Error updating category.', 'error');
     }
   };
 
@@ -73,15 +78,20 @@ const EditCategory = () => {
   }
 
   if (!category) {
-    return <p>Không tìm thấy thể loại này.</p>;
+    return <p className="text-center text-lg">Không tìm thấy thể loại này.</p>;
   }
 
   return (
-    <div className="container mx-auto mt-8 p-4 max-w-lg">
-      <h2 className="text-2xl font-semibold mb-6">Chỉnh sửa thể loại</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="w-full bg-white rounded-xl p-6 font-mulish">
+        <div className="flex gap-6 items-center mb-6">
+            <Link to="/author">
+                <HiOutlineArrowLeftCircle className="w-12 h-12 hover:text-scooter-500" />
+            </Link>
+            <h4 className="text-4xl font-extrabold">Sửa thông tin thể loại</h4>
+      </div>
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Tên thể loại</label>
+          <label htmlFor="name" className="ml-4">Name</label>
           <input
             type="text"
             className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -90,9 +100,11 @@ const EditCategory = () => {
             onChange={(e) => setName(e.target.value)}
             required
           />
+
+      <ErrorMessage errorMessage={errorMessage} />
         </div>
         <div className="mb-4">
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">Mô tả</label>
+          <label htmlFor="description" className="ml-4">Description</label>
           <textarea
             className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             id="description"
@@ -104,7 +116,7 @@ const EditCategory = () => {
         
         {/* Trạng thái */}
         <div className="mb-4">
-          <label htmlFor="status" className="block text-sm font-medium text-gray-700">Trạng thái</label>
+          <label htmlFor="status" className="ml-4">Status</label>
           <select
             id="status"
             value={status}
