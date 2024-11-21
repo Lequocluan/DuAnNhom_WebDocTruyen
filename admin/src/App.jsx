@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import EditAuthor from "./components/author/Edit";
 import Advertise from "./components/advertise/Advertise";
 import AddAds from "./components/advertise/AddAds";
+import EditAds from "./components/advertise/Edit";
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
             {/* Part advertise */}
             <Route path="ads" element={<Advertise />} />
             <Route path="ads/add" element={<AddAds />} />
+            <Route path="ads/edit/:id" element={<EditAds/>} />
 
             <Route path="/chapters" element={<Chapter />} />
 
