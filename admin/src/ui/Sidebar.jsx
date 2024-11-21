@@ -2,9 +2,9 @@ import Logo from "./Logo";
 import MainNav from "./MainNav";
 
 
-function Sidebar(){
+function Sidebar({className}){
     return(
-        <aside>
+        <aside className={className}>
             <Logo/>
             <MainNav/>
         </aside>

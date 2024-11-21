@@ -131,7 +131,7 @@ function AddAuthor() {
   }, [message]);
 
   return (
-    <div className="w-full bg-white rounded-xl p-6">
+    <div className="w-full bg-white rounded-xl p-6 font-mulish">
       <div className="flex gap-6 items-center mb-6">
         <Link to="/author">
           <HiOutlineArrowLeftCircle className="w-12 h-12 hover:text-scooter-500" />

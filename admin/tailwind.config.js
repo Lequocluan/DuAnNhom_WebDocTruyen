@@ -27,6 +27,12 @@ export default {
           bg: "#FDECEC"
         }
       },
+      fontFamily: {
+        'mulish': ['"Mulish"','sans-serif'],
+      },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+      }
     },
   },
   plugins: [],
