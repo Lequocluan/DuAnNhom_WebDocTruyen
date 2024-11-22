@@ -8,6 +8,7 @@ import EditCategory from "./components/category/EditCategory";
 
 import Story from "./components/story/Story";
 import EditStory from "./components/story/EditStory";
+import AddStory from "./components/story/AddStory";
 import Author from "./components/author/Author";
 import Chapter from "./components/chapter/Chapter";
 import Login from "./components/auth/Login";
@@ -37,10 +38,11 @@ const App = () => {
             <Route path="author" element={<Author />} />
             
             <Route path="category/add" element={<AddCategory />} />
-            <Route path="story/edit/:id" element={<EditStory />} />
+            <Route path="category/edit/:id" element={<EditCategory />} />
             
             <Route path="story" element={<Story />} />
-            <Route path="story/edit" element={<EditStory />} />
+            <Route path="story/add" element={<AddStory />} /> 
+            <Route path="story/edit/:id" element={<EditStory />} />
 
             {/* Part author */}
             <Route path="author">
