@@ -53,6 +53,7 @@ function FormSearch() {
     <>
       <form
         className="d-flex header__form-search"
+        style={{ width: "284px" }}
         onSubmit={handleSearchSubmit}
         autoComplete="off"
       >
@@ -68,7 +69,10 @@ function FormSearch() {
           onBlur={() => setTimeout(() => setIsFocused(false), 200)}
         />
         {isFocused && keyword.trim() !== "" && (
-          <div className="col-12 search-result shadow">
+          <div
+            className="col-12 search-result shadow search-story mt-1"
+            style={{ width: "284px", borderRadius: "10px" }}
+          >
             {isLoading ? (
               <p className="bg-white text-[#343a40] p-10 text-center">
                 Đang tìm kiếm...
@@ -88,7 +92,10 @@ function FormSearch() {
                           onClick={() => setKeyword("")}
                           key={index}
                         >
-                          <li className="list-group-item d-flex align-items-center">
+                          <li
+                            className="list-group-item d-flex align-items-center"
+                            style={{ paddingLeft: "10px", paddingRight: 0 }}
+                          >
                             <img
                               src={item.story_picture.path}
                               alt={item.story_picture.title}
