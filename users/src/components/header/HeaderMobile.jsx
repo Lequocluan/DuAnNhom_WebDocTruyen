@@ -146,7 +146,9 @@ function HeaderMobile() {
                   <DarkLight />
                 </div>
 
-                <FormSearch />
+                <div className="text-black">
+                  <FormSearch />
+                </div>
 
                 {/* Phần đăng nhập/đăng xuất */}
                 {user ? (

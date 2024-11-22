@@ -1,4 +1,3 @@
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -20,19 +19,31 @@ export default {
         },
         success: {
           outline: "#01E17B",
-          bg : "#E5FCF1"
+          bg: "#E5FCF1",
+        },
+        active: {
+          50: "#E5FCF1",
+          100: "#CFFAE4",
+          200: "#A3F4D1",
+          300: "#72EAB8",
+          400: "#3EDF9D",
+          500: "#01E17B", // Primary
+          600: "#00C46C",
+          700: "#009A54",
+          800: "#00733E",
+          900: "#004D28",
         },
         error: {
           outline: "#F04349",
-          bg: "#FDECEC"
-        }
+          bg: "#FDECEC",
+        },
       },
       fontFamily: {
-        'mulish': ['"Mulish"','sans-serif'],
+        mulish: ['"Mulish"', "sans-serif"],
       },
       animation: {
-        'spin-slow': 'spin 3s linear infinite',
-      }
+        "spin-slow": "spin 3s linear infinite",
+      },
     },
   },
   plugins: [],
