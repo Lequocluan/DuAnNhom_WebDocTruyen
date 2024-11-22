@@ -25,7 +25,7 @@ function Story() {
         `${import.meta.env.VITE_API_URL}/story/list`
       );
       if (response.data.status === 200) {
-        setStories(response.data.body.data);
+        setStories(response.data.body.data.data);
       }
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu:", error);
@@ -96,7 +96,9 @@ function Story() {
                     <span>{story.name}</span>
                   </div>
                 </div>
-                <span className="col-span-3">{story.author_id}</span>
+                <span className="col-span-3">
+                {story.author.full_name}
+                </span>
                 <span className="col-span-3">
                   {story.categories.map((cat) => cat.name).join(", ")}
                 </span>
