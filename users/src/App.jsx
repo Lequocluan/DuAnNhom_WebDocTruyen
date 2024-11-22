@@ -7,6 +7,7 @@ import AppLayout from "./ui/AppLayout";
 import Home from "./ui/Home";
 import Error from "./ui/Error";
 import Category from "./ui/Category";
+import Search from "./ui/Search";
 import Chapper from "./ui/Chapper";
 import Details from "./ui/Details";
 import Login from "./components/login/Login";
@@ -27,6 +28,13 @@ const router = createBrowserRouter([
         path: "/category/:slugCategory",
         element: <Category />,
       },
+
+      {
+        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
+        path: "/search",
+        element: <Search />,
+      },
+
       {
         // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
         path: "/chapper",
