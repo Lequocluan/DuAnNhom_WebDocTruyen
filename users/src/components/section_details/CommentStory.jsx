@@ -1,6 +1,236 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import user from "../../assets/images/user.jpg";
+import { formatDistanceToNow } from "date-fns";
+import { vi } from "date-fns/locale";
 
-function CommentStory() {
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return formatDistanceToNow(date, { addSuffix: true, locale: vi });
+}
+
+function sortComments(comments, order) {
+  return [...comments].sort((a, b) => {
+    const dateA = new Date(a.created_at).getTime();
+    const dateB = new Date(b.created_at).getTime();
+    return order === "oldest" ? dateA - dateB : dateB - dateA;
+  });
+}
+
+function CommentStory({ detailStory }) {
+  const { categories } = detailStory;
+  const [listcomment, setListComment] = useState([]);
+  const [newComment, setNewComment] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [sortOrder, setSortOrder] = useState("newest"); // Mặc định: Mới nhất
+
+  const pivot = categories[0]?.pivot || {};
+  const limit = 1000;
+  const offset = 0;
+
+  console.log(listcomment);
+  const token = localStorage.getItem("user-token");
+
+  useEffect(() => {
+    setListComment((prev) => sortComments(prev, sortOrder));
+  }, [sortOrder]);
+
+  //! Lấy danh sách bình luận
+  async function fetchComments() {
+    if (!pivot.novel_id || !pivot.novel_type) {
+      console.error("Thông tin pivot không hợp lệ.");
+      return;
+    }
+
+    let item = {
+      novel_id: pivot.novel_id,
+      novel_type: pivot.novel_type,
+      limit,
+      offset,
+    };
+
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        "https://truyen.ntu264.vpsttt.vn/api/comment/list",
+        {
+          method: "POST",
+          body: JSON.stringify(item),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      const result = await response.json();
+      if (result.status === 200) {
+        setListComment(
+          (prev) =>
+            offset === 0
+              ? result.body.data // Nếu offset = 0, thay thế toàn bộ danh sách
+              : [...prev, ...result.body.data] // Nếu không, hợp nhất danh sách mới
+        );
+      } else {
+        toast.error(result.body.message.error_message || "Lỗi tải bình luận!");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Đã xảy ra lỗi, vui lòng thử lại!");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  //! Hàm thêm bình luận
+  async function handleAddComment() {
+    if (!token) {
+      toast.error("Vui lòng đăng nhập để bình luận");
+      return;
+    }
+    if (!newComment) {
+      toast.error("Vui lòng nhập nội dung bình luận");
+      return;
+    }
+
+    let item = {
+      novel_id: pivot.novel_id,
+      novel_type: pivot.novel_type,
+      content: newComment,
+    };
+
+    setLoading(true);
+
+    try {
+      let response = await fetch(
+        "https://truyen.ntu264.vpsttt.vn/api/comment/add",
+        {
+          method: "POST",
+          body: JSON.stringify(item),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const result = await response.json();
+      if (result.status === 200) {
+        toast.success("Bình luận thành công!");
+        setListComment((prev) => [result.body.data, ...prev]);
+        setNewComment(""); // Reset input
+        // Tải lại danh sách từ server để đảm bảo dữ liệu đồng bộ
+        setTimeout(fetchComments, 1000); // Delay ngắn để server cập nhật
+      } else {
+        toast.error(result.body.message.error_message || "Lỗi thêm bình luận!");
+      }
+    } catch (error) {
+      console.error("Lỗi khi thêm bình luận:", error);
+      toast.error("Đã xảy ra lỗi, vui lòng thử lại!");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchComments();
+  }, [offset]);
+
+  //! Trả lời bình luận
+  async function handleReply(commentId) {
+    const comment = listcomment.find((c) => c.id === commentId);
+    const replyContent = comment?.replyContent;
+
+    if (!token) {
+      toast.error("Vui lòng đăng nhập để trả lời bình luận");
+      return;
+    }
+    if (!replyContent) {
+      toast.error("Vui lòng nhập nội dung trả lời");
+      return;
+    }
+
+    let item = {
+      novel_id: pivot.novel_id,
+      novel_type: pivot.novel_type,
+      parent_comment_id: commentId,
+      content: replyContent,
+    };
+
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        "https://truyen.ntu264.vpsttt.vn/api/comment/add",
+        {
+          method: "POST",
+          body: JSON.stringify(item),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const result = await response.json();
+      if (result.status === 200) {
+        toast.success("Trả lời thành công!");
+        fetchComments();
+        // Thêm trả lời mới vào danh sách
+        setListComment((prev) =>
+          prev.map((c) =>
+            c.id === commentId
+              ? {
+                  ...c,
+                  reply: [result.body.data, ...(c.reply || [])],
+                  replyContent: "", // Reset nội dung trả lời
+                  showReplyForm: false, // Ẩn form trả lời
+                }
+              : c
+          )
+        );
+      } else {
+        toast.error(
+          result.body.message.error_message || "Lỗi trả lời bình luận!"
+        );
+      }
+    } catch (error) {
+      console.error("Lỗi khi trả lời bình luận:", error);
+      toast.error("Đã xảy ra lỗi, vui lòng thử lại!");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  //! Hàm bật/tắt form reply
+  const toggleReplyForm = (commentId) => {
+    if (!token) {
+      toast.error("Vui lòng đăng nhập để trả lời bình luận");
+      return;
+    }
+    setListComment((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId
+          ? { ...comment, showReplyForm: !comment.showReplyForm }
+          : comment
+      )
+    );
+  };
+
+  //! Hàm cập nhật nội dung reply
+  const handleReplyChange = (commentId, value) => {
+    setListComment((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId
+          ? { ...comment, replyContent: value } // Cập nhật nội dung trả lời
+          : comment
+      )
+    );
+  };
+
   return (
     <>
       <div className="mt-4 col-6 col-md-12 col-lg-4 head-title-global__left d-flex">
@@ -9,12 +239,17 @@ function CommentStory() {
         </h4>
       </div>
       <div className="d-flex justify-content-between mt-2">
-        <p>31 bình luận</p>
+        <p>{listcomment.length} bình luận</p>
         <div>
-          <label for="cars">Sắp xếp theo</label>{" "}
-          <select name="cars" id="cars">
-            <option value="volvo">Cũ nhất</option>
-            <option value="saab">Mới nhất</option>
+          <label htmlFor="sort">Sắp xếp theo</label>
+          <select
+            name="sort"
+            id="sort"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+          >
+            <option value="oldest">Cũ nhất</option>
+            <option value="newest">Mới nhất</option>
           </select>
         </div>
       </div>
@@ -25,108 +260,143 @@ function CommentStory() {
             style={{ backgroundColor: "#f0f2f5" }}
           >
             <div className="card-body p-4">
-              {/* Input field for adding a note */}
               <div data-mdb-input-init className="form-outline mb-4">
                 <input
                   type="text"
                   id="addANote"
                   className="form-control"
-                  placeholder="Type comment..."
+                  placeholder="Nhập bình luận..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
                 />
-                <label
-                  className="form-label mt-2"
-                  style={{ cursor: "pointer" }}
-                  htmlFor="addANote"
+                <button
+                  className="btn btn-primary mt-2"
+                  onClick={handleAddComment}
                 >
-                  + Add a note
-                </label>
+                  Thêm bình luận
+                </button>
               </div>
+              {loading ? (
+                <p>Đang tải bình luận...</p>
+              ) : (
+                <div className="comment-list-container">
+                  {listcomment.map((comment, index) => (
+                    <div key={index} className="card mb-4">
+                      <div className="card-body">
+                        <div className="d-flex justify-content-between">
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "10px",
+                            }}
+                          >
+                            <div>
+                              <img
+                                src={comment.avatar || user}
+                                alt="avatar"
+                                width="36"
+                                height="36"
+                              />
+                            </div>
+                            <div>
+                              <p
+                                style={{ fontSize: "16px", fontWeight: "bold" }}
+                                className="small mb-0"
+                              >
+                                {comment.user?.name}
+                              </p>
+                              <p className="mb-0">{comment.content}</p>
+                            </div>
+                          </div>
+                          <div className="d-flex flex-row align-items-center text-body">
+                            <i className="far fa-thumbs-up mx-2 fa-xs text-body"></i>
+                            <p className="small text-muted mb-0">
+                              {formatDate(comment.created_at)}
+                            </p>
+                          </div>
+                        </div>
+                        {/* Nút trả lời */}
+                        <div className="mt-2">
+                          <button
+                            className="btn text-primary p-0"
+                            onClick={() => toggleReplyForm(comment.id)}
+                          >
+                            Trả lời
+                          </button>
+                        </div>
+                        {/* Nút trả lời */}
 
-              {/* Comment cards */}
-              {[
-                {
-                  avatar:
-                    "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp",
-                  name: "Martha",
-                  text: "Type your note, and hit enter to add it",
-                  upvotes: 3,
-                  upvoted: false,
-                },
-                {
-                  avatar:
-                    "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp",
-                  name: "Johny",
-                  text: "Type your note, and hit enter to add it",
-                  upvotes: 4,
-                  upvoted: false,
-                },
-                {
-                  avatar:
-                    "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp",
-                  name: "Mary Kate",
-                  text: "Type your note, and hit enter to add it",
-                  upvotes: 2,
-                  upvoted: true,
-                },
-                {
-                  avatar:
-                    "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp",
-                  name: "Johny",
-                  text: "Type your note, and hit enter to add it",
-                  upvotes: null,
-                  upvoted: false,
-                },
-              ].map((comment, index) => (
-                <div key={index} className="card mb-4">
-                  <div className="card-body">
-                    <p>{comment.text}</p>
+                        {/* Form trả lời */}
+                        {comment.showReplyForm && (
+                          <div className="mt-2">
+                            <input
+                              type="text"
+                              placeholder="Nhập nội dung trả lời..."
+                              value={comment.replyContent || ""}
+                              onChange={(e) =>
+                                handleReplyChange(comment.id, e.target.value)
+                              }
+                              className="form-control"
+                            />
+                            <button
+                              className="btn btn-primary mt-2"
+                              onClick={() => handleReply(comment.id)}
+                            >
+                              Gửi
+                            </button>
+                          </div>
+                        )}
+                        {/* Form trả lời */}
 
-                    <div className="d-flex justify-content-between">
-                      <div className="d-flex flex-row align-items-center">
-                        <img
-                          src={comment.avatar}
-                          alt="avatar"
-                          width="25"
-                          height="25"
-                        />
-                        <p className="small mb-0 ms-2">{comment.name}</p>
-                      </div>
-                      <div className="d-flex flex-row align-items-center text-body">
-                        {comment.upvoted ? (
-                          <>
-                            <p className="small mb-0">Upvoted</p>
-                            <i
-                              className="fas fa-thumbs-up mx-2 fa-xs"
-                              style={{ marginTop: "-0.16rem" }}
-                            ></i>
-                          </>
-                        ) : (
-                          <>
-                            <p className="small text-muted mb-0">Upvote?</p>
-                            <i
-                              className="far fa-thumbs-up mx-2 fa-xs text-body"
-                              style={{ marginTop: "-0.16rem" }}
-                            ></i>
-                          </>
+                        {/* Danh sách trả lời */}
+                        {comment.reply?.length > 0 && (
+                          <div className="mt-3 pl-4 border-start">
+                            {comment.reply.map((reply, replyIndex) => (
+                              <div key={replyIndex} className="mb-2 ms-4">
+                                <div className="d-flex align-items-center">
+                                  <img
+                                    src={reply.user?.avatar || user}
+                                    alt="avatar"
+                                    width="28"
+                                    height="28"
+                                  />
+                                  <p
+                                    style={{
+                                      fontSize: "14px",
+                                      fontWeight: "bold",
+                                      marginLeft: "8px",
+                                    }}
+                                  >
+                                    {reply.user?.name || "Ẩn danh"}:
+                                  </p>
+                                </div>
+                                <p className="mb-0">{reply.content}</p>
+                                <p className="small text-muted">
+                                  {formatDate(reply.created_at)}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
                         )}
-                        {comment.upvotes !== null && (
-                          <p className="small text-muted mb-0">
-                            {comment.upvotes}
-                          </p>
-                        )}
+                        {/* Danh sách trả lời */}
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
-        <div className="row d-flex justify-content-center">
-          <button className="mt-3 text-center pt-2 pb-2 px-0 border-0 btn btn-primary">
-            Tải thêm 10 bình luận
-          </button>
-        </div>
+        {/* <div className="row d-flex justify-content-center">
+            <button
+              className="mt-3 text-center pt-2 pb-2 px-0 border-0 btn btn-primary"
+              disabled={listcomment.length < limit}
+              onClick={() => loadMoreComments()}
+            >
+              Tải thêm bình luận
+            </button>
+          </div> */}
       </div>
     </>
   );

@@ -45,6 +45,12 @@ body {
   font-family: Roboto Condensed, sans-serif;
 }
 
+.comment-list-container {
+  max-height: 400px; /* Hoặc chiều cao tùy theo yêu cầu */
+  overflow-y: auto; /* Hiển thị thanh cuộn khi vượt quá chiều cao */
+  padding-right: 5px; /* Đảm bảo không bị che khuất thanh cuộn */
+}
+
 .header {
   transition: top 0.3s ease-in-out;
   position: fixed;
