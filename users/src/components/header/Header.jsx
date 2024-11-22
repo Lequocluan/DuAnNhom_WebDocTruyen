@@ -95,7 +95,10 @@ function Header() {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul
+              className="navbar-nav me-auto mb-2 mb-lg-0"
+              style={{ marginRight: "0px" }}
+            >
               <Category
                 title="Thể loại"
                 dataCetegory={dataCetegory}
