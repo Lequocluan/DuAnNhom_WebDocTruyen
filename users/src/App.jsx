@@ -30,18 +30,15 @@ const router = createBrowserRouter([
       },
 
       {
-        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
         path: "/search",
         element: <Search />,
       },
 
       {
-        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
         path: "/:slugStory/:slugChapter",
         element: <Chapter />,
       },
       {
-        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
         path: "/:slugStory",
         element: <Details />,
       },

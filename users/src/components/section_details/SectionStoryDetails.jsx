@@ -10,6 +10,8 @@ function SectionStoryDetails({ detailStory }) {
     description,
     story_picture,
     author,
+    views,
+    shares,
     categories,
     status,
     chapters,
@@ -34,6 +36,7 @@ function SectionStoryDetails({ detailStory }) {
             </div>
             <div className="col-12 col-md-12 col-lg-9">
               <h3 className="text-center story-name">{name}</h3>
+
               <StarRating
                 maxRating={10}
                 size={24}
@@ -51,6 +54,28 @@ function SectionStoryDetails({ detailStory }) {
                 ]}
                 onSetRating={setUserRating}
               />
+
+              <div
+                class="rate-story__value text-center mt-2"
+                itemprop="aggregateRating"
+                itemscope=""
+                itemtype="https://schema.org/AggregateRating"
+              >
+                <em>
+                  Đánh giá:{" "}
+                  <strong>
+                    <span itemprop="ratingValue">{views}</span>
+                  </strong>
+                  /
+                  <span class="" itemprop="bestRating">
+                    10{" "}
+                  </span>
+                  từ{" "}
+                  <strong>
+                    <span itemprop="ratingCount">{shares}</span> lượt
+                  </strong>
+                </em>
+              </div>
 
               {/* <div className="rate-story mb-2">
                 <div
