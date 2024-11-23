@@ -10,8 +10,7 @@ function SectionCategoryItem({ name, story_picture, status, slug }) {
               src={story_picture.path}
               alt={story_picture.title}
               className="img-fluid"
-              width="150"
-              height="230"
+              style={{ width: "150px", height: "230px" }}
               loading="lazy"
             />
           </div>

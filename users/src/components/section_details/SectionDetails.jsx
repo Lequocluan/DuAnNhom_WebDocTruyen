@@ -23,7 +23,10 @@ function SectionDetails() {
           setIsLoading(false);
         }
       })
-      .catch((err) => console.error("Error fetching category data:", err));
+      .catch((err) => {
+        console.error("Error fetching category data:", err),
+          setIsLoading(false);
+      });
 
     return () => {
       isMounted = false;
