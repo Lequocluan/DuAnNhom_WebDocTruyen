@@ -8,7 +8,7 @@ function SectionStoryDetails({ detailStory }) {
     detailStory;
   const [userRating, setUserRating] = useState("");
 
-  console.log(detailStory);
+  // console.log(detailStory);
   return (
     <>
       <div className="story-detail">
@@ -256,7 +256,7 @@ function SectionStoryDetails({ detailStory }) {
           </ul>
         </div> */}
 
-        <CommentStory />
+        <CommentStory detailStory={detailStory} />
       </div>
     </>
   );

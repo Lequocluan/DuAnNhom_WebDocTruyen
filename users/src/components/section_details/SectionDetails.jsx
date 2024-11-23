@@ -10,7 +10,6 @@ function SectionDetails() {
   const [loading, setIsLoading] = useState(true);
   const { slugCategory } = useParams(); // Lấy slug từ URL
   const [detailStory, setDetailStory] = useState([]);
-  // console.log(detailStory);
 
   useEffect(() => {
     let isMounted = true;

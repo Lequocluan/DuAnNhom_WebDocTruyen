@@ -46,3 +46,9 @@ npm i axios
 npm install prop-types
 
 ```
+
+- install date-fns
+
+```sh
+npm install date-fns
+```
