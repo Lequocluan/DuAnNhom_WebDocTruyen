@@ -4,11 +4,17 @@ import { useState } from "react";
 import CommentStory from "./CommentStory";
 
 function SectionStoryDetails({ detailStory }) {
-  const { name, description, story_picture, author, categories, status } =
-    detailStory;
+  const {
+    name,
+    slug,
+    description,
+    story_picture,
+    author,
+    categories,
+    status,
+    chapters,
+  } = detailStory;
   const [userRating, setUserRating] = useState("");
-
-  // console.log(detailStory);
   return (
     <>
       <div className="story-detail">
@@ -77,11 +83,9 @@ function SectionStoryDetails({ detailStory }) {
 
               <div
                 className="story-detail__top--desc px-3"
-                style={{ maxHeight: "285px" }}
-              >
-                {description}
-              </div>
-
+                style={{ maxHeight: "285px", overflow: "auto" }}
+                dangerouslySetInnerHTML={{ __html: description }}
+              ></div>
               {/* <div className="info-more">
                 <div className="info-more--more active" id="info_more">
                   <span className="me-1 text-dark">Xem thêm</span>
@@ -180,26 +184,22 @@ function SectionStoryDetails({ detailStory }) {
           <div className="story-detail__list-chapter--list">
             <div className="row">
               <div className="col-12 col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
-                <ul>
-                  <li>
-                    <Link
-                      to="/"
-                      className="text-decoration-none text-dark hover-title"
-                    >
-                      Chương 1: Nàng không tin Yến Đình lại lừa nàng chuyện lớn
-                      đến vậy!
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/"
-                      className="text-decoration-none text-dark hover-title"
-                    >
-                      Chương 1: Nàng không tin Yến Đình lại lừa nàng chuyện lớn
-                      đến vậy!
-                    </Link>
-                  </li>
-                </ul>
+                {chapters.length > 0 ? (
+                  <ul>
+                    {chapters.map((chapter) => (
+                      <li key={chapter.id}>
+                        <Link
+                          to={`/${slug}/${chapter.slug}`}
+                          className="text-decoration-none text-dark hover-title"
+                        >
+                          {chapter.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>Danh sách chương sẽ sớm được cập nhật.</p>
+                )}
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ import axios from "axios";
 
 function SectionStoryDone() {
   const [storiesDone, setStoriesDone] = useState([]);
-  console.log(storiesDone);
+  // console.log(storiesDone);
   useEffect(() => {
     let isMounted = true;
 
