@@ -1,4 +1,4 @@
-function SectionChapperContent({ text }) {
+function SectionChapterContent({ text }) {
   return (
     <>
       <div className="chapter-content mb-3">
@@ -9,14 +9,10 @@ function SectionChapperContent({ text }) {
           style={{ height: "90px" }}
         ></div>
 
-        <div className="py-2">
-          {text.map((line, index) => (
-            <p key={index}>{line}</p>
-          ))}
-        </div>
+        <div className="py-2" dangerouslySetInnerHTML={{ __html: text }}></div>
       </div>
     </>
   );
 }
 
-export default SectionChapperContent;
+export default SectionChapterContent;
