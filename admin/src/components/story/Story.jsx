@@ -93,13 +93,11 @@ function Story() {
                         className="w-full h-full object-cover rounded-full"
                       />
                     </div>
-                    <span>{story.name}</span>
+                    <span className="truncate">{story.name}</span>
                   </div>
                 </div>
-                <span className="col-span-3">
-                {story.author.full_name}
-                </span>
-                <span className="col-span-3">
+                <span className="col-span-3 truncate">{story.author.full_name}</span>
+                <span className="col-span-3 truncate">
                   {story.categories.map((cat) => cat.name).join(", ")}
                 </span>
                 <div className="flex gap-6 text-2xl">
