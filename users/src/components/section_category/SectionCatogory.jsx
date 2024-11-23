@@ -42,13 +42,11 @@ function SectionCatogory() {
       </div>
     );
   }
-
   const cleanDescription = stories[0].description
     ? stories[0].description
         .replace(/<p>/g, "<span>")
         .replace(/<\/p>/g, "</span>")
     : "Mô tả không có sẵn.";
-
   return (
     <>
       <div className="container">
@@ -68,11 +66,10 @@ function SectionCatogory() {
                 </h2>
               </div>
             </div>
-            <div className="list-story-in-category section-stories-hot__list">
+            <div className="list-story-in-category section-stories-list">
               {stories.map((story) => (
                 <SectionCategoryItem key={story.id} {...story} />
               ))}
-              {/* <SectionCategoryItem DataCategory={DataCategory} /> */}
             </div>
           </div>
           {/* SECTION CATEGORY DESCRIPTION */}
