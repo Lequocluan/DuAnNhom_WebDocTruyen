@@ -1,11 +1,11 @@
 import SectionStoryDone from "./SectionStoriesDone";
-import SectionStoriesHot from "./SectionStoriesHot";
+import SectionNovelHot from "./SectionNovelsHot";
 import SectionStoriesNew from "./SectionStoriesNew";
 
 function SectionIndex() {
   return (
     <>
-      <SectionStoriesHot />
+      <SectionNovelHot />
       <SectionStoriesNew />
       <SectionStoryDone />
     </>

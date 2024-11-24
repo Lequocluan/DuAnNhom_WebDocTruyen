@@ -159,7 +159,7 @@ const Category = () => {
   }
 
   return (
-    <div className="w-full h-full max-h-full bg-white rounded-xl p-8 relative overflow-hidden flex-col flex flex-1">
+    <div className="w-full h-full bg-white rounded-xl p-8 relative overflow-hidden flex flex-col">
       <div className="flex justify-between items-center">
         <h4 className="text-4xl font-extrabold">Thể loại</h4>
         <Link
@@ -175,7 +175,7 @@ const Category = () => {
         <p className="mb-5 mt-2 ml-4">{totalItem} thể loại có sẵn</p>
       </div>
 
-      <div className="w-full mt-2 flex flex-col gap-4 flex-1 h-1/2">
+      <div className="w-full mt-2 flex flex-col gap-4 h-full overflow-hidden flex-1">
         <div className="w-full bg-scooter-100 p-5 rounded-3xl font-semibold grid grid-cols-11 gap-4">
           <span>No.</span>
           <span className="col-span-2">Name</span>

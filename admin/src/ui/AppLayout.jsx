@@ -8,7 +8,7 @@ function AppLayout() {
       <Sidebar className="w-[38rem] h-dvh" />
       <div className="flex h-dvh max-h-dvh flex-col w-full">
         <Header />
-        <main className="flex-1 h-full">
+        <main className="flex-1 overflow-hidden flex flex-col">
           <Outlet />
         </main>
       </div>

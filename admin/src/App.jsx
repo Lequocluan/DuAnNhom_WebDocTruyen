@@ -21,6 +21,7 @@ import AddAds from "./components/advertise/AddAds";
 import EditAds from "./components/advertise/Edit";
 import AddChapter from "./components/chapter/AddChapter";
 import EditChapter from "./components/chapter/EditChapter";
+import Comic from "./components/comic/Comic";
 
 const App = () => {
   return (
@@ -60,8 +61,9 @@ const App = () => {
 
             <Route path="/chapters" element={<Chapter />} />
             <Route path="/chapters/add" element={<AddChapter />} />
-            <Route path="/chapters/eidt/:id" element={<EditChapter />} />
+            <Route path="/chapters/edit/:id" element={<EditChapter />} />
 
+            <Route path="comic" element={<Comic />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Route>

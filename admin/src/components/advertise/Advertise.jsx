@@ -19,7 +19,7 @@ function Advertise() {
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [offset, setOffset] = useState(0)
-  const limit = 2;
+  const limit = 5;
 
   const cookies = new Cookies();
   const token = cookies.get("authToken");

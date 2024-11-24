@@ -61,7 +61,7 @@ function Author() {
   };
 
   return (
-    <div className="w-full h-full bg-white rounded-xl p-8 relative overflow-hidden">
+    <div className="w-full h-full bg-white rounded-xl p-8 relative overflow-hidden flex flex-col">
       <div className="flex justify-between items-center">
         <h4 className="text-4xl font-extrabold">Tác giả</h4>
         <Link
@@ -71,7 +71,7 @@ function Author() {
           Thêm tác giả
         </Link>
       </div>
-      <div className="w-full mt-10 flex flex-col gap-4">
+      <div className="w-full mt-10 flex flex-col gap-4 h-full overflow-hidden flex-1">
         <div className="w-full bg-scooter-100 p-5 rounded-3xl font-semibold grid grid-cols-10 gap-2">
           <span className="col-span-3">Full name</span>
           <span className="col-span-3">Pen name</span>
