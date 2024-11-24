@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SectionCategoryItem from "./SectionCategoryItem";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import DOMPurify from "dompurify";
 
 function SectionCatogory() {
   const [loading, setIsLoading] = useState(true);
@@ -46,6 +47,11 @@ function SectionCatogory() {
       </div>
     );
   }
+  const cleanDescription = stories[0].description
+    ? stories[0].description
+        .replace(/<p>/g, "<span>")
+        .replace(/<\/p>/g, "</span>")
+    : "Mô tả không có sẵn.";
   return (
     <>
       <div className="container">
@@ -75,8 +81,12 @@ function SectionCatogory() {
           <div className="col-12 col-md-4 col-lg-3 sticky-md-top">
             <div className="category-description bg-light p-2 rounded mb-3 card-custom">
               <p className="mb-0 text-secondary"></p>
-              <p>{stories[0].description || "Mô tả không có sẵn."}</p>
-              <p></p>
+
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: cleanDescription,
+                }}
+              ></p>
             </div>
           </div>
         </div>
