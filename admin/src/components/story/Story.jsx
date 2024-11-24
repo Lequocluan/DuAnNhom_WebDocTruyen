@@ -60,7 +60,7 @@ function Story() {
   };
 
   return (
-    <div className="w-full h-full bg-white rounded-xl p-8 relative overflow-hidden">
+    <div className="w-full h-full bg-white rounded-xl p-8 relative overflow-hidden flex flex-col">
       <div className="flex justify-between items-center">
         <h4 className="text-4xl font-extrabold">Danh sách truyện</h4>
         <Link

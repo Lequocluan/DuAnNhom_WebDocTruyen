@@ -1,23 +1,23 @@
 import { Link } from "react-router-dom";
 import { Data1, Data2 } from "./Data";
-import SectionStoriesHotItem from "./SectionStoriesHotItem";
+import SectionNovelsHotItem from "./SectionNovelsHotItem";
 import SectionTitle from "../SectionTitle";
 import { useGlobalContext } from "../../context";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function SectionStoriesHot() {
+function SectionNovelHot() {
   const { dataCetegory } = useGlobalContext();
   const [dataStoryHot, setDataStoryHot] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  console.log(dataStoryHot);
+  // console.log(dataStoryHot);
 
   // Sửa hàm fetchStories
-  const fetchStories = (categorySlug = "") => {
+  const fetchNovels = (categorySlug = "") => {
     const url = categorySlug
-      ? `https://truyen.ntu264.vpsttt.vn/api/hot-stories/${categorySlug}` // Sử dụng categorySlug
-      : "https://truyen.ntu264.vpsttt.vn/api/hot-stories";
+      ? `https://truyen.ntu264.vpsttt.vn/api/hot-novels/${categorySlug}` // Sử dụng categorySlug
+      : "https://truyen.ntu264.vpsttt.vn/api/hot-novels";
 
     axios
       .get(url)
@@ -34,11 +34,11 @@ function SectionStoriesHot() {
   const handleCategoryChange = (e) => {
     const categorySlug = e.target.value; // Lấy slug từ giá trị chọn
     setSelectedCategory(categorySlug); // Cập nhật state
-    fetchStories(categorySlug); // Gọi API với slug mới
+    fetchNovels(categorySlug); // Gọi API với slug mới
   };
 
   useEffect(() => {
-    fetchStories(); // Lần đầu gọi API để lấy tất cả truyện
+    fetchNovels(); // Lần đầu gọi API để lấy tất cả truyện
   }, []);
 
   return (
@@ -84,8 +84,8 @@ function SectionStoriesHot() {
                 </div>
               ) : (
                 <div className="section-stories-hot__list">
-                  {dataStoryHot.map((data) => (
-                    <SectionStoriesHotItem key={data.id} {...data} />
+                  {dataStoryHot.map((data, index) => (
+                    <SectionNovelsHotItem key={index} {...data} />
                   ))}
                 </div>
               )}
@@ -97,4 +97,4 @@ function SectionStoriesHot() {
   );
 }
 
-export default SectionStoriesHot;
+export default SectionNovelHot;
