@@ -5,28 +5,26 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7); /* Làm mờ nền */
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
-  z-index: 6000; /* Hiển thị trên tất cả các thành phần khác */
+  /* z-index: 6000; */
 }
 
 /* Định dạng banner */
 .banner-ads {
   position: relative;
 
-  padding: 20px;
   border-radius: 8px;
 
   text-align: center;
-  max-width: 100%; /* Đảm bảo hiển thị tốt trên màn hình nhỏ */
+  max-width: 100%;
 }
 
 .banner-ads img {
-  max-width: 100%; /* Banner co giãn theo kích thước container */
-  border-radius: 8px;
-  height: 600px;
+  width: 118px;
+  /* border-radius: 8px; */
+  height: 174px;
 }
 
 .ads_close {
@@ -47,11 +45,11 @@
 /* Nút đóng */
 .close-btn {
   position: absolute;
-  top: 28px;
-  right: 28px;
+  top: -6px;
+  right: -6px;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 16px;
   cursor: pointer;
   color: #000;
   font-weight: bold;
@@ -60,5 +58,5 @@
 
 .close-btn:hover {
   color: red; /* Đổi màu khi hover */
-  transform: rotate(360deg);
+  /* transform: rotate(360deg); */
 }
