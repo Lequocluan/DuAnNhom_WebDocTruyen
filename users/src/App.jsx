@@ -12,6 +12,7 @@ import Chapter from "./ui/Chapter";
 import Details from "./ui/Details";
 import Login from "./components/login/Login";
 import Register from "./components/login/Register";
+import DetailComic from "./ui/DetailComic";
 
 const router = createBrowserRouter([
   {
@@ -39,8 +40,12 @@ const router = createBrowserRouter([
         element: <Chapter />,
       },
       {
-        path: "/:slugStory",
+        path: "truyen-chu/:slugStory",
         element: <Details />,
+      },
+      {
+        path: "/truyen-tranh/:slugComic",
+        element: <DetailComic />,
       },
     ],
   },
