@@ -84,7 +84,7 @@ const EditCategory = () => {
   return (
     <div className="w-full bg-white rounded-xl p-6 font-mulish">
         <div className="flex gap-6 items-center mb-6">
-            <Link to="/author">
+            <Link to="/category">
                 <HiOutlineArrowLeftCircle className="w-12 h-12 hover:text-scooter-500" />
             </Link>
             <h4 className="text-4xl font-extrabold">Sửa thông tin thể loại</h4>
