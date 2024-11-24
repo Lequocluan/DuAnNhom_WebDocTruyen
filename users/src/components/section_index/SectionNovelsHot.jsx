@@ -14,7 +14,7 @@ function SectionNovelHot() {
   // console.log(dataStoryHot);
 
   // Sửa hàm fetchStories
-  const fetchNovels = (categorySlug = "") => {
+  const fetchNovels = (categorySlug = null) => {
     const url = categorySlug
       ? `https://truyen.ntu264.vpsttt.vn/api/hot-novels/${categorySlug}` // Sử dụng categorySlug
       : "https://truyen.ntu264.vpsttt.vn/api/hot-novels";

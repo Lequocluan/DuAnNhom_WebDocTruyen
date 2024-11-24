@@ -800,6 +800,14 @@ main {
   text-shadow: 1px 2px 2px #000;
   width: 100%;
 }
+
+.story-item__name_truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .story-item .list-badge {
   display: flex;
   flex-direction: column;
