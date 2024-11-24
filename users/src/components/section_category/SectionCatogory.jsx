@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import SectionCategoryItem from "./SectionCategoryItem";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import DOMPurify from "dompurify";
 
 function SectionCatogory() {
   const [loading, setIsLoading] = useState(true);
-  const { slugCategory } = useParams(); // Lấy slug từ URL
+  const { slugCategory } = useParams();
   const [stories, setStories] = useState([]);
   const [nameCategory, setNameCategory] = useState(null);
 
