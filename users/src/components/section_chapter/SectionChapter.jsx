@@ -19,7 +19,7 @@ function SectionChapter() {
         setError(null);
 
         const response = await fetch(
-          `https://truyen.ntu264.vpsttt.vn/api/${slugStory}/${slugChapter}`
+          `https://truyen.ntu264.vpsttt.vn/api/chapter/detail/${slugStory}/${slugChapter}`
         );
         const data = await response.json();
         if (data.status === 404) {

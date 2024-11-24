@@ -129,7 +129,7 @@ function Chapter() {
                     <span>{chapter.title}</span>
                   </div>
                 </div>
-                <span className="col-span-3">{chapter.content}</span>
+                <span className="col-span-3 truncate">{chapter.content}</span>
                 <span className="col-span-3">{chapter.story.name}</span>
                 <span className="col-span-2">
                   {chapter.status == 1 ? (
