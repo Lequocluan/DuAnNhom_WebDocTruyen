@@ -7,6 +7,7 @@ function SectionCatogory() {
   const [loading, setIsLoading] = useState(true);
   const { slugCategory } = useParams(); // Lấy slug từ URL
   const [stories, setStories] = useState([]);
+  const [nameCategory, setNameCategory] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -17,9 +18,13 @@ function SectionCatogory() {
         if (isMounted) {
           setStories(res.data.body.data.data);
           setIsLoading(false);
+          setNameCategory(res.data.body.category);
         }
       })
-      .catch((err) => console.error("Error fetching category data:", err));
+      .catch((err) => {
+        console.error("Error fetching category data:", err),
+          setIsLoading(false);
+      });
 
     return () => {
       isMounted = false;
@@ -55,7 +60,7 @@ function SectionCatogory() {
                     className="d-block text-decoration-none text-dark fs-4 category-name"
                     title="Ngôn Tình"
                   >
-                    Thể Loại Truyện
+                    Thể Loại Truyện: {nameCategory}
                   </span>
                 </h2>
               </div>
