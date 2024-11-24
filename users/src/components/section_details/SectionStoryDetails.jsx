@@ -186,7 +186,7 @@ function SectionStoryDetails({ detailStory }) {
               <p className="mb-1">
                 <strong>Trạng thái: </strong>
                 <span className="text-info">
-                  {status === "1" ? "Full" : "Đang cập nhật"}
+                  {status === "2" ? "Full" : "Đang cập nhật"}
                 </span>
               </p>
             </div>

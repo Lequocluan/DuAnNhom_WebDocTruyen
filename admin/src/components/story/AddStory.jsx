@@ -88,7 +88,6 @@ function AddStory() {
   useEffect(() => {
     fetchData();
   }, [token]);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setStory((prev) => ({ ...prev, [name]: value }));
@@ -97,7 +96,6 @@ function AddStory() {
   const handleCategoryChange = (selectedOptions) => {
     setStory((prev) => ({ ...prev, categories: selectedOptions || [] }));
   };
-
   const handleAuthorChange = (selectedOption) => {
     setStory({ ...story, author_id: selectedOption.value });
   };
@@ -112,7 +110,6 @@ function AddStory() {
         setStatus(error)
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateFields()) return;
@@ -120,17 +117,10 @@ function AddStory() {
     try {
       let pictureId = null;
   
-      console.log("Story data before submission:", story);
-  
-      // Kiểm tra và upload ảnh nếu có
       if (story.story_picture) {
         const responseImage = await uploadStoryImage(story.story_picture, title);
-  
-        console.log("Picture upload result:", responseImage);
-  
         if (responseImage && responseImage?.data?.status < 400) {
           pictureId = responseImage.data.body.data.id;
-          console.log("Uploaded picture ID:", pictureId);
         } else {
           toast.error("Upload ảnh thất bại.");
           setMessage("Upload ảnh thất bại.");
@@ -141,20 +131,30 @@ function AddStory() {
   
       const response = await createStoryRequest(pictureId);
   
-      console.log("Response from create story:", response);
+      if (response?.error) { 
+        setStatus("error");
+        return;  
+      }
   
       if (response?.status >= 200 && response?.status < 300) {
         toast.success("Thêm truyện thành công!");
         setMessage("Thêm truyện thành công!");
         setStatus("success");
-        navigate("/story"); 
+        navigate("/story");
       } else {
         const errors = Array.isArray(response.data.body.message)
           ? response.data.body.message
           : [];
-        const errorMessages = errors.map((error) => error.error_message).join(", ");
-        console.log("Server errors:", errorMessages);
-        setMessage(errorMessages); 
+  
+        const nameError = errors.find((err) => err.field === "name");
+        if (nameError) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            name: nameError.error_message,
+          }));
+        }
+  
+        setMessage("Có lỗi xảy ra, vui lòng kiểm tra lại.");
         setStatus("error");
       }
     } catch (error) {
@@ -193,20 +193,18 @@ function AddStory() {
       return null; 
     }
   };
-
   const createStoryRequest = async (pictureId) => {
     try {
-        const payload = {
-          name: story.name,
-          description: story.description,
-          author_id: story.author_id,
-          status: story.status || 1, 
-          thumbnail_id: pictureId, 
-          category_ids: story.categories.map((cat) => cat.value), 
-          story_images: story.story_picture.title
-        };
-    
-        console.log("Creating story with data:", payload);
+      const payload = {
+        name: story.name,
+        description: story.description,
+        author_id: story.author_id,
+        status: story.status || 1,
+        thumbnail_id: pictureId,
+        category_ids: story.categories.map((cat) => cat.value),
+        story_images: story.story_picture.title,
+      };
+  
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/story/create`,
         payload,
@@ -216,21 +214,36 @@ function AddStory() {
           },
         }
       );
-      console.log("Create story response:", response);
+  
+      if (response.data.status === 400) {
+        const errors = response.data.body.message;
+        const newErrors = {};
+        errors.forEach((error) => {
+          if (error.field === "name") {
+            newErrors.name = error.error_message; 
+          }
+        });
+  
+        setErrors(newErrors);
+        return { error: errors[0]?.error_message };
+      }
+  
       return response;
     } catch (error) {
       console.error("Error creating story:", error);
-      console.log(error)
-      return;
+      return { error: "Có lỗi xảy ra, vui lòng thử lại sau." };
     }
   };
   
-  
   useEffect(() => {
-    if (message) {
-      setTimeout(() => setMessage(""), 1000);
+    if (message || errors) {
+      const timeout = setTimeout(() => {
+        setMessage("");
+        setErrors("");
+      }, 1000);
+      return () => clearTimeout(timeout);
     }
-  }, [message]);
+  }, [message, errors]);
 
   return (
     <div className="w-full bg-white rounded-xl overflow-auto h-screen flex flex-col p-6 font-mulish">
@@ -262,7 +275,9 @@ function AddStory() {
                     value={story.name}
                     onChange={handleInputChange}
                     placeholder="Story Name"
-                    className="p-4 border rounded-lg"
+                    className={`p-4 border rounded-lg ${
+                        errors.name ? "border-error-outline" : ""
+                    }`}
                 />{errors.name && <span className="text-xl text-error-outline">{errors.name}</span>}
             </div>
             <div className="flex flex-col gap-2">
@@ -340,9 +355,9 @@ function AddStory() {
                     onChange={(e) => handleInputChange({ target: { name: "status", value: parseInt(e.target.value, 10) } })}
                     className="p-4 border rounded-lg"
                     >
-                    <option value="1">Active</option>
+                    <option value="2">Completed</option>
                     <option value="0">Inactive</option>
-                    <option value="2">Is Releasing</option>
+                    <option value="1">Is Launching</option>
                 </select>
             </div>
             <div className="mt-6 justify-center flex gap-4">
