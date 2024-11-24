@@ -19,6 +19,8 @@ import EditAuthor from "./components/author/Edit";
 import Advertise from "./components/advertise/Advertise";
 import AddAds from "./components/advertise/AddAds";
 import EditAds from "./components/advertise/Edit";
+import AddChapter from "./components/chapter/AddChapter";
+import EditChapter from "./components/chapter/EditChapter";
 
 const App = () => {
   return (
@@ -36,12 +38,12 @@ const App = () => {
 
             <Route path="category" element={<Category />} />
             <Route path="author" element={<Author />} />
-            
+
             <Route path="category/add" element={<AddCategory />} />
             <Route path="category/edit/:id" element={<EditCategory />} />
-            
+
             <Route path="story" element={<Story />} />
-            <Route path="story/add" element={<AddStory />} /> 
+            <Route path="story/add" element={<AddStory />} />
             <Route path="story/edit/:id" element={<EditStory />} />
 
             {/* Part author */}
@@ -54,9 +56,11 @@ const App = () => {
             {/* Part advertise */}
             <Route path="ads" element={<Advertise />} />
             <Route path="ads/add" element={<AddAds />} />
-            <Route path="ads/edit/:id" element={<EditAds/>} />
+            <Route path="ads/edit/:id" element={<EditAds />} />
 
             <Route path="/chapters" element={<Chapter />} />
+            <Route path="/chapters/add" element={<AddChapter />} />
+            <Route path="/chapters/eidt/:id" element={<EditChapter />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>
