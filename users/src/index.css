@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --color-primary: #222;
   --color-primary-hover: #2f566d;
@@ -42,7 +46,8 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: Roboto Condensed, sans-serif;
+  /* font-family: Roboto Condensed, sans-serif; */
+  font-family: "Afacad", sans-serif;
 }
 
 .comment-list-container {
@@ -101,6 +106,10 @@ body {
   flex-wrap: wrap;
   list-style: none;
   padding-left: 0;
+}
+
+.border_linear_gradient {
+  border-image: linear-gradient(180deg, rgba(72, 49, 157, 0.20) 18.75%, rgba(72, 49, 157, 0.00) 100%)  ;
 }
 .pagination__item {
   align-items: center;

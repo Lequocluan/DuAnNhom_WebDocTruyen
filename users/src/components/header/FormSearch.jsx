@@ -30,7 +30,7 @@ function FormSearch() {
         )}`
       );
       const data = await response.json();
-      setResults(data.body.data);
+      setResults(data.body.data.stories);
     } catch (error) {
       console.error("Error fetching search results:", error);
     } finally {
@@ -129,7 +129,7 @@ function FormSearch() {
           </div>
         )}
 
-        <button className="btn" type="submit">
+        <button className="btn top-1/2 -translate-y-1/2" type="submit">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
