@@ -3,12 +3,33 @@ import SectionStoriesNewItem from "./SectionStoriesNewItem";
 import SectionTitle from "../SectionTitle";
 import SectionStoriesNewCategoryItem from "./SectionStoriesNewCategoryItem";
 import { useGlobalContext } from "../../context";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function SectionStoriesNew() {
   const { dataCetegory } = useGlobalContext();
 
+  const [dataStoryNew, setDataStoryNew] = useState([]);
+  // console.log(dataStoryNew);
+
+  useEffect(() => {
+    axios
+      .get("https://truyen.ntu264.vpsttt.vn/api/story/latest")
+      .then((res) => setDataStoryNew(res.data.body.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
+      {/* <p>
+        {dataStoryNew.map((data) => {
+          return (
+            <ul key={data.id}>
+              <li>{data.name}</li>
+            </ul>
+          );
+        })}
+      </p> */}
       <div className="container">
         <div className="row align-items-start">
           <div className="col-12 col-md-8 col-lg-9">
@@ -17,7 +38,7 @@ function SectionStoriesNew() {
                 <div className="head-title-global d-flex justify-content-between mb-2">
                   <div className="col-6 col-md-4 col-lg-4 head-title-global__left d-flex align-items-center">
                     <h2 className="me-2 mb-0 border-bottom border-secondary pb-1">
-                      <SectionTitle title="Truyện Hot" link="#" />
+                      <SectionTitle title="Truyện Mới Cập Nhật" link="#" />
                     </h2>
                   </div>
                 </div>
@@ -26,7 +47,7 @@ function SectionStoriesNew() {
               <div className="row">
                 <div className="col-12">
                   <div className="section-stories-new__list">
-                    {DataItem.map((data) => {
+                    {dataStoryNew.map((data) => {
                       return <SectionStoriesNewItem key={data.id} {...data} />;
                     })}
                   </div>

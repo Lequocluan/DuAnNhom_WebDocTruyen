@@ -23,7 +23,6 @@ function SectionSearch() {
         })
         .catch((err) => console.error("Error fetching search results:", err));
     } else {
-      navigate("/not-found");
     }
   }, [keyword]);
 
@@ -48,10 +47,17 @@ function SectionSearch() {
       <div className="row">
         <div className="col-12">
           <h2>Kết quả tìm kiếm cho "{keyword}"</h2>
-          <div className="list-story-in-category">
-            {stories.map((story) => (
-              <SectionCategoryItem key={story.id} {...story} />
-            ))}
+          <div className="container">
+            <div className="row g-3">
+              {stories.map((story) => (
+                <div
+                  className="col-4 col-sm-4 col-md-3 col-lg-2"
+                  key={story.id}
+                >
+                  <SectionCategoryItem {...story} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

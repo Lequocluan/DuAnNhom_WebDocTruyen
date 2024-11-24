@@ -8,7 +8,7 @@ import Home from "./ui/Home";
 import Error from "./ui/Error";
 import Category from "./ui/Category";
 import Search from "./ui/Search";
-import Chapper from "./ui/Chapper";
+import Chapter from "./ui/Chapter";
 import Details from "./ui/Details";
 import Login from "./components/login/Login";
 import Register from "./components/login/Register";
@@ -30,19 +30,16 @@ const router = createBrowserRouter([
       },
 
       {
-        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
         path: "/search",
         element: <Search />,
       },
 
       {
-        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
-        path: "/chapper",
-        element: <Chapper />,
+        path: "/:slugStory/:slugChapter",
+        element: <Chapter />,
       },
       {
-        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
-        path: "/:slugCategory",
+        path: "/:slugStory",
         element: <Details />,
       },
     ],

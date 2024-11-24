@@ -3,9 +3,43 @@ import { Data1, Data2 } from "./Data";
 import SectionStoriesHotItem from "./SectionStoriesHotItem";
 import SectionTitle from "../SectionTitle";
 import { useGlobalContext } from "../../context";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function SectionStoriesHot() {
   const { dataCetegory } = useGlobalContext();
+  const [dataStoryHot, setDataStoryHot] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  console.log(dataStoryHot);
+
+  // Sửa hàm fetchStories
+  const fetchStories = (categorySlug = "") => {
+    const url = categorySlug
+      ? `https://truyen.ntu264.vpsttt.vn/api/hot-stories/${categorySlug}` // Sử dụng categorySlug
+      : "https://truyen.ntu264.vpsttt.vn/api/hot-stories";
+
+    axios
+      .get(url)
+      .then((res) => {
+        setDataStoryHot(res.data.body.data);
+        if (!categorySlug) {
+          setSelectedCategory("");
+        }
+      })
+      .catch((err) => console.error(err));
+  };
+
+  // Sửa hàm handleCategoryChange
+  const handleCategoryChange = (e) => {
+    const categorySlug = e.target.value; // Lấy slug từ giá trị chọn
+    setSelectedCategory(categorySlug); // Cập nhật state
+    fetchStories(categorySlug); // Gọi API với slug mới
+  };
+
+  useEffect(() => {
+    fetchStories(); // Lần đầu gọi API để lấy tất cả truyện
+  }, []);
 
   return (
     <>
@@ -24,16 +58,17 @@ function SectionStoriesHot() {
                 <select
                   className="form-select select-stories-hot"
                   aria-label="Truyen hot"
-                  defaultValue={""} // defaultValue for uncontrolled components
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
                 >
                   <option value="">Tất cả</option>
-                  {dataCetegory.map((data, index) => {
-                    return (
-                      <option key={data.id} value={index + 1}>
-                        {data.name}
-                      </option>
-                    );
-                  })}
+                  {dataCetegory.map((data) => (
+                    <option key={data.id} value={data.slug}>
+                      {" "}
+                      {/* Truyền slug */}
+                      {data.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -41,11 +76,19 @@ function SectionStoriesHot() {
 
           <div className="row">
             <div className="col-12">
-              <div className="section-stories-hot__list">
-                {Data2.map((data) => {
-                  return <SectionStoriesHotItem key={data.id} {...data} />;
-                })}
-              </div>
+              {dataStoryHot.length === 0 ? (
+                <div className="col-12" style={{ minHeight: "30vh" }}>
+                  <p className="text-primary" style={{ fontWeight: "bold" }}>
+                    Không có truyện nào trong thể loại này.
+                  </p>
+                </div>
+              ) : (
+                <div className="section-stories-hot__list">
+                  {dataStoryHot.map((data) => (
+                    <SectionStoriesHotItem key={data.id} {...data} />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

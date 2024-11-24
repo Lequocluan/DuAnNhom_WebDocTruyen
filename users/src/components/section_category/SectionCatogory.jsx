@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import SectionCategoryItem from "./SectionCategoryItem";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function SectionCatogory() {
   const [loading, setIsLoading] = useState(true);
-  const { slugCategory } = useParams(); // Lấy slug từ URL
+  const { slugCategory } = useParams();
   const [stories, setStories] = useState([]);
+  const [nameCategory, setNameCategory] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -17,9 +18,13 @@ function SectionCatogory() {
         if (isMounted) {
           setStories(res.data.body.data.data);
           setIsLoading(false);
+          setNameCategory(res.data.body.category);
         }
       })
-      .catch((err) => console.error("Error fetching category data:", err));
+      .catch((err) => {
+        console.error("Error fetching category data:", err),
+          setIsLoading(false);
+      });
 
     return () => {
       isMounted = false;
@@ -41,7 +46,11 @@ function SectionCatogory() {
       </div>
     );
   }
-
+  const cleanDescription = stories[0].description
+    ? stories[0].description
+        .replace(/<p>/g, "<span>")
+        .replace(/<\/p>/g, "</span>")
+    : "Mô tả không có sẵn.";
   return (
     <>
       <div className="container">
@@ -56,24 +65,27 @@ function SectionCatogory() {
                     className="d-block text-decoration-none text-dark fs-4 category-name"
                     title="Ngôn Tình"
                   >
-                    Thể Loại Truyện
+                    Thể Loại Truyện: {nameCategory}
                   </span>
                 </h2>
               </div>
             </div>
-            <div className="list-story-in-category section-stories-hot__list">
+            <div className="list-story-in-category section-stories-list">
               {stories.map((story) => (
                 <SectionCategoryItem key={story.id} {...story} />
               ))}
-              {/* <SectionCategoryItem DataCategory={DataCategory} /> */}
             </div>
           </div>
           {/* SECTION CATEGORY DESCRIPTION */}
           <div className="col-12 col-md-4 col-lg-3 sticky-md-top">
             <div className="category-description bg-light p-2 rounded mb-3 card-custom">
               <p className="mb-0 text-secondary"></p>
-              <p>{stories[0].description || "Mô tả không có sẵn."}</p>
-              <p></p>
+
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: cleanDescription,
+                }}
+              ></p>
             </div>
           </div>
         </div>

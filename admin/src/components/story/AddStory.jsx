@@ -88,7 +88,6 @@ function AddStory() {
   useEffect(() => {
     fetchData();
   }, [token]);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setStory((prev) => ({ ...prev, [name]: value }));
@@ -97,7 +96,6 @@ function AddStory() {
   const handleCategoryChange = (selectedOptions) => {
     setStory((prev) => ({ ...prev, categories: selectedOptions || [] }));
   };
-
   const handleAuthorChange = (selectedOption) => {
     setStory({ ...story, author_id: selectedOption.value });
   };
@@ -163,10 +161,10 @@ function AddStory() {
       console.error("Lỗi trong khi submit:", error);
       setStatus("error");
       setMessage("Lỗi kết nối tới server.");
+      console.log(error);
     }
   };
   
-
   const uploadStoryImage = async (file, title) => {
     try {
       const formData = new FormData();
@@ -207,7 +205,6 @@ function AddStory() {
         story_images: story.story_picture.title,
       };
   
-      console.log("Creating story with data:", payload);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/story/create`,
         payload,
@@ -247,7 +244,6 @@ function AddStory() {
       return () => clearTimeout(timeout);
     }
   }, [message, errors]);
-  
 
   return (
     <div className="w-full bg-white rounded-xl overflow-auto h-screen flex flex-col p-6 font-mulish">

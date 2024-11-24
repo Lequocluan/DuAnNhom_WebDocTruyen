@@ -2,13 +2,24 @@ import { Link } from "react-router-dom";
 import StarRating from "../../ui/start_rating/StarRating";
 import { useState } from "react";
 import CommentStory from "./CommentStory";
+import img11 from "../../assets/images/diu_dang_tan_xuong.jpg";
 
 function SectionStoryDetails({ detailStory }) {
-  const { name, description, story_picture, author, categories, status } =
-    detailStory;
-  const [userRating, setUserRating] = useState("");
+  const {
+    name,
+    slug,
+    description,
+    story_picture,
+    author,
+    views,
+    shares,
+    categories,
+    status,
+    chapters,
+  } = detailStory;
+  const imagePath = story_picture?.path || img11;
 
-  // console.log(detailStory);
+  const [userRating, setUserRating] = useState("");
   return (
     <>
       <div className="story-detail">
@@ -17,8 +28,8 @@ function SectionStoryDetails({ detailStory }) {
             <div className="col-12 col-md-12 col-lg-3 story-detail__top--image">
               <div className="book-3d">
                 <img
-                  src={story_picture.path}
-                  alt={story_picture.title}
+                  src={imagePath}
+                  alt=""
                   className="img-fluid w-100"
                   width="200px"
                   height="300px"
@@ -28,6 +39,7 @@ function SectionStoryDetails({ detailStory }) {
             </div>
             <div className="col-12 col-md-12 col-lg-9">
               <h3 className="text-center story-name">{name}</h3>
+
               <StarRating
                 maxRating={10}
                 size={24}
@@ -45,6 +57,28 @@ function SectionStoryDetails({ detailStory }) {
                 ]}
                 onSetRating={setUserRating}
               />
+
+              <div
+                class="rate-story__value text-center mt-2"
+                itemprop="aggregateRating"
+                itemscope=""
+                itemtype="https://schema.org/AggregateRating"
+              >
+                <em>
+                  Đánh giá:{" "}
+                  <strong>
+                    <span itemprop="ratingValue">{views}</span>
+                  </strong>
+                  /
+                  <span class="" itemprop="bestRating">
+                    10{" "}
+                  </span>
+                  từ{" "}
+                  <strong>
+                    <span itemprop="ratingCount">{shares}</span> lượt
+                  </strong>
+                </em>
+              </div>
 
               {/* <div className="rate-story mb-2">
                 <div
@@ -77,11 +111,9 @@ function SectionStoryDetails({ detailStory }) {
 
               <div
                 className="story-detail__top--desc px-3"
-                style={{ maxHeight: "285px" }}
-              >
-                {description}
-              </div>
-
+                style={{ maxHeight: "285px", overflow: "auto" }}
+                dangerouslySetInnerHTML={{ __html: description }}
+              ></div>
               {/* <div className="info-more">
                 <div className="info-more--more active" id="info_more">
                   <span className="me-1 text-dark">Xem thêm</span>
@@ -180,26 +212,22 @@ function SectionStoryDetails({ detailStory }) {
           <div className="story-detail__list-chapter--list">
             <div className="row">
               <div className="col-12 col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
-                <ul>
-                  <li>
-                    <Link
-                      to="/"
-                      className="text-decoration-none text-dark hover-title"
-                    >
-                      Chương 1: Nàng không tin Yến Đình lại lừa nàng chuyện lớn
-                      đến vậy!
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/"
-                      className="text-decoration-none text-dark hover-title"
-                    >
-                      Chương 1: Nàng không tin Yến Đình lại lừa nàng chuyện lớn
-                      đến vậy!
-                    </Link>
-                  </li>
-                </ul>
+                {chapters.length > 0 ? (
+                  <ul>
+                    {chapters.map((chapter) => (
+                      <li key={chapter.id}>
+                        <Link
+                          to={`/${slug}/${chapter.slug}`}
+                          className="text-decoration-none text-dark hover-title"
+                        >
+                          {chapter.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>Danh sách chương sẽ sớm được cập nhật.</p>
+                )}
               </div>
             </div>
           </div>

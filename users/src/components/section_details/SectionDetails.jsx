@@ -8,31 +8,35 @@ import axios from "axios";
 
 function SectionDetails() {
   const [loading, setIsLoading] = useState(true);
-  const { slugCategory } = useParams(); // Lấy slug từ URL
+  const [error, setError] = useState(null);
+  const { slugStory } = useParams(); // Lấy slug từ URL
   const [detailStory, setDetailStory] = useState([]);
 
   useEffect(() => {
     let isMounted = true;
 
     axios
-      .get(`https://truyen.ntu264.vpsttt.vn/api/story/${slugCategory}`)
+      .get(`https://truyen.ntu264.vpsttt.vn/api/story/${slugStory}`)
       .then((res) => {
         if (isMounted) {
           setDetailStory(res.data.body.data);
           setIsLoading(false);
         }
       })
-      .catch((err) => console.error("Error fetching category data:", err));
+      .catch((err) => {
+        console.error("Error fetching category data:", err),
+          setIsLoading(false);
+      });
 
     return () => {
       isMounted = false;
     };
-  }, [slugCategory]);
+  }, [slugStory]);
 
   if (loading) {
     return (
       <div className="container">
-        <h4>Loading category...</h4>
+        <h4>Loading story...</h4>
       </div>
     );
   }
