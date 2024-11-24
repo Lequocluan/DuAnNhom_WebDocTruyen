@@ -29,6 +29,7 @@ function Chapter() {
         const options = response.data.body.data.data.map((story) => ({
           value: story.id,
           label: story.name,
+          slug: story.slug,
         }));
         setStories([{ value: "", label: "Tất cả" }, ...options]);
       }
@@ -103,7 +104,9 @@ function Chapter() {
       <div className="flex justify-between items-center">
         <h4 className="text-4xl font-extrabold">Chương của truyện</h4>
         <Link
-          to="/chapter/add"
+          to={`/chapters/add${
+            selectedStory ? `?story=${selectedStory.slug}` : ""
+          }`}
           className="bg-scooter-500 px-8 py-3 text-2xl text-white rounded-2xl hover:bg-scooter-400 transition-all"
         >
           Thêm chương
@@ -129,7 +132,16 @@ function Chapter() {
                     <span>{chapter.title}</span>
                   </div>
                 </div>
-                <span className="col-span-3 truncate">{chapter.content}</span>
+                <span
+                  dangerouslySetInnerHTML={{ __html: chapter.content }}
+                  className="col-span-3 line-clamp-1"
+                  style={{
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    whiteSpace: "normal",
+                  }}
+                ></span>
                 <span className="col-span-3">{chapter.story.name}</span>
                 <span className="col-span-2">
                   {chapter.status == 1 ? (
