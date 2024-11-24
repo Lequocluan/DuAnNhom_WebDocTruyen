@@ -30,7 +30,7 @@ function FormSearch() {
         )}`
       );
       const data = await response.json();
-      setResults(data.body.data);
+      setResults(data.body.data.stories);
     } catch (error) {
       console.error("Error fetching search results:", error);
     } finally {
