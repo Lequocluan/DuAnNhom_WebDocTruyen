@@ -70,7 +70,7 @@ function Story() {
           Thêm truyện
         </Link>
       </div>
-      <div className="w-full mt-10 flex flex-col gap-4">
+      <div className="w-full mt-10 flex flex-col gap-4 h-full overflow-hidden flex-1">
         <div className="w-full bg-scooter-100 p-5 rounded-3xl font-semibold grid grid-cols-10 gap-2">
           <span className="col-span-3">Tên truyện</span>
           <span className="col-span-3">Tác giả</span>

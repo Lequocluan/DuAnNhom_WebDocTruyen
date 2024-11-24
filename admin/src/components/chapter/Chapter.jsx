@@ -112,7 +112,7 @@ function Chapter() {
           Thêm chương
         </Link>
       </div>
-      <div className="w-full mt-10 flex flex-col gap-4">
+      <div className="w-full mt-10 flex flex-col gap-4 h-full overflow-hidden flex-1">
         <div className="w-full bg-scooter-100 p-5 rounded-3xl font-semibold grid grid-cols-12 gap-2">
           <span className="col-span-3">Title</span>
           <span className="col-span-3">Description</span>
