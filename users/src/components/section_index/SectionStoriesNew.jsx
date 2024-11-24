@@ -10,7 +10,7 @@ function SectionStoriesNew() {
   const { dataCetegory } = useGlobalContext();
 
   const [dataStoryNew, setDataStoryNew] = useState([]);
-  console.log(dataStoryNew);
+  // console.log(dataStoryNew);
 
   useEffect(() => {
     axios

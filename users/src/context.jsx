@@ -5,7 +5,7 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [dataCetegory, setDataCetegory] = useState([]);
-  const [isBanerOpen, setIsBanerOpen] = useState(true);
+  const [isBanerOpen, setIsBanerOpen] = useState(false);
 
   const closeBanerAds = () => {
     setIsBanerOpen(false);

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import img2 from "../../assets/images/ngao_the_dan_than.jpg";
 
 function SectionStoriesDoneItem({ categories, story_picture }) {
+  const imagePath = story_picture?.path || img2;
+
   return (
     <>
       {categories.map((category) => {
@@ -13,8 +15,8 @@ function SectionStoriesDoneItem({ categories, story_picture }) {
               className="d-block story-item-full__image"
             >
               <img
-                src={story_picture.path}
-                alt={story_picture.title}
+                src={imagePath}
+                alt=""
                 className="img-fluid w-100"
                 width="150"
                 height="230"

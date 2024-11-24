@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import StarRating from "../../ui/start_rating/StarRating";
 import { useState } from "react";
 import CommentStory from "./CommentStory";
+import img11 from "../../assets/images/diu_dang_tan_xuong.jpg";
 
 function SectionStoryDetails({ detailStory }) {
   const {
@@ -16,6 +17,8 @@ function SectionStoryDetails({ detailStory }) {
     status,
     chapters,
   } = detailStory;
+  const imagePath = story_picture?.path || img11;
+
   const [userRating, setUserRating] = useState("");
   return (
     <>
@@ -25,8 +28,8 @@ function SectionStoryDetails({ detailStory }) {
             <div className="col-12 col-md-12 col-lg-3 story-detail__top--image">
               <div className="book-3d">
                 <img
-                  src={story_picture.path}
-                  alt={story_picture.title}
+                  src={imagePath}
+                  alt=""
                   className="img-fluid w-100"
                   width="200px"
                   height="300px"
