@@ -3,22 +3,26 @@ import SectionCategoryItem from "./SectionCategoryItem";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-function SectionCatogory() {
+function SectionCategory() {
   const [loading, setIsLoading] = useState(true);
   const { slugCategory } = useParams();
-  const [stories, setStories] = useState([]);
+  const [novels, setNovels] = useState([]);
   const [nameCategory, setNameCategory] = useState(null);
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     let isMounted = true;
 
     axios
-      .get(`https://truyen.ntu264.vpsttt.vn/api/category/${slugCategory}`)
+      .post(
+        `https://truyen.ntu264.vpsttt.vn/api/category/novel/${slugCategory}`
+      )
       .then((res) => {
         if (isMounted) {
-          setStories(res.data.body.data.data);
+          setNovels(res.data.body.data);
           setIsLoading(false);
           setNameCategory(res.data.body.category);
+          setDescription(res.data.body.description);
         }
       })
       .catch((err) => {
@@ -31,6 +35,10 @@ function SectionCatogory() {
     };
   }, [slugCategory]);
 
+  // useEffect(() => {
+  //   console.log(novels)
+  // }, [novels])
+
   if (loading) {
     return (
       <div className="container">
@@ -39,17 +47,15 @@ function SectionCatogory() {
     );
   }
 
-  if (stories.length === 0) {
+  if (novels.length === 0) {
     return (
       <div className="container">
         <h4>Không có thể loại truyện này.</h4>
       </div>
     );
   }
-  const cleanDescription = stories[0].description
-    ? stories[0].description
-        .replace(/<p>/g, "<span>")
-        .replace(/<\/p>/g, "</span>")
+  const cleanDescription = description
+    ? description.replace(/<p>/g, "<span>").replace(/<\/p>/g, "</span>")
     : "Mô tả không có sẵn.";
   return (
     <>
@@ -71,8 +77,8 @@ function SectionCatogory() {
               </div>
             </div>
             <div className="list-story-in-category section-stories-list">
-              {stories.map((story) => (
-                <SectionCategoryItem key={story.id} {...story} />
+              {novels.map((novel, index) => (
+                <SectionCategoryItem key={index} {...novel} />
               ))}
             </div>
           </div>
@@ -94,4 +100,4 @@ function SectionCatogory() {
   );
 }
 
-export default SectionCatogory;
+export default SectionCategory;
