@@ -25,7 +25,7 @@ function FormSearch() {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://truyen.ntu264.vpsttt.vn/api/search?keyword=${encodeURIComponent(
+        `https://truyen.ntu264.vpsttt.vn/api/search?q=${encodeURIComponent(
           keyword
         )}`
       );

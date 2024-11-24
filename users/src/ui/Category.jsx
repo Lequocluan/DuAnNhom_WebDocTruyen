@@ -1,9 +1,9 @@
-import SectionCatogory from "../components/section_category/SectionCatogory";
+import SectionCategory from "../components/section_category/SectionCategory";
 
 function Category() {
   return (
     <>
-      <SectionCatogory />
+      <SectionCategory />
     </>
   );
 }
