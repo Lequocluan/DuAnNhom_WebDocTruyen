@@ -10,7 +10,7 @@ function SectionNovelHot() {
   const { dataCetegory } = useGlobalContext();
   const [dataStoryHot, setDataStoryHot] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  console.log(dataStoryHot);
+  // console.log(dataStoryHot);
 
   // console.log(dataStoryHot);
 
