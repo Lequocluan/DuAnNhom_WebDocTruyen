@@ -5,145 +5,191 @@ import {
   HiOutlineTrash,
   HiOutlineXCircle,
 } from "react-icons/hi2";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import image from "../../assets/img/placeholder.jpg";
 import Cookies from "universal-cookie";
+import Pagination from "../../ui/pagination/pagination";
+import { calculateOffset } from "../../utils/helper";
 
 function Comic() {
-  const [authors, setAuthors] = useState([]);
+  const [comics, setComics] = useState([]);
   const navigate = useNavigate();
-  const [deleteAuthor, setDeleteAuthor] = useState(null);
-  const [popup, setPopup] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [offset, setOffset] = useState(0);
+  const limit = 12;
 
-  // Get token
   const cookies = new Cookies();
   const token = cookies.get("authToken");
 
-  // Fetch data author
-  const fetchAuthors = async () => {
+  const location = useLocation();
+
+  const addQueryParam = (key, value) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set(key, value);
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
+  const getQueryParam = (key) => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get(key);
+  };
+
+  const updateComic = async (id, status) => {
+    if (!token) {
+      console.error("Token không tồn tại!");
+      return;
+    }
+
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/author/list`
+      const offset = calculateOffset(limit, currentPage);
+      setOffset(offset);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/comic/update`,
+        { id, status },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
+      fetchComic();
+    } catch (error) {
+      console.error("Lỗi khi lấy dữ liệu:", error);
+    }
+  };
+  // Hàm fetch quảng cáo
+  const fetchComic = async () => {
+    if (!token) {
+      console.error("Token không tồn tại!");
+      return;
+    }
+
+    try {
+      const offset = calculateOffset(limit, currentPage);
+      setOffset(offset);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/comic/list`,
+        { limit, offset },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
       if (response.data.status === 200) {
-        setAuthors(response.data.body.data);
+        setComics(response.data.body.data);
+        setTotal(response.data.body.count);
       }
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu:", error);
     }
   };
 
-  const openPopup = (author) => {
-    setDeleteAuthor(author);
-    setPopup(true);
+  const handleUpdateComic = (id, status) => {
+    let statusChange = 0;
+    if (status == 0) {
+      statusChange = 1;
+    }
+    updateComic(id, statusChange);
   };
-
   useEffect(() => {
-    fetchAuthors();
+    const queryPage = parseInt(getQueryParam("page"), 10) || 1;
+    setCurrentPage(Math.max(queryPage, 1));
   }, []);
 
-  const handleDeleteAuthor = async (id) => {
-    try {
-      const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/author/delete/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      fetchAuthors();
-      setDeleteAuthor(null);
-      setPopup(false);
-    } catch (error) {
-      console.error("Lỗi khi lấy dữ liệu:", error);
+  useEffect(() => {
+    fetchComic();
+  }, [currentPage, limit]);
+
+  const totalPages = Math.ceil(total / limit);
+
+  const onNextPage = () => {
+    if (currentPage < totalPages) {
+      const nextPage = currentPage + 1;
+      addQueryParam("page", nextPage);
+      setCurrentPage(nextPage);
     }
   };
 
+  const onPrevPage = () => {
+    if (currentPage > 1) {
+      const prevPage = currentPage - 1;
+      addQueryParam("page", prevPage);
+      setCurrentPage(prevPage);
+    }
+  };
+
+  const onToPage = (page) => {
+    const targetPage = Math.min(Math.max(page, 1), totalPages);
+    addQueryParam("page", targetPage);
+    setCurrentPage(targetPage);
+  };
+
   return (
-    <div className="w-full h-full bg-white rounded-xl p-8 relative overflow-hidden flex flex-col">
+    <div className="w-full h-full max-h-full bg-white rounded-xl p-8 relative overflow-hidden flex-col flex flex-1">
       <div className="flex justify-between items-center">
         <h4 className="text-4xl font-extrabold">Truyện tranh</h4>
       </div>
-      <div className="w-full mt-10 flex flex-col gap-4 h-full overflow-hidden flex-1">
+
+      <div className="w-full mt-10 flex flex-col gap-4 flex-1 h-1/2">
         <div className="w-full bg-scooter-100 p-5 rounded-3xl font-semibold grid grid-cols-10 gap-2">
-          <span className="col-span-3">Name</span>
+          <span className="col-span-5">Name</span>
           <span className="col-span-3">Category</span>
-          <span className="col-span-3">Status</span>
-          <span>Action</span>
+          <span className="col-span-2 text-center">Status</span>
         </div>
-        <div>
+        <div className="flex flex-col h-full overflow-y-scroll no-scrollbar">
           <div className="flex flex-col gap-2">
-            {authors.map((author, index) => (
+            {comics.map((comic, index) => (
               <div
-                key={index}
+                key={comic.id}
                 className="w-full bg-slate-50 p-5 rounded-3xl grid grid-cols-10 gap-2 items-center hover:shadow-sm hover:bg-slate-100 transition-all"
               >
-                <div className="col-span-3">
+                <div className="col-span-5">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16">
+                    <div className="w-16 h-16 flex-shrink-0">
                       <img
-                        src={author.profile_picture?.path ?? image}
-                        alt={author.profile_picture?.title ?? ""}
+                        src={comic.thumbnail ?? image}
                         className="w-full h-full object-cover rounded-full"
                       />
                     </div>
-                    <span>{author.full_name}</span>
+                    <span className="truncate">{comic.name}</span>
                   </div>
                 </div>
-                <span className="col-span-3">
-                  {author.pen_name ?? "Không xác định"}
+                <span className="col-span-3 truncate">
+                  {comic.categories.map((item) => item.name).join(", ")}
                 </span>
-                <span className="col-span-3">
-                  {author.birth_date ?? "Không xác định"}
-                </span>
-                <div className="flex gap-6 text-2xl">
-                  <NavLink to={`/author/edit/${author.id}`}>
-                    <HiOutlinePencilSquare className="w-9 h-9 hover:text-scooter-500" />
-                  </NavLink>
+                <div className="col-span-2 flex items-center justify-center">
+                  {comic.status == 1 ? (
+                    <button
+                      className="bg-success-outline text-success-bg px-8 py-3 rounded-xl"
+                      onClick={() => handleUpdateComic(comic.id, comic.status)}
+                    >
+                      Active
+                    </button>
+                  ) : (
+                    <button
+                      className="bg-error-outline text-error-bg px-8 py-3 rounded-xl"
+                      onClick={() => handleUpdateComic(comic.id, comic.status)}
+                    >
+                      Disable
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
           </div>
         </div>
+        <Pagination
+          total={total}
+          per_page={limit}
+          current={currentPage}
+          onNextPage={onNextPage}
+          onPrevPage={onPrevPage}
+          onToPage={(page) => onToPage(page)}
+        />
       </div>
-      {popup ? (
-        <div className="w-full h-full absolute top-0 left-0 bg-gray-950/35 flex items-center justify-center">
-          <div className="bg-white min-w-[34rem] rounded-xl ring-1 ring-gray-100 shadow-xl px-20 py-14 flex flex-col gap-6">
-            <div className="flex items-start gap-6">
-              <div className="w-20 h-20 bg-error-bg rounded-lg flex items-center justify-center">
-                <HiOutlineXCircle className="w-12 h-12 text-error-outline" />
-              </div>
-              <div className="flex flex-col gap-2">
-                <h5 className="text-3xl text-black font-extrabold">
-                  Bạn muốn xoá thông tin tác giả
-                </h5>
-                <span className="text-gray-500 text-2xl">
-                  Bạn chắc chắn muốn xoá thông tin của tác giả "
-                  {deleteAuthor?.full_name ?? "Không xác định"}"?
-                </span>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <button
-                className="w-full py-2 bg-error-outline hover:bg-error-outline/85 rounded-md text-white"
-                onClick={() => handleDeleteAuthor(deleteAuthor.id)}
-              >
-                Xác nhận xoá
-              </button>
-              <button
-                className="w-full py-2 bg-scooter-500 hover:bg-scooter-400 rounded-md text-white"
-                onClick={() => setPopup(false)}
-              >
-                Quay lại
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 }
+
 export default Comic;
