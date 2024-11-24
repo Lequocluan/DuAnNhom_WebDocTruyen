@@ -5,18 +5,35 @@ import {
   HiOutlineTrash,
   HiOutlineXCircle,
 } from "react-icons/hi2";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import placeholderImage from "../../assets/img/placeholder.jpg";
 import Cookies from "universal-cookie";
+import Pagination from "../../ui/pagination/pagination";
 
 function Story() {
   const [stories, setStories] = useState([]);
   const [deleteStory, setDeleteStory] = useState(null);
   const [popup, setPopup] = useState(false);
+  const [itemsPerPage, setItemsPerPage] = useState();
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalItem, setTotalItem] = useState();
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+  const pageFromQuery = queryParams.get("page");
+  const [currentPage, setCurrentPage] = useState(
+    pageFromQuery ? parseInt(pageFromQuery, 10) : 1
+  );
   // Get token
   const cookies = new Cookies();
   const token = cookies.get("authToken");
+
+  const updatePageInUrl = (page) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("page", page);
+    navigate({ search: searchParams.toString() });
+  };
 
   // Fetch data story
   const fetchStories = async () => {
@@ -25,7 +42,11 @@ function Story() {
         `${import.meta.env.VITE_API_URL}/story/list`
       );
       if (response.data.status === 200) {
+        const apiData = response.data.body.data;
         setStories(response.data.body.data.data);
+        setItemsPerPage(apiData.per_page); // Số mục trên mỗi trang
+        setTotalPages(apiData.last_page); // Tổng số trang
+        setTotalItem(apiData.total);
       }
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu:", error);
@@ -39,18 +60,39 @@ function Story() {
 
   useEffect(() => {
     fetchStories();
-  }, []);
+  }, [currentPage]);
+
+  // Handle next and previous page buttons
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      const newPage = currentPage + 1;
+      setCurrentPage(newPage);
+      updatePageInUrl(newPage); // Only update the URL on pagination
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      const newPage = currentPage - 1;
+      setCurrentPage(newPage);
+      updatePageInUrl(newPage); // Only update the URL on pagination
+    }
+  };
+
+  const paginate = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+      updatePageInUrl(pageNumber); // Only update the URL on pagination
+    }
+  };
 
   const handleDeleteStory = async (id) => {
     try {
-      await axios.delete(
-        `${import.meta.env.VITE_API_URL}/story/delete/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.delete(`${import.meta.env.VITE_API_URL}/story/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       fetchStories();
       setDeleteStory(null);
       setPopup(false);
@@ -77,7 +119,7 @@ function Story() {
           <span className="col-span-3">Danh mục</span>
           <span>Hành động</span>
         </div>
-        <div>
+        <div className="flex flex-col h-full overflow-y-scroll no-scrollbar">
           <div className="flex flex-col gap-2">
             {stories.map((story, index) => (
               <div
@@ -96,7 +138,9 @@ function Story() {
                     <span className="truncate">{story.name}</span>
                   </div>
                 </div>
-                <span className="col-span-3 truncate">{story.author.full_name}</span>
+                <span className="col-span-3 truncate">
+                  {story.author.full_name}
+                </span>
                 <span className="col-span-3 truncate">
                   {story.categories.map((cat) => cat.name).join(", ")}
                 </span>
@@ -112,6 +156,14 @@ function Story() {
               </div>
             ))}
           </div>
+          <Pagination
+            total={totalItem}
+            per_page={itemsPerPage}
+            current={currentPage}
+            onPrevPage={prevPage}
+            onNextPage={nextPage}
+            onToPage={(page) => paginate(page)}
+          />
         </div>
       </div>
       {popup ? (

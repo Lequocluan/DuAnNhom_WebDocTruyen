@@ -88,36 +88,6 @@ const Category = () => {
     }
   };
 
-  const getPageRange = () => {
-    let range = [];
-    if (totalPages <= 6) {
-      range = Array.from({ length: totalPages }, (_, index) => index + 1);
-    } else {
-      if (currentPage <= 3) {
-        range = [1, 2, 3, 4, "...", totalPages];
-      } else if (currentPage >= totalPages - 2) {
-        range = [
-          1,
-          "...",
-          totalPages - 3,
-          totalPages - 2,
-          totalPages - 1,
-          totalPages,
-        ];
-      } else {
-        range = [
-          1,
-          "...",
-          currentPage - 1,
-          currentPage,
-          currentPage + 1,
-          "...",
-          totalPages,
-        ];
-      }
-    }
-    return range;
-  };
 
   const handleDelete = async (id) => {
     const category = categories.find((cat) => cat.id === id);

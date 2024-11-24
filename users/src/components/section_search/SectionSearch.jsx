@@ -13,7 +13,7 @@ function SectionSearch() {
     if (keyword) {
       axios
         .get(
-          `https://truyen.ntu264.vpsttt.vn/api/search?keyword=${encodeURIComponent(
+          `https://truyen.ntu264.vpsttt.vn/api/search?q=${encodeURIComponent(
             keyword
           )}`
         )
