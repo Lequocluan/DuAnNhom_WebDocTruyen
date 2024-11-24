@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import img2 from "../../assets/images/ngao_the_dan_than.jpg";
 
-function SectionStoriesDoneItem({ categories, story_picture }) {
+function SectionStoriesDoneItem({ categories, story_picture, name }) {
   const imagePath = story_picture?.path || img2;
 
   return (
@@ -28,7 +28,7 @@ function SectionStoriesDoneItem({ categories, story_picture }) {
                 to={`/category/${category.slug}`}
                 className="text-decoration-none text-one-row story-name"
               >
-                {category.name}
+                {name}
               </Link>
             </h3>
             <span className="story-item-full__badge badge text-bg-success">
