@@ -35,6 +35,13 @@ function SectionCategory() {
     };
   }, [slugCategory]);
 
+  //! Cập nhật title website
+  useEffect(() => {
+    if (nameCategory) {
+      document.title = `Truyện online.vn - Đọc truyện thể loại ${nameCategory} hay nhất`;
+    }
+  }, [nameCategory]);
+
   // useEffect(() => {
   //   console.log(novels)
   // }, [novels])
