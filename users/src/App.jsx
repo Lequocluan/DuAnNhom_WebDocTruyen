@@ -13,6 +13,7 @@ import Details from "./ui/Details";
 import Login from "./components/login/Login";
 import Register from "./components/login/Register";
 import DetailComic from "./ui/DetailComic";
+import ForgotPassword from "./components/login/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
   },
   { path: "/login", element: <Login />, errorElement: <Error /> },
   { path: "/register", element: <Register />, errorElement: <Error /> },
+  { path: "/forgot", element: <ForgotPassword />, errorElement: <Error /> },
 ]);
 
 function App() {
