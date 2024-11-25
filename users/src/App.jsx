@@ -14,6 +14,7 @@ import Login from "./components/login/Login";
 import Register from "./components/login/Register";
 import DetailComic from "./ui/DetailComic";
 import SectionChapterComic from "./components/section_details/comic/SectionChapterComic";
+import CategoryAuthor from "./ui/CategoryAuthor";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,13 @@ const router = createBrowserRouter([
         // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
         path: "/category/:slugCategory",
         element: <Category />,
+      },
+
+      {
+        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
+        path: "/categoryAuthor/:slugCategoryAuthor",
+        // path: "/categoryAuthor",
+        element: <CategoryAuthor />,
       },
 
       {
