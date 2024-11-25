@@ -100,7 +100,7 @@ function Pagination({
       <form onSubmit={handlePageSubmit} className="ms-3 d-flex">
         <div className="flex flex-col gap-2">
           {isChangePage && (
-            <div className="flex">
+            <div className="d-flex gap-2 mb-2">
               <input
                 type="number"
                 value={inputPage}
