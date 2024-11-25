@@ -108,7 +108,7 @@ export default function EditChapter() {
   
 
   return (
-    <div className="w-full bg-white rounded-xl p-6 font-mulish">
+    <div className="w-full bg-white rounded-xl overflow-auto h-screen flex flex-col p-6 font-mulish">
       <div className="flex justify-between gap-6 items-center mb-6">
         <div className="flex items-center gap-2">
           <Link to="/chapters">
