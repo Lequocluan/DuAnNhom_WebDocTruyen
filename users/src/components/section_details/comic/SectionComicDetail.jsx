@@ -1,16 +1,20 @@
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 import Pagination from "../../../ui/Pagination";
-import CommentStory from "../CommentStory";
 
 function SectionComicDetail({ detailComic, image }) {
   const { name, slug, content, author, category, status, chapters } =
     detailComic;
+<<<<<<< HEAD
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);
   
     const initialPage = parseInt(queryParams.get("page")) || 1;
     const [currentPage, setCurrentPage] = useState(initialPage);
+=======
+
+  const [currentPage, setCurrentPage] = useState(1);
+>>>>>>> 534308a7d07f48f9e2bf3192591202861cb3bdb0
 
   const chaptersPerPage = 50;
   const indexOfLastChapter = currentPage * chaptersPerPage;
@@ -47,9 +51,7 @@ function SectionComicDetail({ detailComic, image }) {
               </div>
             </div>
             <div className="col-12 col-md-12 col-lg-9">
-              <h3 className="text-center story-name font-bold text-4xl">
-                {name}
-              </h3>
+              <h3 className="text-center story-name font-bold">{name}</h3>
               <div
                 className="story-detail__top--desc px-3 mt-3"
                 style={{ maxHeight: "285px", overflow: "auto" }}
@@ -58,6 +60,7 @@ function SectionComicDetail({ detailComic, image }) {
             </div>
           </div>
         </div>
+
         <div className="story-detail__bottom mb-3">
           <div className="row">
             <div className="col-12 col-md-12 col-lg-3 story-detail__bottom--info mt-3">
@@ -156,8 +159,6 @@ function SectionComicDetail({ detailComic, image }) {
             </div>
           </div>
         </div>
-        {console.log(detailComic)}
-        {/* <CommentStory detailComic={detailComic} /> */}
       </div>
     </>
   );
