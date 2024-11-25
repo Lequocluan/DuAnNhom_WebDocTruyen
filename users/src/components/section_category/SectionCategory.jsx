@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import SectionCategoryItem from "./SectionCategoryItem";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
+import Pagination from "../../ui/Pagination";
 
 function SectionCategory() {
   const [loading, setIsLoading] = useState(true);
@@ -9,6 +10,15 @@ function SectionCategory() {
   const [novels, setNovels] = useState([]);
   const [nameCategory, setNameCategory] = useState(null);
   const [description, setDescription] = useState("");
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+
+  const initialPage = parseInt(queryParams.get("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+
+  const perPage = 1;
+  const indexOfLastPage = currentPage * perPage;
+  const indexOfFirstPage = indexOfLastPage - perPage;
 
   useEffect(() => {
     let isMounted = true;
@@ -85,9 +95,23 @@ function SectionCategory() {
               </div>
             </div>
             <div className="list-story-in-category section-stories-list">
-              {novels.map((novel, index) => (
-                <SectionCategoryItem key={index} {...novel} />
-              ))}
+              {novels
+                .slice(indexOfFirstPage, indexOfLastPage)
+                .map((novel, index) => (
+                  <div key={novel.id}>
+                    <SectionCategoryItem key={index} {...novel} />
+                  </div>
+                ))}
+            </div>
+            <div className="mt-5">
+              {novels.length > perPage && (
+                <Pagination
+                  totalItems={novels.length}
+                  itemsPerPage={perPage}
+                  currentPage={currentPage}
+                  onPageChange={setCurrentPage}
+                />
+              )}
             </div>
           </div>
           {/* SECTION CATEGORY DESCRIPTION */}
