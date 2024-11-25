@@ -42,6 +42,18 @@
   border-radius: 10px; /* Bo tròn các góc của track ngang */
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 html {
   scroll-behavior: smooth;
 }
