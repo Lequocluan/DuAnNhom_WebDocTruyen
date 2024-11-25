@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }) {
+function Pagination({
+  totalItems,
+  itemsPerPage,
+  currentPage,
+  onPageChange,
+  keyword = null,
+}) {
   const navigate = useNavigate();
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const [inputPage, setInputPage] = useState("");
@@ -29,7 +35,10 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }) {
   };
 
   const updatePageInUrl = (page) => {
-    navigate(`?page=${page}`);
+    const queryParams = new URLSearchParams();
+    if (keyword) queryParams.set("keyword", keyword);
+    queryParams.set("page", page);
+    navigate(`?${queryParams.toString()}`);
   };
 
   const handlePageChange = (page) => {
