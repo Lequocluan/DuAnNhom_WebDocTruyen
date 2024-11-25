@@ -47,13 +47,14 @@ function SectionCategory() {
     );
   }
 
-  if (novels.length === 0) {
+  if (!Array.isArray(novels) || novels.length === 0) {
     return (
       <div className="container">
         <h4>Không có thể loại truyện này.</h4>
       </div>
     );
   }
+
   const cleanDescription = description
     ? description.replace(/<p>/g, "<span>").replace(/<\/p>/g, "</span>")
     : "Mô tả không có sẵn.";

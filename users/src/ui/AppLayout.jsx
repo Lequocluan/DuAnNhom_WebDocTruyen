@@ -21,7 +21,7 @@ function AppLayout() {
   return (
     <>
       {loading && <Loader />}
-      <BanerAds />
+      {/* <BanerAds /> */}
       <Headers />
       <HeaderBottom />
       <main style={{ minHeight: "80vh" }}>
