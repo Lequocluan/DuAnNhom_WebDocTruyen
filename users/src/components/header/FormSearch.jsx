@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 
 function FormSearch() {
   const [keyword, setKeyword] = useState("");
@@ -71,7 +72,12 @@ function FormSearch() {
         {isFocused && keyword.trim() !== "" && (
           <div
             className="col-12 search-result shadow search-story mt-1"
-            style={{ width: "284px", borderRadius: "10px" }}
+            style={{
+              width: "284px",
+              borderRadius: "10px",
+              maxHeight: "300px",
+              overflowY: "auto",
+            }}
           >
             {isLoading ? (
               <p className="bg-white text-[#343a40] p-10 text-center">
@@ -86,37 +92,49 @@ function FormSearch() {
                 <div className="card-body p-0">
                   <ul className="list-group list-group-flush">
                     {results.length > 0 ? (
-                      results.map((item, index) => (
-                        <Link
-                          to={`/${item.slug}`}
-                          onClick={() => setKeyword("")}
-                          key={index}
-                        >
-                          <li
-                            className="list-group-item d-flex align-items-center"
-                            style={{ paddingLeft: "10px", paddingRight: 0 }}
+                      <>
+                        {results.map((item, index) => (
+                          <Link
+                            to={`truyen-chu/${item.slug}`}
+                            onClick={() => setKeyword("")}
+                            key={index}
                           >
-                            <img
-                              src={item.story_picture.path}
-                              alt={item.story_picture.title}
-                              className="rounded me-3"
-                              style={{
-                                width: "50px",
-                                height: "50px",
-                                objectFit: "cover",
-                              }}
-                            />
-                            <div>
-                              <a className="text-dark hover-title fw-bold">
-                                {item.name}
-                              </a>
-                              <p className="text-muted mb-0 fst-italic">
-                                {item.author.full_name}
-                              </p>
-                            </div>
-                          </li>
-                        </Link>
-                      ))
+                            <li
+                              className="list-group-item d-flex align-items-center"
+                              style={{ paddingLeft: "10px", paddingRight: 0 }}
+                            >
+                              <img
+                                src={item.story_picture.path}
+                                alt={item.story_picture.title}
+                                className="rounded me-3"
+                                style={{
+                                  width: "50px",
+                                  height: "50px",
+                                  objectFit: "cover",
+                                }}
+                              />
+                              <div>
+                                <a className="text-dark hover-title fw-bold">
+                                  {item.name}
+                                </a>
+                                <p className="text-muted mb-0 fst-italic">
+                                  {item.author.full_name}
+                                </p>
+                              </div>
+                            </li>
+                          </Link>
+                        ))}
+                        <li className="list-group-item text-center">
+                          <Link
+                            to={`/search?keyword=${encodeURIComponent(
+                              keyword
+                            )}`}
+                            className="text-primary fw-bold flex justify-center items-center gap-2"
+                          >
+                            Xem tất cả kết quả <FaSearch />
+                          </Link>
+                        </li>
+                      </>
                     ) : (
                       <li className="list-group-item">
                         Không tìm thấy kết quả nào

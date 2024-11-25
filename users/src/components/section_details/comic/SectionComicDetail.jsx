@@ -1,17 +1,17 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import Pagination from "../../../ui/Pagination";
 
 function SectionComicDetail({ detailComic, image }) {
   const { name, slug, content, author, category, status, chapters } =
     detailComic;
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [inputPage, setInputPage] = useState("");
-  const [changePage, setchangePage] = useState(false);
 
-  const chaptersPerPage = 10;
+  const chaptersPerPage = 50;
   const indexOfLastChapter = currentPage * chaptersPerPage;
   const indexOfFirstChapter = indexOfLastChapter - chaptersPerPage;
+
   const currentChapters =
     chapters.length > 0
       ? chapters[0].server_data.slice(indexOfFirstChapter, indexOfLastChapter)
@@ -24,29 +24,6 @@ function SectionComicDetail({ detailComic, image }) {
   const rightColumn = currentChapters.slice(
     Math.ceil(currentChapters.length / 2)
   );
-
-  const totalPages = Math.ceil(
-    chapters[0]?.server_data.length / chaptersPerPage
-  );
-
-  const handlePageInputChange = (e) => {
-    const value = e.target.value;
-    if (value && !isNaN(value) && value <= totalPages && value > 0) {
-      setInputPage(value);
-    }
-  };
-
-  const handlePageSubmit = (e) => {
-    e.preventDefault();
-    const page = parseInt(inputPage);
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-  };
-
-  const toggleChangePage = () => {
-    setchangePage(!changePage);
-  };
 
   return (
     <>
@@ -66,7 +43,9 @@ function SectionComicDetail({ detailComic, image }) {
               </div>
             </div>
             <div className="col-12 col-md-12 col-lg-9">
-              <h3 className="text-center story-name">{name}</h3>
+              <h3 className="text-center story-name font-bold text-xl">
+                {name}
+              </h3>
               <div
                 className="story-detail__top--desc px-3"
                 style={{ maxHeight: "285px", overflow: "auto" }}
@@ -161,101 +140,14 @@ function SectionComicDetail({ detailComic, image }) {
                 </ul>
               </div>
 
-              {/* Phân trang */}
-              <div className="pagination mt-3 d-flex justify-content-center align-items-center">
-                {/* Nút chuyển đến trang đầu */}
-                <button
-                  className={`btn ${
-                    currentPage === 1 ? "btn-light" : "btn-primary"
-                  } mx-1`}
-                  onClick={() => setCurrentPage(1)}
-                  disabled={currentPage === 1}
-                >
-                  &laquo;&laquo; Đầu
-                </button>
-
-                {/* Các nút trang gần trang hiện tại */}
-                {currentPage > 2 && (
-                  <button
-                    className="btn btn-light mx-1"
-                    onClick={() => setCurrentPage(1)}
-                  >
-                    1
-                  </button>
-                )}
-
-                {currentPage > 1 && (
-                  <button
-                    className="btn btn-light mx-1"
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                  >
-                    {currentPage - 1}
-                  </button>
-                )}
-
-                <button className="btn btn-primary mx-1">{currentPage}</button>
-
-                {currentPage < totalPages && (
-                  <button
-                    className="btn btn-light mx-1"
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                  >
-                    {currentPage + 1}
-                  </button>
-                )}
-
-                {currentPage < totalPages - 1 && (
-                  <button
-                    className="btn btn-light mx-1"
-                    onClick={() => setCurrentPage(totalPages)}
-                  >
-                    {totalPages}
-                  </button>
-                )}
-
-                {/* Nút chuyển đến trang cuối */}
-                <button
-                  className={`btn ${
-                    currentPage === totalPages ? "btn-light" : "btn-primary"
-                  } mx-1`}
-                  onClick={() => setCurrentPage(totalPages)}
-                  disabled={currentPage === totalPages}
-                >
-                  Cuối &raquo;&raquo;
-                </button>
-
-                {/* Input chọn trang */}
-                <div
-                  style={{ display: "flex", flexDirection: "column" }}
-                  className="gap-2"
-                >
-                  {changePage && (
-                    <form onSubmit={handlePageSubmit} className="ms-3 d-flex">
-                      <input
-                        type="number"
-                        value={inputPage}
-                        onChange={handlePageInputChange}
-                        min="1"
-                        max={totalPages}
-                        className="form-control form-control-sm"
-                        style={{ width: "80px" }}
-                      />
-                      <button
-                        type="submit"
-                        className="btn btn-light btn-sm ms-1"
-                      >
-                        Đi
-                      </button>
-                    </form>
-                  )}
-                  <button
-                    onClick={toggleChangePage}
-                    className="btn btn-success"
-                  >
-                    Chọn trang
-                  </button>
-                </div>
-              </div>
+              {chapters[0]?.server_data.length > chaptersPerPage && (
+                <Pagination
+                  totalItems={chapters[0]?.server_data.length}
+                  itemsPerPage={chaptersPerPage}
+                  currentPage={currentPage}
+                  onPageChange={setCurrentPage}
+                />
+              )}
             </div>
           </div>
         </div>
