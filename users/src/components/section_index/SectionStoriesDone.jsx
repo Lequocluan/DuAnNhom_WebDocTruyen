@@ -46,7 +46,6 @@ function SectionStoryDone() {
             <div className="col-12">
               <div className="section-stories-full__list">
                 {storiesDone.map((data) => {
-                  console.log(data)
                   return <SectionStoriesDoneItem key={data.id} {...data} />;
                 })}
               </div>
