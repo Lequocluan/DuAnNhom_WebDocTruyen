@@ -82,6 +82,9 @@ function Login() {
             defaultValue="secret"
             onChange={(e) => setPassword(e.target.value)}
           />
+          <div className="flex flex-row-reverse">
+            <Link to={"/forgot"}>Forgot password?</Link>
+          </div>
           <div className="mb-4 mt-3">
             <SubmitBtn text="Login" />
           </div>
