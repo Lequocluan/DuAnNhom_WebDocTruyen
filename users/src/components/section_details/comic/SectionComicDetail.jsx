@@ -116,7 +116,7 @@ function SectionComicDetail({ detailComic, image }) {
                   {leftColumn.map((chapter) => (
                     <li key={chapter.chapter_name}>
                       <Link
-                        to={`/${slug}/${chapter.slug}`}
+                        to={`/truyen-tranh/${slug}/chuong-${chapter.chapter_name}`}
                         className="text-decoration-none text-dark hover-title"
                       >
                         {`Chương ${chapter.chapter_name}`}
@@ -130,7 +130,7 @@ function SectionComicDetail({ detailComic, image }) {
                   {rightColumn.map((chapter) => (
                     <li key={chapter.chapter_name}>
                       <Link
-                        to={`/${slug}/${chapter.slug}`}
+                        to={`/truyen-tranh/${slug}/chuong-${chapter.chapter_name}`}
                         className="text-decoration-none text-dark hover-title"
                       >
                         {`Chương ${chapter.chapter_name}`}
