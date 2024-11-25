@@ -33,6 +33,13 @@ function SectionDetails() {
     };
   }, [slugStory]);
 
+  //! Cập nhật title website
+  useEffect(() => {
+    if (detailStory) {
+      document.title = `Truyện online.vn - ${detailStory.name} `;
+    }
+  }, [detailStory]);
+
   if (loading) {
     return (
       <div className="container">

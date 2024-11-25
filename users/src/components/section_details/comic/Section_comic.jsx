@@ -34,6 +34,13 @@ function SectionComic() {
     fetchStory();
   }, [slugComic]);
 
+  //! Cập nhật title website
+  useEffect(() => {
+    if (detailComic) {
+      document.title = `Truyện online.vn - ${detailComic.name} `;
+    }
+  }, [detailComic]);
+
   if (loading) {
     return (
       <div className="container">

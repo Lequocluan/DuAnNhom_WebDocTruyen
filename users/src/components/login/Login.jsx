@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 function Login() {
+  useEffect(() => {
+    document.title = "Truyện online.vn - Đăng nhập";
+  }, []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
