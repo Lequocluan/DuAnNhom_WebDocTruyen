@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 import Pagination from "../../../ui/Pagination";
 
 function SectionComicDetail({ detailComic, image }) {
   const { name, slug, content, author, category, status, chapters } =
     detailComic;
-
-  const [currentPage, setCurrentPage] = useState(1);
+    const { search } = useLocation();
+    const queryParams = new URLSearchParams(search);
+  
+    const initialPage = parseInt(queryParams.get("page")) || 1;
+    const [currentPage, setCurrentPage] = useState(initialPage);
 
   const chaptersPerPage = 50;
   const indexOfLastChapter = currentPage * chaptersPerPage;
