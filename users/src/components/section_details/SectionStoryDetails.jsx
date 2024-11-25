@@ -173,7 +173,7 @@ function SectionStoryDetails({ detailStory }) {
                     return (
                       <Link
                         key={categoty.id}
-                        href="#"
+                        to={`/category/${categoty.slug}`}
                         className="text-decoration-none text-dark hover-title me-1"
                       >
                         {categoty.name}
