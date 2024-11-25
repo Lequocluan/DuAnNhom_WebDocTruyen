@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Error() {
+  useEffect(() => {
+    document.title = "Truyện online.vn - Error";
+  }, []);
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="text-center">

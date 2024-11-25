@@ -1,61 +1,32 @@
-/* Lớp overlay để làm mờ nền */
-.overlay {
+.banner-ads-right {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-
-/* Định dạng banner */
-.banner-ads {
-  position: relative;
-
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: white;
+  border: 1px solid #ccc;
   border-radius: 8px;
-
-  text-align: center;
-  max-width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.banner-ads img {
-  width: 118px;
-  /* border-radius: 8px; */
-  height: 174px;
+.banner-ads-right img {
+  max-width: 150px;
+  height: auto;
+  display: block;
 }
 
-.ads_close {
-  position: absolute;
-  top: 28px;
-  right: 60px;
-  background: none;
-  padding: 0 4px;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: #c92a2a;
-  font-weight: bold;
-  transition: transform 0.6s ease, color 0.3s ease;
-  background-color: rgba(0, 0, 0, 0.6); /* Làm mờ nền */
-}
-
-/* Nút đóng */
 .close-btn {
   position: absolute;
-  top: -6px;
-  right: -6px;
-  background: none;
+  top: 5px;
+  right: 5px;
+  background: transparent;
   border: none;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
-  color: #000;
-  font-weight: bold;
-  transition: transform 0.6s ease, color 0.3s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .close-btn:hover {
-  color: red; /* Đổi màu khi hover */
-  /* transform: rotate(360deg); */
+  color: red;
+  transform: scale(1.2);
 }

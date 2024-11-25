@@ -60,12 +60,12 @@ function SectionComicDetail({ detailComic, image }) {
             <div className="col-12 col-md-12 col-lg-3 story-detail__bottom--info mt-3">
               <p className="mb-1">
                 <strong>Tác giả: </strong>
-                <a
+                <Link
                   href="#"
                   className="text-decoration-none text-dark hover-title"
                 >
                   {author}
-                </a>
+                </Link>
               </p>
               <div className="d-flex align-items-center mb-1 flex-wrap">
                 <strong className="me-1">Thể loại:</strong>
@@ -116,7 +116,7 @@ function SectionComicDetail({ detailComic, image }) {
                   {leftColumn.map((chapter) => (
                     <li key={chapter.chapter_name}>
                       <Link
-                        to={`/${slug}/${chapter.slug}`}
+                        to={`/truyen-tranh/${slug}/chuong-${chapter.chapter_name}`}
                         className="text-decoration-none text-dark hover-title"
                       >
                         {`Chương ${chapter.chapter_name}`}
@@ -130,7 +130,7 @@ function SectionComicDetail({ detailComic, image }) {
                   {rightColumn.map((chapter) => (
                     <li key={chapter.chapter_name}>
                       <Link
-                        to={`/${slug}/${chapter.slug}`}
+                        to={`/truyen-tranh/${slug}/chuong-${chapter.chapter_name}`}
                         className="text-decoration-none text-dark hover-title"
                       >
                         {`Chương ${chapter.chapter_name}`}

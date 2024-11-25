@@ -34,6 +34,13 @@ function SectionComic() {
     fetchStory();
   }, [slugComic]);
 
+  //! Cập nhật title website
+  useEffect(() => {
+    if (detailComic) {
+      document.title = `Truyện online.vn - ${detailComic.name} `;
+    }
+  }, [detailComic]);
+
   if (loading) {
     return (
       <div className="container">
@@ -61,9 +68,9 @@ function SectionComic() {
             </div>
             <SectionComicDetail detailComic={detailComic} image={image} />
           </div>
-          <div className="col-12 col-md-5 col-lg-4 sticky-md-top">
+          {/* <div className="col-12 col-md-5 col-lg-4 sticky-md-top">
             <SectionTopRating topRatingData={topRatingData} />
-          </div>
+          </div> */}
         </div>
       </div>
     </>

@@ -14,6 +14,9 @@ import Login from "./components/login/Login";
 import Register from "./components/login/Register";
 import DetailComic from "./ui/DetailComic";
 import ForgotPassword from "./components/login/ForgotPassword";
+import SectionChapterComic from "./components/section_details/comic/SectionChapterComic";
+import CategoryAuthor from "./ui/CategoryAuthor";
+
 
 const router = createBrowserRouter([
   {
@@ -30,7 +33,10 @@ const router = createBrowserRouter([
         path: "/category/:slugCategory",
         element: <Category />,
       },
-
+      {
+        path: "/categoryAuthor/:idAuthor",
+        element: <CategoryAuthor />,
+      },
       {
         path: "/search",
         element: <Search />,
@@ -39,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/:slugStory/:slugChapter",
         element: <Chapter />,
+      },
+      {
+        path: "/truyen-tranh/:slugComic/:slugChapter",
+        element: <SectionChapterComic />,
       },
       {
         path: "truyen-chu/:slugStory",

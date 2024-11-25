@@ -15,8 +15,13 @@ function SectionStoriesNew() {
   useEffect(() => {
     axios
       .get("https://truyen.ntu264.vpsttt.vn/api/story/latest")
-      .then((res) => setDataStoryNew(res.data.body.data))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        const stories = Object.values(res.data.body.data); // Convert the object to an array
+        setDataStoryNew(stories); // Now dataStoryNew is an array
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+      });
   }, []);
 
   return (

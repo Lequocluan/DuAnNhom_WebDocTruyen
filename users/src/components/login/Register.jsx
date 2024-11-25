@@ -5,6 +5,9 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 function Register() {
+  useEffect(() => {
+    document.title = "Truyện online.vn - Đăng ký";
+  }, []);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");

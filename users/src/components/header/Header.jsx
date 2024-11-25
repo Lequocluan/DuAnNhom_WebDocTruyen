@@ -159,12 +159,12 @@ function Header() {
                 isOpen={openDropdown === "category1"}
                 onToggle={() => handleToggle("category1")}
               />
-              <Category
+              {/* <Category
                 title="Theo số chương"
                 dataCetegory={dataCetegory}
                 isOpen={openDropdown === "category2"}
                 onToggle={() => handleToggle("category2")}
-              />
+              /> */}
             </ul>
 
             <div className="form-check form-switch me-3 d-flex align-items-center">

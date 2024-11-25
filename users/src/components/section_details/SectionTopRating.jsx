@@ -118,7 +118,7 @@ function SectionTopRating() {
     ));
 
   return (
-    <div className="row top-ratings">
+    <div className="row top-ratings" style={{ zIndex: "10" }}>
       {/* Inline CSS */}
       <style>
         {`
