@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import img2 from "../../assets/images/ngao_the_dan_than.jpg";
 
-function SectionStoriesDoneItem({ categories, story_picture, name, slug }) {
+function SectionStoriesDoneItem({
+  categories,
+  story_picture,
+  name,
+  slug,
+  is_vip,
+}) {
   const imagePath = story_picture?.path || img2;
 
   return (

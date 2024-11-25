@@ -52,6 +52,11 @@ function SectionCategoryItem({ novel, novel_type }) {
                 Full
               </span>
             )}
+            {novel.is_vip == 1 && (
+              <span className="story-item__badge badge bg-[#Ffd700] text-black ">
+                VIP
+              </span>
+            )}
           </div>
         </Link>
       </div>
