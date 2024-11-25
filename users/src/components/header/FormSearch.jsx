@@ -8,7 +8,6 @@ function FormSearch() {
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
-  // Khởi tạo hook useNavigate
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +30,12 @@ function FormSearch() {
         )}`
       );
       const data = await response.json();
-      setResults(data.body.data.stories);
+
+      const randomResults = data.body.data.novels
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 10);
+
+      setResults(randomResults);
     } catch (error) {
       console.error("Error fetching search results:", error);
     } finally {
@@ -95,7 +99,11 @@ function FormSearch() {
                       <>
                         {results.map((item, index) => (
                           <Link
-                            to={`truyen-chu/${item.slug}`}
+                            to={`${
+                              item.type == "comic"
+                                ? "truyen-tranh"
+                                : "truyen-chu"
+                            }/${item.slug}`}
                             onClick={() => setKeyword("")}
                             key={index}
                           >
@@ -104,8 +112,16 @@ function FormSearch() {
                               style={{ paddingLeft: "10px", paddingRight: 0 }}
                             >
                               <img
-                                src={item.story_picture.path}
-                                alt={item.story_picture.title}
+                                src={
+                                  item.type == "story"
+                                    ? item.story_picture.path
+                                    : item.thumbnail
+                                }
+                                alt={
+                                  item.type == "story"
+                                    ? item.story_picture.title
+                                    : item.name
+                                }
                                 className="rounded me-3"
                                 style={{
                                   width: "50px",
@@ -114,11 +130,19 @@ function FormSearch() {
                                 }}
                               />
                               <div>
-                                <a className="text-dark hover-title fw-bold">
+                                <a className="text-dark hover-title fw-bold story-item__name_truncate">
                                   {item.name}
                                 </a>
-                                <p className="text-muted mb-0 fst-italic">
-                                  {item.author.full_name}
+                                <p className="text-muted mb-0">
+                                  {item.type == "story" ? (
+                                    <span className="text-yellow-400">
+                                      Truyện chữ
+                                    </span>
+                                  ) : (
+                                    <span className="text-purple-400">
+                                      Truyện tranh
+                                    </span>
+                                  )}
                                 </p>
                               </div>
                             </li>
