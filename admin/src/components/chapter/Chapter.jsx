@@ -160,7 +160,7 @@ function Chapter() {
   };
 
   return (
-    <div className="w-full h-full bg-white rounded-xl p-8 relative overflow-hidden">
+    <div className="w-full h-full bg-white rounded-xl p-8 relative overflow-hidden flex flex-col">
       <div className="flex gap-4 items-center mb-6">
         <Select
           options={stories}
@@ -182,7 +182,7 @@ function Chapter() {
           Thêm chương
         </Link>
       </div>
-      <div className="w-full mt-10 flex flex-col gap-4 h-full overflow-hidden flex-1">
+      <div className="w-full mt-2 flex flex-col gap-4 h-full overflow-hidden flex-1">
         <div className="w-full bg-scooter-100 p-5 rounded-3xl font-semibold grid grid-cols-12 gap-2">
           <span className="col-span-3">Title</span>
           <span className="col-span-3">Description</span>
@@ -190,8 +190,8 @@ function Chapter() {
           <span className="col-span-2">Status</span>
           <span className="col-span-1">Action</span>
         </div>
-        <div>
-          <div className="flex flex-col gap-2">
+        <div className="flex flex-col h-full overflow-y-scroll no-scrollbar">
+          <div className="flex flex-col gap-4">
             {chapters.length > 0 ? (
               chapters.map((chapter, index) => (
                 <div
