@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function SectionChapterContent({ data }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -7,12 +7,19 @@ function SectionChapterContent({ data }) {
   const handlePlayAudio = () => {
     if (isPlaying) {
       audio.pause();
-      setIsPlaying(false);
     } else {
       audio.play();
       setIsPlaying(true);
     }
+    setIsPlaying(!isPlaying);
   };
+
+  useEffect(() => {
+    return () => {
+      audio.pause();
+      audio.currentTime = 0; 
+    };
+  }, [audio]);
 
   return (
     <>
