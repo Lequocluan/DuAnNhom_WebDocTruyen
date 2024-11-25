@@ -5,17 +5,11 @@ import Pagination from "../../../ui/Pagination";
 function SectionComicDetail({ detailComic, image }) {
   const { name, slug, content, author, category, status, chapters } =
     detailComic;
-<<<<<<< HEAD
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);
   
     const initialPage = parseInt(queryParams.get("page")) || 1;
     const [currentPage, setCurrentPage] = useState(initialPage);
-=======
-
-  const [currentPage, setCurrentPage] = useState(1);
->>>>>>> 534308a7d07f48f9e2bf3192591202861cb3bdb0
-
   const chaptersPerPage = 50;
   const indexOfLastChapter = currentPage * chaptersPerPage;
   const indexOfFirstChapter = indexOfLastChapter - chaptersPerPage;
