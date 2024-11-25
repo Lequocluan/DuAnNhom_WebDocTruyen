@@ -87,7 +87,7 @@ function SectionStoriesNewItem({
         >
           <p className="mb-0 ms-2">
             <Link className="hover-title text-decoration-none text-dark category-name">
-              {formatDate(created_at)}
+              {formatDate(chapter.created_at)}
             </Link>
           </p>
         </div>

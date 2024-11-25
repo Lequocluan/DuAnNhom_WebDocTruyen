@@ -159,12 +159,14 @@ function SectionStoryDetails({ detailStory }) {
             <div className="col-12 col-md-12 col-lg-3 story-detail__bottom--info mt-3">
               <p className="mb-1">
                 <strong>Tác giả:</strong>
-                <a
-                  href="#"
-                  className="text-decoration-none text-dark hover-title"
-                >
-                  {author.full_name}
-                </a>
+                {author && (
+                  <Link
+                    to={`/categoryAuthor/${author.id}`}
+                    className="text-decoration-none text-dark hover-title"
+                  >
+                    {author.full_name}
+                  </Link>
+                )}
               </p>
               <div className="d-flex align-items-center mb-1 flex-wrap">
                 <strong className="me-1">Thể loại:</strong>
