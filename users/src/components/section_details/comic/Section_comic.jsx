@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import SectionTopRating from "../SectionTopRating";
 import { topRatingData } from "../Data";
+import SectionStoriesNewCategoryItem from "../../section_index/SectionStoriesNewCategoryItem";
+import { useGlobalContext } from "../../../context";
 
 function SectionComic() {
   const [loading, setIsLoading] = useState(true);
@@ -12,6 +14,7 @@ function SectionComic() {
   const { slugComic } = useParams();
   const [detailComic, setDetailComic] = useState([]);
   const [image, setImage] = useState(null);
+  const { dataCetegory } = useGlobalContext();
   useEffect(() => {
     const fetchStory = async () => {
       try {
@@ -19,7 +22,6 @@ function SectionComic() {
           `https://otruyenapi.com/v1/api/truyen-tranh/${slugComic}`
         );
         if (res.status === 200) {
-          console.log(res);
           const data = res.data.data.item;
           setDetailComic(data);
           setImage(res.data.data.seoOnPage.seoSchema.image);
@@ -68,9 +70,40 @@ function SectionComic() {
             </div>
             <SectionComicDetail detailComic={detailComic} image={image} />
           </div>
-          {/* <div className="col-12 col-md-5 col-lg-4 sticky-md-top">
-            <SectionTopRating topRatingData={topRatingData} />
-          </div> */}
+          <div className="col-12 col-md-5 col-lg-4 sticky-md-top justify-center">
+            {/* <SectionTopRating topRatingData={topRatingData} /> */}
+            <div className="row text-center">
+              <div className="col-12">
+                <div className="section-list-category bg-light p-2 rounded card-custom">
+                  <div className="head-title-global mb-2">
+                    <div className="col-12 col-md-12 head-title-global__left">
+                      <h2 className="mb-0 border-bottom border-secondary pb-1">
+                        <span
+                          href="#"
+                          className="d-block text-decoration-none text-dark fs-4 text-center"
+                          title="Truyện đang đọc"
+                        >
+                          Thể loại truyện
+                        </span>
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <ul className="list-category">
+                      {dataCetegory.map((data) => {
+                        return (
+                          <SectionStoriesNewCategoryItem
+                            key={data.id}
+                            {...data}
+                          />
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

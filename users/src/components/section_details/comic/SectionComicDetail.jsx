@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Pagination from "../../../ui/Pagination";
+import CommentStory from "../CommentStory";
 
 function SectionComicDetail({ detailComic, image }) {
   const { name, slug, content, author, category, status, chapters } =
     detailComic;
-
   const [currentPage, setCurrentPage] = useState(1);
 
   const chaptersPerPage = 50;
@@ -43,18 +43,17 @@ function SectionComicDetail({ detailComic, image }) {
               </div>
             </div>
             <div className="col-12 col-md-12 col-lg-9">
-              <h3 className="text-center story-name font-bold text-xl">
+              <h3 className="text-center story-name font-bold text-4xl">
                 {name}
               </h3>
               <div
-                className="story-detail__top--desc px-3"
+                className="story-detail__top--desc px-3 mt-3"
                 style={{ maxHeight: "285px", overflow: "auto" }}
                 dangerouslySetInnerHTML={{ __html: content }}
               ></div>
             </div>
           </div>
         </div>
-
         <div className="story-detail__bottom mb-3">
           <div className="row">
             <div className="col-12 col-md-12 col-lg-3 story-detail__bottom--info mt-3">
@@ -64,7 +63,9 @@ function SectionComicDetail({ detailComic, image }) {
                   href="#"
                   className="text-decoration-none text-dark hover-title"
                 >
-                  {author}
+                  {author.filter((item) => item.trim() !== "").length > 0
+                    ? author.join(", ")
+                    : "Không có tác giả"}
                 </Link>
               </p>
               <div className="d-flex align-items-center mb-1 flex-wrap">
@@ -94,7 +95,7 @@ function SectionComicDetail({ detailComic, image }) {
         </div>
 
         <div className="story-detail__list-chapter">
-          <div className="head-title-global d-flex justify-content-between mb-4">
+          <div className="flex justify-center mb-4 text-center">
             <div className="col-6 col-md-12 col-lg-4 head-title-global__left d-flex">
               <h2 className="me-2 mb-0 border-bottom border-secondary pb-1">
                 <span
@@ -151,6 +152,8 @@ function SectionComicDetail({ detailComic, image }) {
             </div>
           </div>
         </div>
+        {console.log(detailComic)}
+        {/* <CommentStory detailComic={detailComic} /> */}
       </div>
     </>
   );

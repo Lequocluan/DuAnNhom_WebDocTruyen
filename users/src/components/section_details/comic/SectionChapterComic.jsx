@@ -100,7 +100,7 @@ function SectionChapterComic() {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="text-xl">Error: Không tìm thấy truyện này</div>;
   }
 
   return (
