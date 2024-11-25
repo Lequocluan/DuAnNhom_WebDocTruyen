@@ -82,29 +82,22 @@ function SectionChapter() {
     return <div>Loading...</div>;
   }
 
-  if (error === 404) {
-    return <Navigate to={<Error />} />;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
     <>
       <div className="chapter-wrapper container my-5 text-center">
-        <Link to={`/${story.slug}`} className="text-decoration-none">
+        <Link to={`/truyen-chu/${story.slug}`} className="text-decoration-none">
           <h1
-            className="text-center text-success "
+            className="text-center text-success text-5xl"
             style={{ display: "inline-block" }}
           >
             {story.name}
           </h1>
         </Link>
-        <p className="text-center text-dark">{chapter.data.title}</p>
+        <p className="text-center text-dark text-2xl my-4">
+          {chapter.data.title}
+        </p>
 
         <hr className="chapter-start container-fluid" />
-
         <SectionChapterNav
           onPrevChapter={handlePrevChapter}
           onNextChapter={handleNextChapter}
@@ -115,10 +108,18 @@ function SectionChapter() {
           currentChapterSlug={chapter.data.slug}
         />
         <hr className="chapter-end container-fluid" />
-        <SectionChapterContent text={chapter.data.content} />
-
+        <SectionChapterContent data={chapter.data} />
+        <SectionChapterNav
+          onPrevChapter={handlePrevChapter}
+          onNextChapter={handleNextChapter}
+          hasPrev={!!chapter.previous_chapter}
+          hasNext={!!chapter.next_chapter}
+          chapters={chaptersList}
+          slugStory={story.slug}
+          currentChapterSlug={chapter.data.slug}
+        />
         <div
-          className="text-center px-2 py-2 alert alert-success d-none d-lg-block"
+          className="text-center px-2 py-2 alert alert-success d-none d-lg-block mt-2"
           role="alert"
         >
           Bạn có thể dùng phím mũi tên hoặc WASD để lùi/sang chương
