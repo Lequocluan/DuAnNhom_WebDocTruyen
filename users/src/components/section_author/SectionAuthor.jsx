@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import SectionCategoryItem from "./SectionCategoryItem";
+import SectionAuthorItem from "./SectionAuthorItem";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-function SectionCategory() {
+function SectionAuthor() {
   const [loading, setIsLoading] = useState(true);
   const { slugCategory } = useParams();
   const [novels, setNovels] = useState([]);
@@ -86,7 +86,7 @@ function SectionCategory() {
             </div>
             <div className="list-story-in-category section-stories-list">
               {novels.map((novel, index) => (
-                <SectionCategoryItem key={index} {...novel} />
+                <SectionAuthorItem key={index} {...novel} />
               ))}
             </div>
           </div>
@@ -108,4 +108,4 @@ function SectionCategory() {
   );
 }
 
-export default SectionCategory;
+export default SectionAuthor;

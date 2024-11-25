@@ -59,6 +59,13 @@ function SectionChapter() {
     }
   }, [slugStory]);
 
+  //!  Cập nhật title website
+  useEffect(() => {
+    if (story) {
+      document.title = `Truyện online.vn - Đọc truyện ${story.name} - Chương ${chapter?.data?.title}`;
+    }
+  }, [story, chapter]);
+
   const handlePrevChapter = () => {
     if (story && chapter.previous_chapter) {
       navigate(`/${slugStory}/${chapter.previous_chapter.slug}`);
