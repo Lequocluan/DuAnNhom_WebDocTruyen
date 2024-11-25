@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import StarRating from "../../ui/start_rating/StarRating";
 import { useState } from "react";
 import CommentStory from "./CommentStory";
 import img11 from "../../assets/images/diu_dang_tan_xuong.jpg";
+import Pagination from "../../ui/Pagination";
 
 function SectionStoryDetails({ detailStory }) {
   const {
@@ -17,9 +18,30 @@ function SectionStoryDetails({ detailStory }) {
     status,
     chapters,
   } = detailStory;
-  const imagePath = story_picture?.path || img11;
-
   const [userRating, setUserRating] = useState("");
+
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+
+  const initialPage = parseInt(queryParams.get("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const chaptersPerPage = 2;
+  const indexOfLastChapter = currentPage * chaptersPerPage;
+  const indexOfFirstChapter = indexOfLastChapter - chaptersPerPage;
+  const imagePath = story_picture?.path || img11;
+console.log(chapters)
+  const currentChapters =
+  chapters.length > 0
+    ? chapters.slice(indexOfFirstChapter, indexOfLastChapter)
+    : [];
+
+const leftColumn = currentChapters.slice(
+  0,
+  Math.ceil(currentChapters.length / 2)
+);
+const rightColumn = currentChapters.slice(
+  Math.ceil(currentChapters.length / 2)
+);
   return (
     <>
       <div className="story-detail">
@@ -144,30 +166,48 @@ function SectionStoryDetails({ detailStory }) {
               </h2>
             </div>
           </div>
-
+{console.log(leftColumn)}
           {/* CHƯƠNG TRUYỆN */}
           <div className="story-detail__list-chapter--list">
             <div className="row">
-              <div className="col-12 col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
-                {chapters.length > 0 ? (
-                  <ul>
-                    {chapters.map((chapter) => (
-                      <li key={chapter.id}>
-                        <Link
-                          to={`/${slug}/${chapter.slug}`}
-                          className="text-decoration-none text-dark hover-title"
-                        >
-                          {chapter.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>Danh sách chương sẽ sớm được cập nhật.</p>
-                )}
+            <div className="col-12 d-flex justify-content-center col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
+                <ul>
+                  {leftColumn.map((chapter) => (
+                    <li key={chapter.id}>
+                      <Link
+                        to={`/truyen-chu/${slug}/${chapter.slug}`}
+                        className="text-decoration-none text-dark hover-title"
+                      >
+                         {chapter.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="col-12 d-flex justify-content-center col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
+                <ul>
+                  {rightColumn.map((chapter) => (
+                    <li key={chapter.id}>
+                      <Link
+                        to={`/truyen-chu/${slug}/${chapter.slug}`}
+                        className="text-decoration-none text-dark hover-title"
+                      >
+                         {chapter.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
+          {chapters?.length > chaptersPerPage && (
+                <Pagination
+                  totalItems={chapters?.length}
+                  itemsPerPage={chaptersPerPage}
+                  currentPage={currentPage}
+                  onPageChange={setCurrentPage}
+                />
+              )}
         </div>
 
         <CommentStory detailStory={detailStory} />
