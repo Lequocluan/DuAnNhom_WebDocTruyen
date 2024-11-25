@@ -31,14 +31,10 @@ const router = createBrowserRouter([
         path: "/category/:slugCategory",
         element: <Category />,
       },
-
       {
-        // Component Home sẽ được hiển thị khi người dùng truy cập vào "/"
-        path: "/categoryAuthor/:slugCategoryAuthor",
-        // path: "/categoryAuthor",
+        path: "/categoryAuthor/:idAuthor",
         element: <CategoryAuthor />,
       },
-
       {
         path: "/search",
         element: <Search />,

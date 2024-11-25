@@ -69,7 +69,7 @@ function SectionDetails() {
           </div>
 
           <div className="col-12 col-md-5 col-lg-4 sticky-md-top">
-            <SectionTopRating topRatingData={topRatingData} />
+            {/* <SectionTopRating topRatingData={topRatingData} /> */}
           </div>
         </div>
       </div>

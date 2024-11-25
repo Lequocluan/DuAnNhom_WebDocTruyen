@@ -60,12 +60,12 @@ function SectionComicDetail({ detailComic, image }) {
             <div className="col-12 col-md-12 col-lg-3 story-detail__bottom--info mt-3">
               <p className="mb-1">
                 <strong>Tác giả: </strong>
-                <a
+                <Link
                   href="#"
                   className="text-decoration-none text-dark hover-title"
                 >
                   {author}
-                </a>
+                </Link>
               </p>
               <div className="d-flex align-items-center mb-1 flex-wrap">
                 <strong className="me-1">Thể loại:</strong>
