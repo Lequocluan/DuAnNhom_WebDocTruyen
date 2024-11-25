@@ -227,7 +227,7 @@ function Chapter() {
                   </span>
 
                   <div className="flex gap-6 text-2xl col-span-1">
-                    <NavLink to={`/chapter/edit/${chapter.id}`}>
+                    <NavLink to={`/chapters/edit/${chapter.id}`}>
                       <HiOutlinePencilSquare className="w-9 h-9 hover:text-scooter-500" />
                     </NavLink>
                     <HiOutlineTrash

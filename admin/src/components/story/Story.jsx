@@ -39,7 +39,7 @@ function Story() {
   const fetchStories = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/story/list`
+        `${import.meta.env.VITE_API_URL}/story/list?page=${currentPage}`
       );
       if (response.data.status === 200) {
         const apiData = response.data.body.data;
