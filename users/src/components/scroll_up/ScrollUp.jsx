@@ -31,7 +31,7 @@ const ScrollUp = () => {
   return (
     isVisible && (
       <button
-        className="scroll-up-btn"
+        className="scroll-up-btn flex justify-center items-center"
         onClick={scrollToTop}
         aria-label="Scroll to top"
       >

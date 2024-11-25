@@ -27,6 +27,7 @@ function SectionSearch() {
         })
         .catch((err) => console.error("Error fetching search results:", err));
     } else {
+      setIsLoading(false);
     }
   }, [keyword]);
 
@@ -50,7 +51,9 @@ function SectionSearch() {
     <div className="container">
       <div className="row">
         <div className="col-12">
-          <h2 className="text-3xl font-bold">Kết quả tìm kiếm cho "{keyword}"</h2>
+          <h2 className="text-3xl font-bold">
+            Kết quả tìm kiếm cho "{keyword}"
+          </h2>
           <div className="flex flex-col gap-5 mt-3">
             <div className="flex flex-col">
               {stories.length > 0 && (
@@ -67,7 +70,7 @@ function SectionSearch() {
               )}
             </div>
             <div className="">
-            {authors.length > 0 && (
+              {authors.length > 0 && (
                 <>
                   <div className="mb-2 text-2xl">Tác giả</div>
                   <div className="flex flex-wrap gap-6">
