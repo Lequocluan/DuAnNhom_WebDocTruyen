@@ -10,7 +10,6 @@ function SectionComicDetail({ detailComic, image }) {
   
     const initialPage = parseInt(queryParams.get("page")) || 1;
     const [currentPage, setCurrentPage] = useState(initialPage);
-
   const chaptersPerPage = 50;
   const indexOfLastChapter = currentPage * chaptersPerPage;
   const indexOfFirstChapter = indexOfLastChapter - chaptersPerPage;

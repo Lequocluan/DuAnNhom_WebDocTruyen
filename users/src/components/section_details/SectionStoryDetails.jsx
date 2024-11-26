@@ -175,7 +175,7 @@ const rightColumn = currentChapters.slice(
                   {leftColumn.map((chapter) => (
                     <li key={chapter.id}>
                       <Link
-                        to={`/truyen-chu/${slug}/${chapter.slug}`}
+                        to={`/${slug}/${chapter.slug}`}
                         className="text-decoration-none text-dark hover-title"
                       >
                          {chapter.title}
@@ -189,7 +189,7 @@ const rightColumn = currentChapters.slice(
                   {rightColumn.map((chapter) => (
                     <li key={chapter.id}>
                       <Link
-                        to={`/truyen-chu/${slug}/${chapter.slug}`}
+                        to={`/${slug}/${chapter.slug}`}
                         className="text-decoration-none text-dark hover-title"
                       >
                          {chapter.title}
