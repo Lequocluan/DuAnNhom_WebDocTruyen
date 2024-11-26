@@ -29,19 +29,19 @@ function SectionStoryDetails({ detailStory }) {
   const indexOfLastChapter = currentPage * chaptersPerPage;
   const indexOfFirstChapter = indexOfLastChapter - chaptersPerPage;
   const imagePath = story_picture?.path || img11;
-console.log(chapters)
+  console.log(chapters);
   const currentChapters =
-  chapters.length > 0
-    ? chapters.slice(indexOfFirstChapter, indexOfLastChapter)
-    : [];
+    chapters.length > 0
+      ? chapters.slice(indexOfFirstChapter, indexOfLastChapter)
+      : [];
 
-const leftColumn = currentChapters.slice(
-  0,
-  Math.ceil(currentChapters.length / 2)
-);
-const rightColumn = currentChapters.slice(
-  Math.ceil(currentChapters.length / 2)
-);
+  const leftColumn = currentChapters.slice(
+    0,
+    Math.ceil(currentChapters.length / 2)
+  );
+  const rightColumn = currentChapters.slice(
+    Math.ceil(currentChapters.length / 2)
+  );
   return (
     <>
       <div className="story-detail">
@@ -166,48 +166,38 @@ const rightColumn = currentChapters.slice(
               </h2>
             </div>
           </div>
-{console.log(leftColumn)}
+          {console.log(leftColumn)}
           {/* CHƯƠNG TRUYỆN */}
           <div className="story-detail__list-chapter--list">
             <div className="row">
-            <div className="col-12 d-flex justify-content-center col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
-                <ul>
-                  {leftColumn.map((chapter) => (
-                    <li key={chapter.id}>
-                      <Link
-                        to={`/truyen-chu/${slug}/${chapter.slug}`}
-                        className="text-decoration-none text-dark hover-title"
-                      >
-                         {chapter.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="col-12 d-flex justify-content-center col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
-                <ul>
-                  {rightColumn.map((chapter) => (
-                    <li key={chapter.id}>
-                      <Link
-                        to={`/truyen-chu/${slug}/${chapter.slug}`}
-                        className="text-decoration-none text-dark hover-title"
-                      >
-                         {chapter.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <div className="col-12 col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
+                {chapters.length > 0 ? (
+                  <ul>
+                    {chapters.map((chapter) => (
+                      <li key={chapter.id}>
+                        <Link
+                          to={`/${slug}/${chapter.slug}`}
+                          className="text-decoration-none text-dark hover-title"
+                        >
+                          {chapter.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>Danh sách chương sẽ sớm được cập nhật.</p>
+                )}
               </div>
             </div>
           </div>
           {chapters?.length > chaptersPerPage && (
-                <Pagination
-                  totalItems={chapters?.length}
-                  itemsPerPage={chaptersPerPage}
-                  currentPage={currentPage}
-                  onPageChange={setCurrentPage}
-                />
-              )}
+            <Pagination
+              totalItems={chapters?.length}
+              itemsPerPage={chaptersPerPage}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+          )}
         </div>
 
         <CommentStory detailStory={detailStory} />

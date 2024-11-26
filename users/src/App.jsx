@@ -17,7 +17,6 @@ import ForgotPassword from "./components/login/ForgotPassword";
 import SectionChapterComic from "./components/section_details/comic/SectionChapterComic";
 import CategoryAuthor from "./ui/CategoryAuthor";
 
-
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -46,6 +45,7 @@ const router = createBrowserRouter([
         path: "/:slugStory/:slugChapter",
         element: <Chapter />,
       },
+
       {
         path: "/truyen-tranh/:slugComic/:slugChapter",
         element: <SectionChapterComic />,
