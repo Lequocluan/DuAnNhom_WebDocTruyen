@@ -170,6 +170,7 @@ function SectionStoryDetails({ detailStory }) {
           {/* CHƯƠNG TRUYỆN */}
           <div className="story-detail__list-chapter--list">
             <div className="row">
+<<<<<<< HEAD
               <div className="col-12 col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
                 {chapters.length > 0 ? (
                   <ul>
@@ -187,6 +188,35 @@ function SectionStoryDetails({ detailStory }) {
                 ) : (
                   <p>Danh sách chương sẽ sớm được cập nhật.</p>
                 )}
+=======
+            <div className="col-12 d-flex justify-content-center col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
+                <ul>
+                  {leftColumn.map((chapter) => (
+                    <li key={chapter.id}>
+                      <Link
+                        to={`/${slug}/${chapter.slug}`}
+                        className="text-decoration-none text-dark hover-title"
+                      >
+                         {chapter.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="col-12 d-flex justify-content-center col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
+                <ul>
+                  {rightColumn.map((chapter) => (
+                    <li key={chapter.id}>
+                      <Link
+                        to={`/${slug}/${chapter.slug}`}
+                        className="text-decoration-none text-dark hover-title"
+                      >
+                         {chapter.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+>>>>>>> 1666a5dd310a8d48099314d0a31781210436acb0
               </div>
             </div>
           </div>
